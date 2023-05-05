@@ -1,0 +1,127 @@
+.labeinput{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #00006A;
+}
+.inputsection{
+    border: 1px solid #00006A;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    color: #545557;
+}
+.formsection{
+   border: 1px solid #000000;
+   border-radius: 0px 12px 0px 0px;
+}
+.btnnext{
+    background: #00006A;
+    border-radius: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+.Backgroundimgsection{
+    background-image: url(../img/Rectangle\ 3.png);
+    /* position: absolute; */
+    /* width: 898px; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 131px;
+}
+.btnnexttop{
+    background: #00006A;
+    border: 2px solid #31415A;
+    border-radius: 0px 12px 0px 0px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #FFFF00;
+
+}
+.btnnexttopnacactive{
+    border: 2px solid #31415A;
+    border-radius: 0px 12px 0px 0px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: #00006A;
+}
+.btnnexttopnacactive:hover{
+     background: #00006A;
+     border: 2px solid #31415A;
+     border-radius: 0px 12px 0px 0px;
+     font-family: 'Inter';
+     font-style: normal;
+     font-weight: 600;
+     font-size: 16px;
+     line-height: 19px;
+
+     color: #FFFF00;
+}
+
+
+.Backgroundimgsectionas{
+      background-image: url(../img/Rectangle\ 3\ \(1\).png);
+      /* position: absolute; */
+      /* width: 898px; */
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 131px;
+      }
+      .datainput{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+        color: #545557;
+
+      }
+      .backgrouncolors{
+        border: 1px solid #00006A;
+        border-radius: 6px;
+      }
+      .radialabe{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        display: flex;
+        align-items: center;
+
+        color: #545557;
+      }
+      .PhoneInputInput{
+        border: none;
+        border-radius: 6px;
+        padding: 4px 0px;
+
+      }
