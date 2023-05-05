@@ -1,5 +1,7 @@
-import React from 'react';
-import "./Personal.css"
+import React ,{useState} from 'react';
+import "./Personal.css";
+import axios from 'axios'
+
 import { useNavigate, useParams } from "react-router-dom";
 function Personalinformation() {
     const navigate = useNavigate();
@@ -8,6 +10,35 @@ function Personalinformation() {
     }
     const Detailnagation = () => {
         navigate("/Sendinquiry");
+    }
+
+
+
+  const [first_name, setfirst_name] = useState('')
+  const [last_name, setlast_name] = useState('')
+  const [street_address, setstreet_address] = useState('')
+  const [timeto, settimeto] = useState('')
+  const [timefrom, settimefrom] = useState('')
+  const [issueDate, setissueDate] = useState('')
+
+     // post api
+    const apicall = () => {
+        // console.log(email,password)
+      axios.post('http://gs1ksa.org:3015/api/tblPostMembers',
+            {
+              first_name: first_name,
+              last_name: last_name,
+              street_address: street_address,
+                from: timefrom,
+                issueDate: issueDate
+            },
+        )
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
   return (
