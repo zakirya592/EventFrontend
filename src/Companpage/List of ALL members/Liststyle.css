@@ -1,0 +1,74 @@
+.headingContracts {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.detatialContracts {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px !important;
+    line-height: 23px;
+    color: #00006A;
+}
+
+.contractdropdown a {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
+    color: #000000 !important;
+}
+
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+    font-family: 'Raleway', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 150%;
+}
+
+.contracttableheader {
+    color: #6E7F8C !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 150% !important;
+    white-space: nowrap !important;
+}
+.fortablebodycontract{
+    font-style: normal !important;
+font-weight: 500 !important;
+white-space: nowrap !important;
+font-size: 18px !important;
+line-height: 150% !important;
+}
+.actionbtncontract {
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+}
+
+.ongoing {
+    color: #02A099;
+}
+.Cancelled{
+    color: #9D0400;
+}
+.actionimag {
+    background: #A258C8;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+}
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root{
+    display: none;
+}
+.filtericon{
+    visibility:hidden;
+}
+.filtericon:hover{
+   visibility:visible;
+}

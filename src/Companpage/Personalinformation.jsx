@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 function Personalinformation() {
     const navigate = useNavigate();
     const personalna=()=>{
-        navigate("/");
+      navigate("/Personalinformation");
     }
     const Detailnagation = () => {
         navigate("/Sendinquiry");

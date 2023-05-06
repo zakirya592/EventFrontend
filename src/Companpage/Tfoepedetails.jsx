@@ -5,13 +5,15 @@ import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import axios from 'axios'
 import { ChatState } from '../CreateContext';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 function Tfoepedetails(props) {
     const navigate = useNavigate();
     const [value, setValue] = useState()
 
     const personalna = () => {
-        navigate("/");
+        navigate("/Personalinformation");
     }
     const Detailnagation = () => {
         navigate("/Sendinquiry");
@@ -65,11 +67,30 @@ function Tfoepedetails(props) {
                 setpe_ID("")
                 setclub_secretry_name("")
                 setclub_secretry_NO("")
-                
+                Swal.fire({
+                    title: "Success",
+                    text: "Registration Submitted Successfully, kindly wait for Admin Approva",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                }).then(() => {
+                    navigate("/List/members");
+                });
+              
             })
             .catch(err => {
                 console.log(err);
+                toast.error(`Error ocurre due to ${err.state}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
                
+
             })
     }
 
@@ -216,6 +237,7 @@ function Tfoepedetails(props) {
 
               </div>
               <button type="button" className="btn btnnext my-3 py-3 px-5" onClick={apicall}>SUBMIT</button>
+              <ToastContainer />
           </div>
     </>
   )
