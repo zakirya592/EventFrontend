@@ -8,6 +8,8 @@ import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import Lottie from 'react-lottie';
+import Dataanim from '../../img/lf20_dg5oqun3.json';
 function Login() {
     const [passwordShown, setPasswordShown] = useState(false)
     const navigate = useNavigate()
@@ -15,34 +17,62 @@ function Login() {
     const [password, setpassword] = useState('')
     const [name, setname] = useState()
     const [Mobilenumber, setMobilenumber] = useState()
+    const [error, setError] = useState();
+    const [Loading, setLoading] = useState(false)
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: Dataanim,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
     // Password toggle handler
     const togglePassword = () => {
         setPasswordShown(!passwordShown)
     }
+
+    
 const apicall = () =>{
     axios.post('http://gs1ksa.org:3015/api/UserLoginAuth', {
       email:email,
       password:password,
     }, ).then((res)=>{
+        setLoading(false);
       console.log(res);
         if (res.status === 200) {
             navigate("/List/members");
           
-        } 
+        } else{
+             setError("Invalid Username or Password!");
+        }
     
     }).catch((err)=>{
       console.log(err);
+        setLoading(false);
+       setError("Invalid Username or Password!");
      
     })
   }
     function loginbutton(e) {
         e.preventDefault()
+        setLoading(true);
         apicall()
     }
     return (
         <>
             <div className='main_div'>
                 <div className='from_data rounded'>
+                  {
+      Loading? <Lottie 
+	    options={defaultOptions}
+        height={400}
+        width={400}
+      />:
+
+                    <div>
+                    
                     <center>
                         <h6 className='fw-bolder fs-3'>Welcome</h6>
                         <p className=' fs-6'>Let's get Started</p>
@@ -105,10 +135,10 @@ const apicall = () =>{
                             
                         </div>
 
-
+                        {error ? <lable className='text-danger text-start mb-2'>{error}</lable> : null}  
                         {/* Forgetpassword */}
                         <p
-                            className='Forgetpassword text-start cursor'
+                            className='Forgetpassword text-end cursor '
                             onClick={() => {
                                 navigate('/Forgetpassword')
                             }}
@@ -132,6 +162,10 @@ const apicall = () =>{
                             navigate("/Personalinformation");
                         }}>Register</span></p>
                     </div>
+
+                    </div>
+
+}
                 </div>
             </div>
         </>
