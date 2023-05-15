@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 function Login() {
     const [passwordShown, setPasswordShown] = useState(false)
     const navigate = useNavigate()
@@ -24,7 +26,7 @@ const apicall = () =>{
     }, ).then((res)=>{
       console.log(res);
         if (res.status === 200) {
-            navigate("/Personalinformation");
+            navigate("/List/members");
           
         } 
     
@@ -41,12 +43,21 @@ const apicall = () =>{
         <>
             <div className='main_div'>
                 <div className='from_data rounded'>
+                    <center>
+                        <h6 className='fw-bolder fs-3'>Welcome</h6>
+                        <p className=' fs-6'>Let's get Started</p>
+                    </center>
                     <form className='modal-content w-100 ' onSubmit={loginbutton}>
                         {/* Email section */}
-                        <div className='emailsection d-grid my-2'>
+                        <div className='emailsection position-relative d-grid my-2'>
                             <label htmlFor='email' className='lablesection text-start mb-1'>
                                 Email
                             </label>
+                            <p
+                                className='position-absolute text-end emailicon'
+                            >
+                                <MailOutlined />
+                            </p>
                             <input
                                 types='email'
                                 id='email'
@@ -54,10 +65,10 @@ const apicall = () =>{
                                 onChange={e => {
                                     setemail(e.target.value)
                                     {
-                                        /* console.log(email) */
+                                      localStorage.setItem('emailhomme',e.target.value)
                                     }
                                 }}
-                                className='rounded emailinput p-2'
+                                className='rounded emailinput py-2 ps-4'
                                 placeholder='example@gmail.com'
                                 required
                             ></input>
@@ -71,10 +82,15 @@ const apicall = () =>{
                             >
                                 Password
                             </label>
+                            <p
+                                className='position-absolute text-end   LockOutlinedicon'
+                            >
+                                <LockOutlined />
+                            </p>
                             <input
                                 type={passwordShown ? 'text' : 'password'}
                                 id='password'
-                                className=' rounded mt-2  emailinput p-2'
+                                className=' rounded mt-2 ps-4 emailinput py-2'
                                 placeholder='*********'
                                 value={password}
                                 onChange={e => setpassword(e.target.value)}
@@ -84,7 +100,7 @@ const apicall = () =>{
                                 className='position-absolute text-end showpassicon mt-5 '
                                 onClick={togglePassword}
                             >
-                                {passwordShown ? <AiFillEye /> : <AiFillEyeInvisible />}
+                                {passwordShown ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                             </p>
                             
                         </div>
@@ -101,6 +117,7 @@ const apicall = () =>{
                         </p>
                         {/* Button section */}
                         <div className='emailsection mt-3 d-grid'>
+                            
                             <button
                                 className='loginbtn border-0 py-2 rounded text-white'
                                 type='submit'
@@ -110,6 +127,11 @@ const apicall = () =>{
                             </button>
                         </div>
                     </form>
+                    <div className="registerbtn mt-3">
+                        <p className='registerbtn'>Don't have an account ? <span className='Registersingup' onClick={()=>{
+                            navigate("/Personalinformation");
+                        }}>Register</span></p>
+                    </div>
                 </div>
             </div>
         </>

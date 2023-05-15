@@ -1,5 +1,5 @@
 .main_div {
-    background: #00629E;
+    background: white;
     height: 100vh;
     /* background-image: url('../../../Assets/image/hospital.jpg'); */
     background-position: center;
@@ -38,7 +38,7 @@
 }
 
 .loginbtn {
-    background: #7a9857;
+    background: #05395a;
     font-family: 'Cera Pro';
     font-style: normal;
     font-weight: 500;
@@ -47,8 +47,11 @@
 }
 
 .emailinput {
-    border: 1px solid #94A0B4;
+    border: 1px solid #e9e9e9;
+    background-color:#e9e9e9;
     outline: none;
+    margin-left: 4px;
+    font-size: 18px;
 }
 
 .showpassicon {
@@ -102,4 +105,31 @@
         font-size: 12px;
         line-height: 15px;
     }
+}
+
+.registerbtn{
+    font-size: 18px; 
+    font-style: normal;
+    color: #6b6a69;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.Registersingup{
+    color: #b93732;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+}
+.LockOutlinedicon{
+    margin-top: 43px;
+    /* color: #05395a; */
+    font-weight: bolder;
+    padding: 0px 5px;
+    margin-left: 3px;
+}
+.emailicon {
+    margin-top: 35px;
+    margin-left: 3px;
+    /* color: #05395a; */
+    font-weight: bolder;
+    padding: 0px 5px;
 }

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useNavigate, useParams } from "react-router-dom";
 import Item from 'antd/es/list/Item';
+import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
     const navigate = useNavigate();
@@ -25,22 +26,37 @@ function Personalinformation() {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
 
-  const [DropDownProvince, setDropDownProvince] = useState();
+  const [DropDownProvince, setDropDownProvince] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   
-    // const apicall = () => {
-    //     axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
-    //         .then((res) => {
-    //           setDropDownProvince(res.data);
-    //           console.log(res.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // };
-    // useEffect(() => {
-    //     apicall();
-    // }, []);
+    const apicall = () => {
+        axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
+            .then((res) => {
+              setDropDownProvince(res.data.recordset);
+              console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    useEffect(() => {
+        apicall();
+    }, []);
+
+   const [DropDownCities, setDropDownCities] = useState([])
+  const Cityget = () => {
+    axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownCities`)
+      .then((res) => {
+        setDropDownCities(res.data.recordset);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    Cityget();
+  }, []);
 
   return (
     <>
@@ -82,7 +98,7 @@ function Personalinformation() {
                                 className='position-absolute text-end showpassiconss '
                                 onClick={()=>{ setPasswordShown(!passwordShown)}}
                             >
-                                {passwordShown ? <AiFillEye /> : <AiFillEyeInvisible />}
+                                {passwordShown ? <EyeOutlined /> :<EyeInvisibleOutlined />}
                             </p>
                   </div>
                 </div>
@@ -150,16 +166,13 @@ function Personalinformation() {
                                     sessionStorage.setItem("province", event.target.value);
                                   }}>
                           <option selected >Enter/Select Province</option>
-                          {/* {
-                            DropDownProvince.map((itme,index)=>{
+                          {
+                  DropDownProvince && DropDownProvince.map((itme,index)=>{
                               return(
-                                <option  value={itme.value}>{itme.provincename}</option>
+                                <option key={itme.id}  value={itme.value}>{itme.provincename}</option>
                               )
                             })
-                          } */}
-                          <option value={"Khyber Pakhtunkhwa"}>Khyber Pakhtunkhwa</option>
-                          <option value={"Punjab "}>Punjab </option>
-                          <option value={"Sindh "}>Sindh </option>
+                          }
                       </select></div>
               </div>
 
@@ -172,9 +185,13 @@ function Personalinformation() {
                                     sessionStorage.setItem("city", event.target.value);
                                   }}>
                           <option selected >Enter/Select City</option>
-                          <option value={"Haripur"}>Haripur</option>
-                          <option value={"Peshware"}>Peshware</option>
-                          <option value={"Islamabad "}>Islamabad </option>
+                           {
+                  DropDownCities && DropDownCities.map((itme,index)=>{
+                              return(
+                                <option key={itme.id} value={itme.value}>{itme.Citiyname}</option>
+                              )
+                            })
+                          }
                       </select></div>
               </div>
               </div>

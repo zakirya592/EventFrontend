@@ -75,7 +75,7 @@ function Tfoepedetails(props) {
                     icon: "success",
                     confirmButtonText: "OK",
                 }).then(() => {
-                    navigate("/List/members");
+                    navigate("/");
                 });
               
             })
@@ -168,7 +168,7 @@ function Tfoepedetails(props) {
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
                           <label htmlFor="exampleInputEmail1" className="form-label labeinput">Date Joined*</label>
-                              <input type="date" className=" w-100 py-3 datainput inputsection" id="dataid"  placeholder='Enter your National President' 
+                              <input type="date" className=" w-100 py-3 datainput inputsection rounded px-2"  id="dataid"  placeholder='Enter your National President' 
                                   onChange={(event) => {
                                       setdatatake(event.target.value);
                                   }} />

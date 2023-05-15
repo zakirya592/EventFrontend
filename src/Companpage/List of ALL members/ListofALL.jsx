@@ -22,10 +22,15 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { FilterOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
+import Sidebard from '../../Component/Sidebard/Sidebard';
+const drawerWidth = 220
 
 function ListofALL() {
 
-
+    const [open, setOpen] = React.useState(false)
+    const anchorRef = React.useRef(null)
 
     // Main API fuction of the compount
     const [dataget, setdataget] = useState();
@@ -58,6 +63,29 @@ function ListofALL() {
 
 
     return (
+
+        <div className=''>
+            <Box sx={{ display: 'flex' }}>
+                <Sidebard />
+                <AppBar
+                    className='fortrans'
+                    position='fixed'
+                    sx={{
+                        width: { sm: `calc(100% - ${drawerWidth}px)` },
+                        ml: { sm: `${drawerWidth}px` }
+                    }}
+                ></AppBar>
+                    <Box
+                        className=''
+                        sx={{
+                            flexGrow: 1,
+                            my: 5,
+                            mx: 1,
+                            width: { sm: `calc(100% - ${drawerWidth}px)` }
+                        }}
+                    >
+
+
         <div className='mt-3 w-100 h-100 overflow-aut'>
 
             <Paper className="w-100 h-100 overflow-auto mt-1">
@@ -149,6 +177,11 @@ function ListofALL() {
 
 
         </div>
+
+
+                </Box>
+        </Box>
+        </div >
     )
 }
 
