@@ -1,8 +1,9 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import "./Personal.css";
 import axios from 'axios'
-
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useNavigate, useParams } from "react-router-dom";
+import Item from 'antd/es/list/Item';
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
     const navigate = useNavigate();
@@ -13,13 +14,34 @@ function Personalinformation() {
         navigate("/Sendinquiry");
     }
 
- 
+
+  const [passwordShown, setPasswordShown] = useState(false)
   const [first_name, setfirst_name] = useState()
   const [last_name, setlast_name] = useState('')
   const [street_address, setstreet_address] = useState('')
   const [barangay, setbarangay] = useState('')
   const [province, setprovince] = useState('')
   const [city, setcity] = useState('')
+  const [email, setemail] = useState('')
+  const [password, setpassword] = useState('')
+
+  const [DropDownProvince, setDropDownProvince] = useState();
+  const [selectedOption, setSelectedOption] = useState('');
+  
+    // const apicall = () => {
+    //     axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
+    //         .then((res) => {
+    //           setDropDownProvince(res.data);
+    //           console.log(res.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
+    // useEffect(() => {
+    //     apicall();
+    // }, []);
+
   return (
     <>
 <div className='Backgroundimgsection'>s</div>
@@ -28,10 +50,49 @@ function Personalinformation() {
               <button type="button" className=" btnnexttopnacactive  ms-3 px-5 mt-4 py-3" onClick={Detailnagation}>TFOE-PE DETAILS</button>
               
            <div className="row  p-2 mx-auto formsection">
+
+            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
+                  <div className="mb-3">
+                          <label htmlFor="FirstName" className="form-label labeinput">Email*</label>
+              <input  className="form-control inputsection py-3" id="FirstName" placeholder='Enter your Email' aria-describedby="emailHelp" 
+                types='email'
+                                value={email}
+                                onChange={e => {
+                                    setemail(e.target.value)
+                                  sessionStorage.setItem("email", e.target.value);
+                                }} />
+                  </div>
+                </div>
+
+                <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
+                  <div className="mb-3 position-relative">
+                          <label htmlFor="password" className="form-label labeinput">Password*</label>
+              <input className="form-control inputsection py-3" type={passwordShown ? 'text' : 'password'}
+                id='password'
+                placeholder='*********'
+                value={password}
+                onChange={(e) => {
+                  setpassword(e.target.value)
+                  sessionStorage.setItem("password", e.target.value);
+
+                }}
+                required
+                />
+                 <p
+                                className='position-absolute text-end showpassiconss '
+                                onClick={()=>{ setPasswordShown(!passwordShown)}}
+                            >
+                                {passwordShown ? <AiFillEye /> : <AiFillEyeInvisible />}
+                            </p>
+                  </div>
+                </div>
+
+
+
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
                           <label htmlFor="FirstName" className="form-label labeinput">First Name*</label>
-              <input type="text" className="form-control inputsection" id="FirstName" placeholder='Enter your First Name' aria-describedby="emailHelp" value={first_name}
+              <input type="text" className="form-control inputsection py-3" id="FirstName" placeholder='Enter your First Name' aria-describedby="emailHelp" value={first_name}
                 onChange={(event) => {
                   setfirst_name(event.target.value)
                   sessionStorage.setItem("item_key", event.target.value);
@@ -42,7 +103,7 @@ function Personalinformation() {
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
                           <label htmlFor="LastName" className="form-label labeinput">Last Name*</label>
-              <input type="text" className="form-control inputsection" id="LastName" aria-describedby="emailHelp" placeholder='Enter your Last Name' value={last_name}
+              <input type="text" className="form-control inputsection py-3" id="LastName" aria-describedby="emailHelp" placeholder='Enter your Last Name' value={last_name}
                 onChange={(event) => {
                   setlast_name(event.target.value)
                   sessionStorage.setItem("last_name", event.target.value);
@@ -89,6 +150,13 @@ function Personalinformation() {
                                     sessionStorage.setItem("province", event.target.value);
                                   }}>
                           <option selected >Enter/Select Province</option>
+                          {/* {
+                            DropDownProvince.map((itme,index)=>{
+                              return(
+                                <option  value={itme.value}>{itme.provincename}</option>
+                              )
+                            })
+                          } */}
                           <option value={"Khyber Pakhtunkhwa"}>Khyber Pakhtunkhwa</option>
                           <option value={"Punjab "}>Punjab </option>
                           <option value={"Sindh "}>Sindh </option>

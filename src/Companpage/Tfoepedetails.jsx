@@ -40,12 +40,14 @@ function Tfoepedetails(props) {
         console.log(sessionStorage.getItem("item_key"))
         axios.post('http://gs1ksa.org:3015/api/tblPostMembers',
             {
+              email: sessionStorage.getItem("email"),
+              password: sessionStorage.getItem("password"),
               first_name: sessionStorage.getItem("item_key"),
               last_name: sessionStorage.getItem("last_name"),
               street_address: sessionStorage.getItem("street_address"),
               barangay: sessionStorage.getItem("barangay"),
               province: sessionStorage.getItem("province"),
-              city: sessionStorage.getItem("city"),
+              city: sessionStorage.getItem("city"),  
               club_name: club_name,
               club_region: club_region,
               club_president: club_president,
@@ -117,7 +119,7 @@ function Tfoepedetails(props) {
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
                       <label htmlFor="nameinput" className="form-label labeinput">Club Name*</label>
-                              <input type="text" className="form-control inputsection" id="nameinput" placeholder='Enter your Club Name ' required value={club_name}
+                              <input type="text" className="form-control inputsection py-3" id="nameinput" placeholder='Enter your Club Name ' required value={club_name}
                                   onChange={(event) => {
                                       setclub_name(event.target.value)
                                   }} />
@@ -145,7 +147,7 @@ function Tfoepedetails(props) {
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
                               <label htmlFor="Clubp" className="form-label labeinput">Club President*</label>
-                              <input type="text" className="form-control inputsection" id="Clubp" placeholder='Enter your Club President' aria-describedby="emailHelp" value={club_president}
+                              <input type="text" className="form-control inputsection py-3" id="Clubp" placeholder='Enter your Club President' aria-describedby="emailHelp" value={club_president}
                                   onChange={(event) => {
                                       setclub_president(event.target.value)
                                   }} />
@@ -155,7 +157,7 @@ function Tfoepedetails(props) {
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
                               <label htmlFor="National" className="form-label labeinput">National President*</label>
-                              <input type="text" className="form-control inputsection" id="National" aria-describedby="emailHelp" placeholder='Enter your National President' value={national_president}
+                              <input type="text" className="form-control py-3 inputsection" id="National" aria-describedby="emailHelp" placeholder='Enter your National President' value={national_president}
                                   onChange={(event) => {
                                       setnational_president(event.target.value)
 
@@ -211,7 +213,7 @@ function Tfoepedetails(props) {
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
                               <label htmlFor="ClubSecretary" className="form-label labeinput">Club Secretary Name*</label>
-                              <input type="text" className="form-control inputsection" id="ClubSecretary" placeholder='Enter your Club Secretary Name'  value={club_secretry_name}
+                              <input type="text" className="form-control inputsection py-3" id="ClubSecretary" placeholder='Enter your Club Secretary Name'  value={club_secretry_name}
                                   onChange={(event) => {
                                       setclub_secretry_name(event.target.value)
                                   }} />
@@ -223,7 +225,7 @@ function Tfoepedetails(props) {
                           <label htmlFor="exampleInputEmail1" className="form-label labeinput">Club Secretary Contact Number*</label>
                               {/* <input type="tel" className="form-control inputsection" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='0000000000' /> */}
                               <PhoneInput
-                                  className="w-100 py-1 rounded inputsection" 
+                                  className="w-100 py-3 rounded inputsection" 
                                   placeholder="()0000000000"
                                   country="US"
                                   value={club_secretry_NO}
