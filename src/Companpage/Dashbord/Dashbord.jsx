@@ -18,6 +18,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { useMediaQuery, IconButton } from '@material-ui/core'
+import Swal from "sweetalert2";
 import { useTheme } from '@mui/material/styles'
 import "./Dashbord.css"
 import {
@@ -40,62 +41,97 @@ function Dashbord() {
     const [Description, setDescription] = useState()
     const [location, setlocation] = useState()
     const [location_area, setlocation_area] = useState()
+    const [status, setstatus] = useState()
     const [start_date, setstart_date] = useState()
+    const memberid = localStorage.getItem("id")
+    console.log("dash", memberid);
+    useEffect(() => {
+        axios.get(`http://gs1ksa.org:3015/api/getMembersById/${memberid}`, {
+            
+        },).then((res) => {
+         
+            console.log(res.data.recordset[0].status);
+            console.log(res.data.recordset[0].status);
+            setstatus(res.data.recordset[0].status)
+            const approl = res.data.recordset[0].status
+            if (approl !=="Active"){
+                console.log("this account not varified");
+            }
+            else{
+                console.log("AW pji");
+          }
+    
+        }).catch((err) => {
+            console.log(err);
+        })
+    }, [])
+    
+ 
+   
   return (
+
     <div>
-        <Box sx={{ display: 'flex' }}>
-              <Sidebard />
-              <AppBar
-                  className='fortrans'
-                  position='fixed'
-                  sx={{
-                      width: { sm: `calc(100% - ${drawerWidth}px)` },
-                      ml: { sm: `${drawerWidth}px` }
-                  }}
-              ></AppBar>
-              <Box
-                  className=''
-                  sx={{
-                      flexGrow: 1,
-                      my: 5,
-                      mx: 1,
-                      width: { sm: `calc(100% - ${drawerWidth}px)` }
-                  }}
-              >
-        <div className="row mt-5 mx-auto">
-                      <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2 ">
-                          <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
-                      <p className='fw-bolder fs-6 p-3'>Create new Event</p>
-                              <Rigestermember/>
-                  </div>
-                </div>
+          {status === "Active" ? (
+     
+                  <Box sx={{ display: 'flex' }}>
+                      <Sidebard />
+                      <AppBar
+                          className='fortrans'
+                          position='fixed'
+                          sx={{
+                              width: { sm: `calc(100% - ${drawerWidth}px)` },
+                              ml: { sm: `${drawerWidth}px` }
+                          }}
+                      ></AppBar>
+                      <Box
+                          className=''
+                          sx={{
+                              flexGrow: 1,
+                              my: 5,
+                              mx: 1,
+                              width: { sm: `calc(100% - ${drawerWidth}px)` }
+                          }}
+                      >
+                          <div className="row mt-5 mx-auto">
+                              <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2 ">
+                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
+                                      <p className='fw-bolder fs-6 p-3'>Create new Event</p>
+                                      <Rigestermember />
+                                  </div>
+                              </div>
 
-                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
-                          <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
-                              <p className='fw-bolder fs-6 p-3'>Current Event</p>
-                              <Currenteventdashbord />
+                              <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
+                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
+                                      <p className='fw-bolder fs-6 p-3'>Current Event</p>
+                                      <Currenteventdashbord />
+                                  </div>
+                              </div>
+
+                              <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2 ">
+                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
+                                      <p className='fw-bolder fs-6 p-3'>Help Desk Active</p>
+                                      <Helpdeskbodd />
+                                  </div>
+                              </div>
+
+                              <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
+                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
+                                      <p className='fw-bolder fs-6 p-3'>Padding for Approval</p>
+                                      <Currenteventdashbord />
+                                  </div>
+                              </div>
+
                           </div>
-                </div>
-
-                     <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2 ">
-                          <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
-                      <p className='fw-bolder fs-6 p-3'>Help Desk Active</p>
-                              <Helpdeskbodd/>
-                  </div>
-                </div>
-
-                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
-                          <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
-                              <p className='fw-bolder fs-6 p-3'>Padding for Approval</p>
-                              <Currenteventdashbord />
-                          </div>
-                </div>
-               
-                </div>
 
 
-              </Box>
-          </Box>
+                      </Box>
+                  </Box>
+          ) : (
+                  <div className='Danger'>
+
+                      You have login  Successfully,but you account is {status}  kindly wait for Admin Approva
+                </div>
+          )}
     </div>
   )
 }
