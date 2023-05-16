@@ -72,3 +72,6 @@ line-height: 150% !important;
 .filtericon:hover{
    visibility:visible;
 }
+.deletingimag{
+cursor: pointer !important;
+}

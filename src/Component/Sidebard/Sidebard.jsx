@@ -21,7 +21,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import logo from '../../img/a1.webp'
 import "./Sidebar.css"
-import { UserOutlined, DashboardOutlined, CalendarOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, CalendarOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Avatar, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 
@@ -180,13 +180,15 @@ function Sidebard(stat) {
                           </center>
                       </span>
                   )}
-                  <Divider className="divhrline" />
                       {/* Dashboard and Health Providers section */}
                      
 
+                  <Divider className="divhrline" />
                     <List>
-                      {['My Profile'].map((text, index) => (
-                          <ListItem key={text} disablePadding>
+                      {['Dashboard'].map((text, index) => (
+                          <ListItem key={text} disablePadding onClick={(()=>{
+                              navigate('/Dashbord')
+                          })}>
                               <ListItemButton>
                                   <ListItemIcon>
                                       {index % 2 === 0 ? <UserOutlined className="sidebaricon my-auto" /> : <UserOutlined className="sidebaricon my-auto" />}
@@ -199,7 +201,9 @@ function Sidebard(stat) {
                   <Divider className="divhrline" />
                   <List>
                       {['Current Event'].map((text, index) => (
-                          <ListItem key={text} disablePadding>
+                          <ListItem key={text} disablePadding onClick={(() => {
+                              navigate('/Event')
+                          })}>
                               <ListItemButton>
                                   <ListItemIcon>
                                       {index % 2 === 0 ? <CalendarOutlined className="sidebaricon my-auto" /> : <CalendarOutlined className="sidebaricon my-auto" />}
@@ -236,6 +240,20 @@ function Sidebard(stat) {
                       ))}
                   </List>
                   <Divider className="divhrline" />
+                  <List>
+                      {['Log Out'].map((text, index) => (
+                          <ListItem key={text} disablePadding onClick={(() => {
+                              navigate('/')
+                          })}>
+                              <ListItemButton>
+                                  <ListItemIcon>
+                                      {index % 2 === 0 ? <LogoutOutlined className="sidebaricon my-auto" /> : <LogoutOutlined className="sidebaricon my-auto" />}
+                                  </ListItemIcon>
+                                  <ListItemText primary={text} />
+                              </ListItemButton>
+                          </ListItem>
+                      ))}
+                  </List>
               </div>
           </Drawer>
       </Box>

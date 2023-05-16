@@ -42,7 +42,7 @@ const apicall = () =>{
         setLoading(false);
       console.log(res);
         if (res.status === 200) {
-            navigate("/List/members");
+            navigate("Dashbord");
           
         } else{
              setError("Invalid Username or Password!");
