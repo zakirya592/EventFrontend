@@ -40,16 +40,18 @@ const apicall = () =>{
       password:password,
     }, ).then((res)=>{
         setLoading(false);
-      console.log(res);
+        
+        localStorage.setItem("id", res.data.user[0].memberID )
+      
         if (res.status === 200) {
             navigate("Dashbord");
-          
+            console.log(res);
         } else{
              setError("Invalid Username or Password!");
         }
     
     }).catch((err)=>{
-      console.log(err);
+     
         setLoading(false);
        setError("Invalid Username or Password!");
      
