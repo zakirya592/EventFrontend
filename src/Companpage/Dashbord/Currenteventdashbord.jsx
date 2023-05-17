@@ -40,10 +40,10 @@ function Currenteventdashbord() {
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
 
     const apicall = () => {
-        axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
+        axios.get(`http://gs1ksa.org:3015/api/getEventAll`)
             .then((res) => {
                 setdataget(res.data.recordset);
-                console.log(res.data);
+                console.log(res.data.recordset);
                 setRows(res.data.recordset);
                 setlength(res.data.recordset.length);
             })
@@ -61,55 +61,54 @@ function Currenteventdashbord() {
     const [row, setRows] = React.useState([])
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 360 }}>
         <Table stickyHeader aria-label="sticky table">
                       <TableHead>
 
-                          <TableRow classname='fontfamilyRoboto contracttableheader'>
-                              <TableCell numeric className="fontfamilyRoboto contracttableheader text-center" >First Name </TableCell>
+                          <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
+                          <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding text-center" >Event Name </TableCell>
                               {/* <TableCell className="tablehad">ID</TableCell> */}
-                              <TableCell className=" fontfamilyRoboto contracttableheader text-center">
-                                  last Name </TableCell>
-                              <TableCell className=" fontfamilyRoboto contracttableheader text-center">City</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">Club Name</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">National president </TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">Club secretry NO</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">Status</TableCell>
+                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">
+                                  Event Description </TableCell>
+                          <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">Location</TableCell>
+                          <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Location Area</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Start Date </TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Action</TableCell>
                           </TableRow>
 
                       </TableHead>
 
        
+{/* .filter((person) =>
+                  person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
+                  person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
+                  ) */}
                          {/* <TableBody> */}
       {dataget && dataget.length > 0 ? (
-        dataget.filter((person) =>
-                            person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
-                            person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
-
-                        )
-          .map((itme,index) => {
+        dataget.map((itme,index) => {
             return (
 
-                                <TableBody className="fortablebodycontract text-black fontfamilyInter">
+                                <TableBody className="fortablebodypadding text-black fontfamilyInter">
                                     {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
                                     <TableRow
                                         className="" key={index}>
-                                        <TableCell numeric className="fortablebodycontract text-blackcontract text-black fontfamilyInter text-center">
-                                            {itme.first_name}
+                                        <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter text-center">
+                                            {itme.event_name}
                                         </TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
-                                            {itme.last_name}
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
+                                            {itme.event_description}
                                         </TableCell>
 
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center"> {itme.city}</TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.club_name}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center"> {itme.location}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.location_area}</TableCell>
 
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
-                                            {itme.national_president}
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
+                                            {itme.start_date}
                                         </TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.club_secretry_NO}</TableCell>
-                                        <TableCell numeric className="fortablebodycontract text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.status}</TableCell>
+                                        <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-center">
                                             <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                 <img
                                                     className="cursor my-auto"

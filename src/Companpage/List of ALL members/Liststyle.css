@@ -30,19 +30,19 @@
     line-height: 150%;
 }
 
-.contracttableheader {
+.contracttableheaderpadding {
     color: #6E7F8C !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: 16px !important;
     line-height: 150% !important;
     white-space: nowrap !important;
 }
-.fortablebodycontract{
+.fortablebodypadding{
     font-style: normal !important;
 font-weight: 500 !important;
 white-space: nowrap !important;
-font-size: 18px !important;
+font-size: 14px !important;
 line-height: 150% !important;
 }
 .actionbtncontract {

@@ -28,7 +28,9 @@ import {
 import Sidebard from '../../Component/Sidebard/Sidebard';
 import Rigestermember from './Rigestermember';
 import Currenteventdashbord from './Currenteventdashbord';
+
 import Helpdeskbodd from './Helpdeskbodd';
+import Paddingapprovil from './Paddingapprovil';
 const drawerWidth = 220
 
 function Dashbord() {
@@ -44,22 +46,21 @@ function Dashbord() {
     const [status, setstatus] = useState()
     const [start_date, setstart_date] = useState()
     const memberid = localStorage.getItem("id")
-    console.log("dash", memberid);
+    // console.log("dash", memberid);
     useEffect(() => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersById/${memberid}`, {
             
         },).then((res) => {
          
             console.log(res.data.recordset[0].status);
-            console.log(res.data.recordset[0].status);
             setstatus(res.data.recordset[0].status)
-            const approl = res.data.recordset[0].status
-            if (approl !=="Active"){
-                console.log("this account not varified");
-            }
-            else{
-                console.log("AW pji");
-          }
+        //     const approl = res.data.recordset[0].status
+        //     if (approl !=="Active"){
+        //         console.log("this account not varified");
+        //     }
+        //     else{
+        //         console.log("AW pji");
+        //   }
     
         }).catch((err) => {
             console.log(err);
@@ -94,30 +95,30 @@ function Dashbord() {
                       >
                           <div className="row mt-5 mx-auto">
                               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2 ">
-                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
-                                      <p className='fw-bolder fs-6 p-3'>Create new Event</p>
+                                  <div className=" text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
+                                      <p className='fw-bolder fs-5 text-center mt-2'>Register member</p>
                                       <Rigestermember />
                                   </div>
                               </div>
 
                               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
-                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
-                                      <p className='fw-bolder fs-6 p-3'>Current Event</p>
+                                  <div className=" text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
+                                  <p className='fw-bolder fs-5 text-center mt-2'>Current Event</p>
                                       <Currenteventdashbord />
                                   </div>
                               </div>
 
                               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2 ">
-                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
-                                      <p className='fw-bolder fs-6 p-3'>Help Desk Active</p>
+                                  <div className=" text-start registeraccount border border-secondary rounded bg-light backgroundcolor ">
+                                  <p className='fw-bolder fs-5 text-center mt-2'>Help Desk Active</p>
                                       <Helpdeskbodd />
                                   </div>
                               </div>
 
                               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
-                                  <div className="mb-3 text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
-                                      <p className='fw-bolder fs-6 p-3'>Padding for Approval</p>
-                                      <Currenteventdashbord />
+                                  <div className=" text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
+                                  <p className='fw-bolder fs-5 text-center mt-2'>Padding for Approval</p>
+                                  <Paddingapprovil />
                                   </div>
                               </div>
 
@@ -127,8 +128,8 @@ function Dashbord() {
                       </Box>
                   </Box>
           ) : (
-                  <div className='Danger'>
-
+                  
+                  <div className='text-Danger fw-bold font-monospace mt-5'>
                       You have login  Successfully,but you account is {status}  kindly wait for Admin Approva
                 </div>
           )}

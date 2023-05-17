@@ -86,14 +86,18 @@ function Rigestermember() {
 
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
-
+    const [activeData, setActiveData] = useState();
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
             .then((res) => {
                 setdataget(res.data.recordset);
-                console.log(res.data);
+                // console.log(res.data);
                 setRows(res.data.recordset);
-                setlength(res.data.recordset.length);
+                // setlength(res.data.recordset.length);
+                const dadad = res.data.recordset;
+                const dataga = dadad.filter((item) => item.status === 'Active'); // Filter the data based on the 'status' property
+                setActiveData(dataga)
+                setlength(dataga.length);
             })
             .catch((err) => {
                 console.log(err);
@@ -111,51 +115,51 @@ function Rigestermember() {
   return (
     <div>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 350 }}>
         <Table stickyHeader aria-label="sticky table">
                       <TableHead>
 
-                          <TableRow classname='fontfamilyRoboto contracttableheader'>
-                              <TableCell numeric className="fontfamilyRoboto contracttableheader text-center" >First Name </TableCell>
+                          <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
+                              <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding text-center" >First Name </TableCell>
                               {/* <TableCell className="tablehad">ID</TableCell> */}
-                              <TableCell className=" fontfamilyRoboto contracttableheader text-center">
+                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">
                                   last Name </TableCell>
-                              <TableCell className=" fontfamilyRoboto contracttableheader text-center">City</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">Club Name</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">National president </TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">Club secretry NO</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheader text-center">Status</TableCell>
+                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">City</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club Name</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">National president </TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club secretry NO</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
                           </TableRow>
 
                       </TableHead>
 
            {
-                        dataget && dataget.filter((person) =>
+                        activeData && activeData.filter((person) =>
                             person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
                             person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
                         ).map((itme, index) => {
                             return (
 
-                                <TableBody className="fortablebodycontract text-black fontfamilyInter">
+                                <TableBody className="fortablebodypadding text-black fontfamilyInter">
                                     {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
                                     <TableRow
                                         className="" key={index}>
-                                        <TableCell numeric className="fortablebodycontract text-blackcontract text-black fontfamilyInter text-center">
+                                        <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter text-center">
                                             {itme.first_name}
                                         </TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
                                             {itme.last_name}
                                         </TableCell>
 
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center"> {itme.city}</TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.club_name}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center"> {itme.city}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_name}</TableCell>
 
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
                                             {itme.national_president}
                                         </TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.club_secretry_NO}</TableCell>
-                                        <TableCell numeric className="fortablebodycontract text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_secretry_NO}</TableCell>
+                                        <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-center">
                                             <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                 <img
                                                     className="cursor my-auto"

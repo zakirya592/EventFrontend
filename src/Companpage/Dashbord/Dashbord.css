@@ -1,3 +1,28 @@
-.registeraccount{
-    
+.contracttableheader {
+    color: #6E7F8C !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 150% !important;
+    white-space: nowrap !important;
+}
+
+.fortablebodycontract {
+    font-style: normal !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    font-size: 18px !important;
+    line-height: 150% !important;
+}
+
+.actionbtncontract {
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+}
+
+.backgroundcolor{
+    height: 100%;
 }
