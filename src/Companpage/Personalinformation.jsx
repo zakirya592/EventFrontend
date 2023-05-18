@@ -245,7 +245,7 @@ const geolocationset=()=>{
                 placeholder="Enter a value"
               /> */}
               <div className='border rounded border-secondary'>
-          <div onClick={geolocationset} className="fs-6 text-success px-2 fw-bold">Click on this take your loaction auto</div>
+          <div onClick={geolocationset} className="fs-6 text-success loactiontak px-2 fw-bold">Click on this take your loaction auto</div>
           {latitude && longitude ? (
             <span className='d-flex px-2'>
                     {localStorage.setItem('latitude', latitude)}

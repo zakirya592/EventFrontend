@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 import { UserOutlined, CameraOutlined } from '@ant-design/icons';
 import { Avatar, Space } from 'antd';
+import cameralog from "../img/upload-removebg-preview.png"
 
 function Tfoepedetails(props) {
     const navigate = useNavigate();
@@ -48,6 +49,7 @@ function Tfoepedetails(props) {
         setgovernmentIDImage(e.target.files[0]);
         console.log(setgovernmentIDImage);
     }
+    const [stateImage, setStateImage] = useState(false);
 
     const [selfieIDImageshow, setselfieIDImageshow] = useState(`https://ibb.co/r3Jkdmq`)
     function selfieIDImageclick(e) {
@@ -56,26 +58,6 @@ function Tfoepedetails(props) {
         console.log(setselfieIDImage);
     }
 
-
-      // {
-            //   email: sessionStorage.getItem("email"),
-            //   password: sessionStorage.getItem("password"),
-            //   first_name: sessionStorage.getItem("item_key"),
-            //   last_name: sessionStorage.getItem("last_name"),
-            //   street_address: sessionStorage.getItem("street_address"),
-            //   barangay: sessionStorage.getItem("barangay"),
-            //   province: sessionStorage.getItem("province"),
-            //   city: sessionStorage.getItem("city"),  
-            //   club_name: club_name,
-            //   club_region: club_region,
-            //   club_president: club_president,
-            //   national_president: national_president,
-            //   date: datatake,
-            //   pe_ID: pe_ID,
-            //   club_secretry_name: club_secretry_name,
-            //   club_secretry_NO: club_secretry_NO,
-
-            // },
 
     const lattitiude = localStorage.getItem('latitude')
     const longitudess = localStorage.getItem('longitude')
@@ -278,11 +260,10 @@ function Tfoepedetails(props) {
                               <label htmlFor="image" className="form-label labeinput">Government ID</label>
                              
 
-                   <div className="position-relative proedba">
+                   <div className="">
                                     <div className="image-uploads ">
-                                      <label htmlFor="file-inputs" className='cramaicon mt-3 position-absolute' >
-                                          {/* <img src={cameraicon} /> */}
-                                          <CameraOutlined />
+                                      <label htmlFor="file-inputs" className='' >
+                                          <Avatar shape="square" size={200} src={backimgupdload} className='position-relative' style={{ color: '#f56a00', lineHeight: '120px' }} ><img src={cameralog} className='cameralog' /></Avatar>
                                       </label>
 
                                         <input
@@ -298,36 +279,32 @@ function Tfoepedetails(props) {
                                         className="Foruploadimgsettingback "
                                         src={backimgupdload}
                                     /> */}
-                              <Avatar shape="square" size={150}  src={backimgupdload}/>
+                              {/* <Avatar shape="square" size={150}  src={backimgupdload}/> */}
 
                           </div>
                       </div>
 
                        <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                           <div className="mb-3 ">
-                              <label htmlFor="image" className="form-label labeinput">Selfie ID</label>
+                              <label htmlFor="image" className="form-label labeinputimage">Selfie ID</label>
            
-                   <div className="position-relative proedba">
+                   <div className="">
                                     <div className="image-uploads ">
-                                      <label htmlFor="file-inputsss" className='cramaicon mt-3 position-absolute' >
+                                      <label htmlFor="file-inputsss" className='' >
                                             {/* <img src={cameraicon} /> */}
-                                          <CameraOutlined />
+                                          <Avatar shape="square" size={200} src={selfieIDImageshow} className='position-relative' style={{  color: '#f56a00', lineHeight:'120px' }} ><img src={cameralog} className='cameralog'/></Avatar>
+                                          
+                                          {/* <CameraOutlined />  */}
                                         </label>
 
                                         <input
                                             id="file-inputsss"
-                                          className='ms-5 mt-3 position-absolute'
+                                          className=' mt-3 position-absolute'
                                             type="file"
                                             onChange={selfieIDImageclick}
                                         />
                                     </div>
 </div>
-                                    {/* <img
-                                        alt="Travis Howard"
-                                        className="Foruploadimgsettingback "
-                                        src={backimgupdload}
-                                    /> */}
-                              <Avatar shape="square" size={150} src={selfieIDImageshow} className='position-relative'/>
 
                           </div>
                       </div>

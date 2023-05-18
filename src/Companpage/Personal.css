@@ -4,7 +4,6 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 19px;
-
     color: #00006A;
 }
 .showpassiconss{
@@ -135,4 +134,28 @@
       }
       .cramaicon{
             margin-left: 9rem !important;
+      }
+      .loactiontak{
+        cursor: pointer;
+      }
+      .cameralog{
+            width: 150%;
+            justify-content: center;
+            display: flex
+      }
+      .labeinputimage{
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 1px;
+          color: #00006A;
+      }
+     :where(.css-dev-only-do-not-override-ed5zg0).ant-avatar .ant-avatar-string {
+       position: none;
+       left: 30%;
+       transform-origin: 0 center
+      }
+      :where(.css-dev-only-do-not-override-ed5zg0).ant-avatar .ant-avatar-string{
+         position: none;
       }
