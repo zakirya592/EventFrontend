@@ -262,7 +262,7 @@ function Tfoepedetails(props) {
 
                    <div className="">
                                     <div className="image-uploads ">
-                                      <label htmlFor="file-inputs" className='' >
+                                      <label htmlFor="file-inputs" className='loactiontak' >
                                           <Avatar shape="square" size={200} src={backimgupdload} className='position-relative' style={{ color: '#f56a00', lineHeight: '120px' }} ><img src={cameralog} className='cameralog' /></Avatar>
                                       </label>
 
@@ -290,7 +290,7 @@ function Tfoepedetails(props) {
            
                    <div className="">
                                     <div className="image-uploads ">
-                                      <label htmlFor="file-inputsss" className='' >
+                                      <label htmlFor="file-inputsss" className='loactiontak' >
                                             {/* <img src={cameraicon} /> */}
                                           <Avatar shape="square" size={200} src={selfieIDImageshow} className='position-relative' style={{  color: '#f56a00', lineHeight:'120px' }} ><img src={cameralog} className='cameralog'/></Avatar>
                                           
