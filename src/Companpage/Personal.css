@@ -129,3 +129,10 @@
         padding: 4px 0px;
 
       }
+
+      .image-uploads>input {
+        display: none;
+      }
+      .cramaicon{
+            margin-left: 9rem !important;
+      }

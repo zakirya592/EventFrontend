@@ -117,7 +117,7 @@ function Dashbord() {
 
                               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2  ">
                                   <div className=" text-start registeraccount border border-secondary rounded bg-light backgroundcolor">
-                                  <p className='fw-bolder fs-5 text-center mt-2'>Padding for Approval</p>
+                                  <p className='fw-bolder fs-5 text-center mt-2'>Pending for Approval</p>
                                   <Paddingapprovil />
                                   </div>
                               </div>

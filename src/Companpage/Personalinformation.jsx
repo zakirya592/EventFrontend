@@ -33,7 +33,7 @@ function Personalinformation() {
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
             .then((res) => {
               setDropDownProvince(res.data.recordset);
-              console.log(res.data);
+              // console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -48,7 +48,7 @@ function Personalinformation() {
     axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownCities`)
       .then((res) => {
         setDropDownCities(res.data.recordset);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -58,6 +58,46 @@ function Personalinformation() {
     Cityget();
   }, []);
 
+  const [inputValue, setInputValue] = useState('');
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [error, setError] = useState(null);
+const geolocationset=()=>{
+  // Fetch geolocation when the component mounts
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        console.log(position.coords.latitude);
+      },
+      (error) => {
+        setError(error.message);
+      }
+    );
+  } else {
+    setError('Geolocation is not supported by your browser.');
+  }
+}
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    geolocationset(e.target.value)
+  };
+  // Save the geolocation data to a database or API
+  useEffect(() => {
+    if (latitude && longitude) {
+      // Here, you can make an API request or perform any other data-saving operation
+      // to store the latitude and longitude values
+      saveGeolocationData(latitude, longitude);
+    }
+  }, [latitude, longitude]);
+
+  // Function to save geolocation data
+  const saveGeolocationData = (lat, lon) => {
+    // Implement your logic to save the data to a database or API
+    console.log('Saving geolocation data:', lat, lon);
+    // You can make an API request or use any state management system to save the data
+  };
   return (
     <>
 <div className='Backgroundimgsection'>s</div>
@@ -194,6 +234,32 @@ function Personalinformation() {
                           }
                       </select></div>
               </div>
+
+              <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
+                  <div className="mb-3">
+              <label htmlFor="floatingSelectGridcity" className="form-label labeinput">My Location*</label>
+              {/* <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="Enter a value"
+              /> */}
+              <div className='border rounded border-secondary'>
+          <div onClick={geolocationset} className="fs-6 text-success px-2 fw-bold">Click on this take your loaction auto</div>
+          {latitude && longitude ? (
+            <span className='d-flex px-2'>
+                    {localStorage.setItem('latitude', latitude)}
+                    {localStorage.setItem('longitude', longitude)}
+              <div className="fs-6 me-2 text-success">Latitude: {latitude}</div>
+              <div className="fs-6 mx-2 text-success">Longitude: {longitude}</div>
+            </span>
+          ) : (
+            <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
+          )}
+              </div>
+                      </div>
+              </div>
+
               </div>
         <button type="button" className="btn btnnext my-3 py-3 px-5" onClick={Detailnagation}>Next</button>
           </div>

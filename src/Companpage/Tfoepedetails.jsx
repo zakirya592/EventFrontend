@@ -8,6 +8,9 @@ import { ChatState } from '../CreateContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
+import { UserOutlined, CameraOutlined } from '@ant-design/icons';
+import { Avatar, Space } from 'antd';
+
 function Tfoepedetails(props) {
     const navigate = useNavigate();
     const [value, setValue] = useState()
@@ -33,31 +36,75 @@ function Tfoepedetails(props) {
   const [pe_ID, setpe_ID] = useState('')
   const [club_secretry_name, setclub_secretry_name] = useState('')
   const [club_secretry_NO, setclub_secretry_NO] = useState('')
+    const [governmentIDImage, setgovernmentIDImage] = useState('')
+    const [selfieIDImage, setselfieIDImage] = useState('')
 
- 
+    
+
+    // image
+    const [backimgupdload, setbackimgupdload] = useState(`https://ibb.co/r3Jkdmq`)
+    function handleChangeback(e) {
+        setbackimgupdload(URL.createObjectURL(e.target.files[0]));
+        setgovernmentIDImage(e.target.files[0]);
+        console.log(setgovernmentIDImage);
+    }
+
+    const [selfieIDImageshow, setselfieIDImageshow] = useState(`https://ibb.co/r3Jkdmq`)
+    function selfieIDImageclick(e) {
+        setselfieIDImageshow(URL.createObjectURL(e.target.files[0]));
+        setselfieIDImage(e.target.files[0]);
+        console.log(setselfieIDImage);
+    }
+
+
+      // {
+            //   email: sessionStorage.getItem("email"),
+            //   password: sessionStorage.getItem("password"),
+            //   first_name: sessionStorage.getItem("item_key"),
+            //   last_name: sessionStorage.getItem("last_name"),
+            //   street_address: sessionStorage.getItem("street_address"),
+            //   barangay: sessionStorage.getItem("barangay"),
+            //   province: sessionStorage.getItem("province"),
+            //   city: sessionStorage.getItem("city"),  
+            //   club_name: club_name,
+            //   club_region: club_region,
+            //   club_president: club_president,
+            //   national_president: national_president,
+            //   date: datatake,
+            //   pe_ID: pe_ID,
+            //   club_secretry_name: club_secretry_name,
+            //   club_secretry_NO: club_secretry_NO,
+
+            // },
+
+    const lattitiude = localStorage.getItem('latitude')
+    const longitudess = localStorage.getItem('longitude')
+    console.log(lattitiude, longitudess);
      // post api
     const apicall = () => {
-        console.log(sessionStorage.getItem("item_key"))
-        axios.post('http://gs1ksa.org:3015/api/tblPostMembers',
-            {
-              email: sessionStorage.getItem("email"),
-              password: sessionStorage.getItem("password"),
-              first_name: sessionStorage.getItem("item_key"),
-              last_name: sessionStorage.getItem("last_name"),
-              street_address: sessionStorage.getItem("street_address"),
-              barangay: sessionStorage.getItem("barangay"),
-              province: sessionStorage.getItem("province"),
-              city: sessionStorage.getItem("city"),  
-              club_name: club_name,
-              club_region: club_region,
-              club_president: club_president,
-              national_president: national_president,
-              date: datatake,
-              pe_ID: pe_ID,
-              club_secretry_name: club_secretry_name,
-              club_secretry_NO: club_secretry_NO,
-
-            },
+        const fromdata = new FormData();
+        fromdata.append("email", sessionStorage.getItem("email"));
+        fromdata.append("password", sessionStorage.getItem("password"));
+        fromdata.append("first_name", sessionStorage.getItem("item_key"));
+        fromdata.append("last_name", sessionStorage.getItem("last_name"));
+        fromdata.append("street_address", sessionStorage.getItem("street_address"));
+        fromdata.append("barangay", sessionStorage.getItem("barangay"));
+        fromdata.append("province", sessionStorage.getItem("province"));
+        fromdata.append("city", sessionStorage.getItem("city"));
+        fromdata.append("club_name", club_name);
+        fromdata.append("club_region", club_region);
+        fromdata.append('club_president', club_president)
+        fromdata.append("national_president", national_president);
+        fromdata.append("date", datatake);
+        fromdata.append("pe_ID", pe_ID);
+        fromdata.append("club_secretry_name", club_secretry_name);
+        fromdata.append("club_secretry_NO", club_secretry_NO);
+        fromdata.append("lattitiude", localStorage.getItem('latitude'));
+        fromdata.append("longitude", localStorage.getItem('longitude'));
+        fromdata.append("governmentIDImage", governmentIDImage);
+        fromdata.append("selfieIDImage", selfieIDImage);
+        console.log(fromdata);
+        axios.post('http://gs1ksa.org:3015/api/tblPostMembers',fromdata ,
         )
             .then(res => {
                 console.log(res);
@@ -95,16 +142,6 @@ function Tfoepedetails(props) {
 
             })
     }
-
-    // const { apicalld,
-    //     first_name, setfirst_name,
-    //     club_name, setclub_name,
-    //     club_region, setclub_region,
-    //     club_president, setclub_president,
-    //     national_president, setnational_president,
-    //     club_secretry_name, setclub_secretry_name,
-    //     date, setdate
-    // } = ChatState();
 
   return (
    <>
@@ -235,6 +272,66 @@ function Tfoepedetails(props) {
                               
                       </div>
                   </div>
+
+                      <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
+                          <div className="mb-3">
+                              <label htmlFor="image" className="form-label labeinput">Government ID</label>
+                             
+
+                   <div className="position-relative proedba">
+                                    <div className="image-uploads ">
+                                      <label htmlFor="file-inputs" className='cramaicon mt-3 position-absolute' >
+                                          {/* <img src={cameraicon} /> */}
+                                          <CameraOutlined />
+                                      </label>
+
+                                        <input
+                                            id="file-inputs"
+                                            type="file"
+                                            onChange={handleChangeback}
+                                          className='ms-5 mt-3 position-absolute'
+                                        />
+                                    </div>
+</div>
+                                    {/* <img
+                                        alt="Travis Howard"
+                                        className="Foruploadimgsettingback "
+                                        src={backimgupdload}
+                                    /> */}
+                              <Avatar shape="square" size={150}  src={backimgupdload}/>
+
+                          </div>
+                      </div>
+
+                       <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
+                          <div className="mb-3 ">
+                              <label htmlFor="image" className="form-label labeinput">Selfie ID</label>
+           
+                   <div className="position-relative proedba">
+                                    <div className="image-uploads ">
+                                      <label htmlFor="file-inputsss" className='cramaicon mt-3 position-absolute' >
+                                            {/* <img src={cameraicon} /> */}
+                                          <CameraOutlined />
+                                        </label>
+
+                                        <input
+                                            id="file-inputsss"
+                                          className='ms-5 mt-3 position-absolute'
+                                            type="file"
+                                            onChange={selfieIDImageclick}
+                                        />
+                                    </div>
+</div>
+                                    {/* <img
+                                        alt="Travis Howard"
+                                        className="Foruploadimgsettingback "
+                                        src={backimgupdload}
+                                    /> */}
+                              <Avatar shape="square" size={150} src={selfieIDImageshow} className='position-relative'/>
+
+                          </div>
+                      </div>
+
               </div>
 
               </div>

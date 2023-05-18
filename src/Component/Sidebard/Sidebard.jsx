@@ -216,7 +216,9 @@ function Sidebard(stat) {
                   <Divider className="divhrline" />
                     <List>
                       {['Help Desk'].map((text, index) => (
-                          <ListItem key={text} disablePadding>
+                          <ListItem key={text} disablePadding onClick={(() => {
+                              navigate('/Helpdask')
+                          })}>
                               <ListItemButton>
                                   <ListItemIcon>
                                       {index % 2 === 0 ? <UserOutlined className="sidebaricon my-auto" /> : <UserOutlined className="sidebaricon my-auto" />}
@@ -229,7 +231,9 @@ function Sidebard(stat) {
                   <Divider className="divhrline" />
                   <List>
                       {['Eagles Club'].map((text, index) => (
-                          <ListItem key={text} disablePadding>
+                          <ListItem key={text} disablePadding onClick={(() => {
+                              navigate('/EaglesClub')
+                          })}>
                               <ListItemButton>
                                   <ListItemIcon>
                                       {index % 2 === 0 ? <UsergroupAddOutlined className="sidebaricon my-auto" /> : <UsergroupAddOutlined className="sidebaricon my-auto" />}

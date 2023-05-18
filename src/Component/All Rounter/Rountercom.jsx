@@ -8,6 +8,9 @@ import Event from '../../Companpage/Event/Event';
 import Eventupdata from '../../Companpage/Event/Updata/Eventupdata';
 import Createevent from '../../Companpage/Event/Create Event/Createevent';
 import Dashbord from '../../Companpage/Dashbord/Dashbord';
+import Loaction from '../../Companpage/Loaction';
+import Helpdask from '../../Companpage/Help Dask/Helpdask';
+import EaglesClub from '../../Companpage/Eagles Club/EaglesClub';
 
 function Rountercom() {
   function gat() {
@@ -26,6 +29,9 @@ function Rountercom() {
           <Route exact path='/Event/Add' element={<Createevent/>} />
           <Route exact path='/Event' element={<Event />} />
           <Route exact path='/Event/updata/:_id' element={<Eventupdata />} />
+          <Route exact path='/Loaction' element={<Loaction />} />
+          <Route exact path='/Helpdask' element={<Helpdask />} />
+          <Route exact path='/EaglesClub' element={<EaglesClub />} />
           
               </Routes>
           </BrowserRouter>
