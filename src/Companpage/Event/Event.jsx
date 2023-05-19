@@ -67,8 +67,7 @@ function Event() {
     // Deleted api section
    const Deletedapi = (id) => {
      console.log(id);
-     axios
-         .delete(`http://gs1ksa.org:3015/api/deleteEventById/${id}`)
+     axios.delete(`http://gs1ksa.org:3015/api/deleteEventById/${id}`)
        .then((res) => {
          console.log(res);
           apicall();

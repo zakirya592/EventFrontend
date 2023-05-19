@@ -3,10 +3,11 @@ import {
     GoogleMapsProvider, useGeocodingService,
     useGoogleMap, createGoogleMaps,
 } from "@ubilabs/google-maps-react-hooks";
-import { GoogleMap, LoadScriptNext, InfoWindow, Marker } from "@react-google-maps/api"
-
+import { GoogleMap, LoadScriptNext, InfoWindow } from "@react-google-maps/api"
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { usePlacesWidget } from "react-google-autocomplete";
+import axios from "axios";
 // const google = window.google;
 const mapOptions = {
     zoom: 12,
@@ -64,7 +65,7 @@ function Locationed() {
         lat: 43.68,
         lng: -79.43,
     };
-function Loaction() {
+function Loaction({ google }) {
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
     const handleButtonClicked = () => {
@@ -130,6 +131,31 @@ function Loaction() {
         console.log(selectedLocation);
         setShowModal(false);
     };
+
+    
+    const locationseded = [
+        { id: 1, lat: 43.68, lng: -79.43 },
+        { id: 2, lat: 43.72, lng: -79.37 },
+        { id: 3, lat: 43.65, lng: -79.38 }
+        // Add more locations as needed
+    ];
+
+    const [locationsapi, setlocationsapi] = useState([]);
+
+    useEffect(() => {
+        fetchLocations();
+    }, []);
+
+    const fetchLocations =  () => {
+        axios.get(`http://gs1ksa.org:3015/api/ListOFAllLocation`)
+            .then((res) => {
+                setlocationsapi(res.data.recordset);
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    };
   return (
     <div>
           <button onClick={handleButtonClick}>Get Geolocation</button>
@@ -159,7 +185,7 @@ function Loaction() {
               <Locationed />
           </GoogleMapsProvider> */}
           
-          <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
+          {/* <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
               <usePlacesWidget 
                   onLoad={(autocomplete) => {
                       autocomplete.addListener("place_changed", () => {
@@ -181,7 +207,7 @@ function Loaction() {
                       <Marker position={selectedPlace.geometry.location} />
                   )}
               </GoogleMap>
-          </LoadScriptNext>
+          </LoadScriptNext> */}
 
           <Button variant="primary" onClick={handleShowModal}>
               Pick Location
@@ -245,10 +271,45 @@ function Loaction() {
                   </Form>
               </Modal.Body>
           </Modal>
-          {selectedLocation ? <p>{selectedLocation.latitude}</p>: ""}
-          {selectedLocation ? <p>{selectedLocation.longitude}</p> : ""}
+          {/* {selectedLocation ? <p>{selectedLocation.latitude}</p>: ""}
+          {selectedLocation ? <p>{selectedLocation.longitude}</p> : ""} */}
+
+        
+          {/* <div style={{ height: "40px", width: "100%" }}>
+              <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }}>
+                  {locationseded.map((location) => (
+                      <Marker
+                          key={location.id}
+                          position={{ lat: location.lat, lng: location.lng }}
+                      />
+                  ))}
+              </Map>
+          </div> */}
+
+          <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }}>
+              {locationsapi && locationsapi.map((item,index) => (
+                  <Marker
+                      key={index}
+                      position={{
+                          lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
+                          lng: parseFloat(item.longitude),
+}}
+                    //   name={location.name}
+                  />
+              ))}
+          </Map>
+          
     </div>
   )
 }
 
-export default Loaction
+export default GoogleApiWrapper({
+    apiKey: "AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg",
+})(Loaction);
+
+
+
+
+   
+    
+
