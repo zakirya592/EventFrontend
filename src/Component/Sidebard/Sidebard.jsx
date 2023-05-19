@@ -173,7 +173,7 @@ function Sidebard(stat) {
                   ) : (
                       <span className="p-1 ">
                           <center>
-                                  <Avatar size={100} src={<img src={logo} alt="avatar" />} />
+                                  <Avatar size={120} className="bg-secondary" src={<img src={localStorage.getItem('selfieIDImage')} alt="User Image" />} />
                                   
                                   <p className="emailscolr mt-2 fw-bold">{localStorage.getItem('emailhomme')}</p>
                               {/* <img className="w-75 mx-auto mt-1" src={logo} alt="" /> */}
@@ -188,6 +188,21 @@ function Sidebard(stat) {
                       {['Dashboard'].map((text, index) => (
                           <ListItem key={text} disablePadding onClick={(()=>{
                               navigate('/Dashbord')
+                          })}>
+                              <ListItemButton>
+                                  <ListItemIcon>
+                                      {index % 2 === 0 ? <UserOutlined className="sidebaricon my-auto" /> : <UserOutlined className="sidebaricon my-auto" />}
+                                  </ListItemIcon>
+                                  <ListItemText primary={text} />
+                              </ListItemButton>
+                          </ListItem>
+                      ))}
+                  </List>
+                  <Divider className="divhrline" />
+                  <List>
+                      {['Registered User'].map((text, index) => (
+                          <ListItem key={text} disablePadding onClick={(() => {
+                              navigate('/Register')
                           })}>
                               <ListItemButton>
                                   <ListItemIcon>

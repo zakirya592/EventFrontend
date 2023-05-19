@@ -11,6 +11,7 @@ import Dashbord from '../../Companpage/Dashbord/Dashbord';
 import Loaction from '../../Companpage/Loaction';
 import Helpdask from '../../Companpage/Help Dask/Helpdask';
 import EaglesClub from '../../Companpage/Eagles Club/EaglesClub';
+import Register from '../../Companpage/Registered user/Register';
 
 function Rountercom() {
   function gat() {
@@ -32,6 +33,7 @@ function Rountercom() {
           <Route exact path='/Loaction' element={<Loaction />} />
           <Route exact path='/Helpdask' element={<Helpdask />} />
           <Route exact path='/EaglesClub' element={<EaglesClub />} />
+          <Route exact path='/Register' element={<Register />} />
           
               </Routes>
           </BrowserRouter>

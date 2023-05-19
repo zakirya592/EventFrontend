@@ -1,78 +1,117 @@
-import { useState, useEffect } from 'react';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
-import axios from 'axios';
+import { useState, useEffect, useRef } from "react";
+import {
+    GoogleMapsProvider, useGeocodingService,
+    useGoogleMap, createGoogleMaps
+} from "@ubilabs/google-maps-react-hooks";
 
+// const google = window.google;
+
+const mapOptions = {
+    zoom: 12,
+    center: {
+        lat: 43.68,
+        lng: -79.43,
+    },
+};
 function Loaction() {
-    const [latitude, setLatitude] = useState(null);
-    const [longitude, setLongitude] = useState(null);
-    const [error, setError] = useState(null);
-    const [location, setLocation] = useState(null);
+    // const [latitude, setLatitude] = useState(null);
+    // const [longitude, setLongitude] = useState(null);
+    // const handleButtonClicked = () => {
+    //     const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    //     // window.open(url);
+    //     console.log(url);
+    // };
+    // const handleButtonClick = () => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 const { latitude, longitude } = position.coords;
+    //                 setLatitude(latitude);
+    //                 setLongitude(longitude);
+    //             },
+    //             (error) => {
+    //                 console.error('Error getting geolocation:', error);
+    //             }
+    //         );
+    //     } else {
+    //         console.error('Geolocation is not supported by your browser.');
+    //     }
+    // };
+    const [mapContainer, setMapContainer] = useState(null);
 
-    const openMap = () => {
-        navigator.geolocation.getCurrentPosition(position => {
-            setLocation([position.coords.latitude, position.coords.longitude]);
-            console.log(position.coords.latitude, position.coords.longitude);
-        });
-    };
-
-    const saveLocation = () => {
-        // axios.post('/api/location', { location }).then(response => {
-
-        // });
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLatitude(position.coords.latitude);
-                    setLongitude(position.coords.longitude);
-                    console.log(position.coords.latitude);
-                },
-                (error) => {
-                    setError(error.message);
-                }
-            );
-        } else {
-            setError('Geolocation is not supported by your browser.');
-        }
-        console.log('dalhd');
-    };
-
-    // Save the geolocation data to a database or API
-    useEffect(() => {
-        if (latitude && longitude) {
-            // Here, you can make an API request or perform any other data-saving operation
-            // to store the latitude and longitude values
-            saveGeolocationData(latitude, longitude);
-        }
-    }, [latitude, longitude]);
-
-    // Function to save geolocation data
-    const saveGeolocationData = (lat, lon) => {
-        // Implement your logic to save the data to a database or API
-        console.log('Saving geolocation data:', lat, lon);
-        // You can make an API request or use any state management system to save the data
-    };
+    
   return (
     <div>
-          <button onClick={openMap}>Select Location</button>
-          {location && (
-              <>
-                  <MapContainer center={location} zoom={13}>
-                      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                      <Marker position={location} />
-                  </MapContainer>
-                  <button onClick={saveLocation}>Save Location</button>
+          {/* <button onClick={handleButtonClick}>Get Geolocation</button>
+          {latitude && longitude && (
+            <>
+              <LoadScriptNext
+                  googleMapsApiKey="AIzaSyATo4qkSgopaEkIfyD2SjtQJSkY3wrJiPYs"
+              >
+                  <GoogleMap
+                      defaultZoom={8}
+                        mapContainerStyle={{ height: '200px', width: '100%' }}
+                      defaultCenter={{ lat: latitude, lng: longitude }}
+                  >
+                      <Marker position={{ lat: latitude, lng: longitude }} />
+                  </GoogleMap>
+              </LoadScriptNext>
+                  <button onClick={handleButtonClicked}>Open Google Maps</button>
               </>
-          )}
-          {latitude && longitude ? (
-            <div>
-              <p>Latitude: {latitude}</p>
-              <p>Longitude: {longitude}</p>
-            </div>
-          ) : (
-            <p>{error ? `Error: ${error}` : 'Fetching geolocation...'}</p>
-          )}
+          )} */}
+          <GoogleMapsProvider
+              googleMapsAPIKey={process.env.NEXT_PUBLIC_MAP_API_KEY}
+              options={mapOptions}
+              mapContainer={mapContainer}
+          >
+              <div ref={(node) => setMapContainer(node)} style={{ height: "100vh" }} />
+              <Locationed />
+          </GoogleMapsProvider>
+          
     </div>
   )
 }
 
 export default Loaction
+
+
+function Locationed() {
+    const [lat, setLat] = useState(43.68);
+    const [lng, setLng] = useState(-79.43);
+    const { map } = useGoogleMap();
+    const markerRef = useRef();
+
+    useEffect(() => {
+        if (!map || markerRef.current) return;
+        // Ensure the 'google' object is available
+        const { google } = window;
+        markerRef.current = new google.maps.Marker({ map });
+    }, [map]);
+
+    useEffect(() => {
+        if (!markerRef.current) return;
+        // Ensure the 'google' object is available
+        // const { google } = window;
+        // if (!google || !google.maps) return;
+        if (isNaN(lat) || isNaN(lng)) return;
+        markerRef.current.setPosition({ lat, lng });
+        map.panTo({ lat, lng });
+    }, [lat, lng, map]);
+
+    return (
+        <div className="lat-lng">
+            <input
+                type="number"
+                value={lat}
+                onChange={(event) => setLat(parseFloat(event.target.value))}
+                step={0.01}
+            />
+            <input
+                type="number"
+                value={lng}
+                onChange={(event) => setLng(parseFloat(event.target.value))}
+                step={0.01}
+            />
+        </div>
+    );
+}

@@ -98,6 +98,7 @@ const apicall = () =>{
                                     setemail(e.target.value)
                                     {
                                       localStorage.setItem('emailhomme',e.target.value)
+                                      localStorage.setItem('selfieIDImage', e.target.value)
                                     }
                                 }}
                                 className='rounded emailinput py-2 ps-4'
