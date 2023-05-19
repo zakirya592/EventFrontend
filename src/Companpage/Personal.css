@@ -159,3 +159,17 @@
       :where(.css-dev-only-do-not-override-ed5zg0).ant-avatar .ant-avatar-string{
          position: none;
       }
+      .loactioncolor{
+         border: 1px solid #00006A;
+         font-family: 'Inter';
+         font-style: normal;
+         font-weight: 600;
+         font-size: 16px;
+         line-height: 19px;
+         align-items: center;
+         color: #545557;
+      }
+      .loactioncolor:hover{
+         border: 1px solid #000000;
+         color: #223458;
+      }

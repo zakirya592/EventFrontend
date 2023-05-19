@@ -5,6 +5,12 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useNavigate, useParams } from "react-router-dom";
 import Item from 'antd/es/list/Item';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import {
+  GoogleMapsProvider, useGeocodingService,
+  useGoogleMap, createGoogleMaps,
+} from "@ubilabs/google-maps-react-hooks";
+import { GoogleMap, LoadScriptNext, InfoWindow, Marker } from "@react-google-maps/api"
+import { Modal, Button, Form } from "react-bootstrap";
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
     const navigate = useNavigate();
@@ -15,7 +21,13 @@ function Personalinformation() {
         navigate("/Sendinquiry");
     }
 
-
+  const mapOptions = {
+    zoom: 12,
+    center: {
+      lat: 43.68,
+      lng: -79.43,
+    },
+  };
   const [passwordShown, setPasswordShown] = useState(false)
   const [first_name, setfirst_name] = useState()
   const [last_name, setlast_name] = useState('')
@@ -97,6 +109,31 @@ const geolocationset=()=>{
     // Implement your logic to save the data to a database or API
     console.log('Saving geolocation data:', lat, lon);
     // You can make an API request or use any state management system to save the data
+  };
+
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleMapClicked = (event) => {
+    const { latLng } = event;
+    const latitude = latLng.lat();
+    const longitude = latLng.lng();
+    setSelectedLocation({ latitude, longitude });
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission with selectedLocation data
+    console.log(selectedLocation);
+    setShowModal(false);
   };
   return (
     <>
@@ -237,32 +274,89 @@ const geolocationset=()=>{
 
               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
-              <label htmlFor="floatingSelectGridcity" className="form-label labeinput">My Location*</label>
-              {/* <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="Enter a value"
-              /> */}
-              <div className='border rounded border-secondary'>
+              <p htmlFor="floatingSelectGridcity" className="form-label labeinput">My Location*</p>
+              <button  className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
+                Pick your Location
+              </button>
+              {/* <div className='border rounded border-secondary'>
           <div onClick={geolocationset} className="fs-6 text-success loactiontak px-2 fw-bold">Click on this take your loaction auto</div>
           {latitude && longitude ? (
             <span className='d-flex px-2'>
-                    {localStorage.setItem('latitude', latitude)}
-                    {localStorage.setItem('longitude', longitude)}
               <div className="fs-6 me-2 text-success">Latitude: {latitude}</div>
               <div className="fs-6 mx-2 text-success">Longitude: {longitude}</div>
             </span>
           ) : (
             <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
           )}
-              </div>
+              </div> */}
                       </div>
               </div>
 
               </div>
         <button type="button" className="btn btnnext my-3 py-3 px-5" onClick={Detailnagation}>Next</button>
           </div>
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Select Location</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
+            <GoogleMap
+              mapContainerStyle={{ height: "400px" }}
+              options={mapOptions}
+              onClick={handleMapClicked}
+            >
+              {selectedLocation && (
+                <Marker
+                  position={{
+                    lat: selectedLocation.latitude,
+                    lng: selectedLocation.longitude,
+                  }}
+                />
+              )}
+            </GoogleMap>
+          </LoadScriptNext>
+          {selectedLocation && (
+            <InfoWindow
+              position={{
+                lat: selectedLocation.latitude,
+                lng: selectedLocation.longitude,
+              }}
+            >
+              <div>
+                Latitude: {selectedLocation.latitude}
+                <br />
+                Longitude: {selectedLocation.longitude}
+              </div>
+            </InfoWindow>
+          )}
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group controlId="formLatitude">
+              <Form.Label>Latitude</Form.Label>
+              <Form.Control
+                type="text"
+                value={selectedLocation ? selectedLocation.latitude : ""}
+                readOnly
+              />
+            </Form.Group>
+            <Form.Group controlId="formLongitude">
+              <Form.Label>Longitude</Form.Label>
+              <Form.Control
+                type="text"
+                value={selectedLocation ? selectedLocation.longitude : ""}
+                readOnly
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      
+      {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
+      {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""}
+      {/* <p>{localStorage.getItem('latitude')}</p> */}
     </>
   )
 }

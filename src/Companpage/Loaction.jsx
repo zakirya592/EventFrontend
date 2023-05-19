@@ -3,10 +3,11 @@ import {
     GoogleMapsProvider, useGeocodingService,
     useGoogleMap, createGoogleMaps,
 } from "@ubilabs/google-maps-react-hooks";
-import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api"
+import { GoogleMap, LoadScriptNext, InfoWindow, Marker } from "@react-google-maps/api"
+
+import { Modal, Button, Form } from "react-bootstrap";
 import { usePlacesWidget } from "react-google-autocomplete";
 // const google = window.google;
-
 const mapOptions = {
     zoom: 12,
     center: {
@@ -89,8 +90,6 @@ function Loaction() {
     };
     const [mapContainer, setMapContainer] = useState(null);
 
-   
-
     const [selectedPlace, setSelectedPlace] = useState(null);
 
     const handlePlaceSelect = (place) => {
@@ -104,6 +103,33 @@ function Loaction() {
         });
     };
     
+
+
+
+    // Second Loaction test
+    const [showModal, setShowModal] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState(null);
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleMapClicked = (event) => {
+        const { latLng } = event;
+        const latitude = latLng.lat();
+        const longitude = latLng.lng();
+        setSelectedLocation({ latitude, longitude });
+    };
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        // Handle form submission with selectedLocation data
+        console.log(selectedLocation);
+        setShowModal(false);
+    };
   return (
     <div>
           <button onClick={handleButtonClick}>Get Geolocation</button>
@@ -133,7 +159,7 @@ function Loaction() {
               <Locationed />
           </GoogleMapsProvider> */}
           
-          <LoadScriptNext googleMapsApiKey="AIzaSyATo4qkSgopaEkIfyD2SjtQJSkY3wrJiPYs">
+          <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
               <usePlacesWidget 
                   onLoad={(autocomplete) => {
                       autocomplete.addListener("place_changed", () => {
@@ -156,6 +182,71 @@ function Loaction() {
                   )}
               </GoogleMap>
           </LoadScriptNext>
+
+          <Button variant="primary" onClick={handleShowModal}>
+              Pick Location
+          </Button>
+
+          <Modal show={showModal} onHide={handleCloseModal} size="lg">
+              <Modal.Header closeButton>
+                  <Modal.Title>Select Location</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
+                      <GoogleMap
+                          mapContainerStyle={{ height: "400px" }}
+                          options={mapOptions}
+                          onClick={handleMapClicked}
+                      >
+                          {selectedLocation && (
+                              <Marker
+                                  position={{
+                                      lat: selectedLocation.latitude,
+                                      lng: selectedLocation.longitude,
+                                  }}
+                              />
+                          )}
+                      </GoogleMap>
+                  </LoadScriptNext>
+                  {selectedLocation && (
+                      <InfoWindow
+                          position={{
+                              lat: selectedLocation.latitude,
+                              lng: selectedLocation.longitude,
+                          }}
+                      >
+                          <div>
+                              Latitude: {selectedLocation.latitude}
+                              <br />
+                              Longitude: {selectedLocation.longitude}
+                          </div>
+                      </InfoWindow>
+                  )}
+                  <Form onSubmit={handleFormSubmit}>
+                      <Form.Group controlId="formLatitude">
+                          <Form.Label>Latitude</Form.Label>
+                          <Form.Control
+                              type="text"
+                              value={selectedLocation ? selectedLocation.latitude : ""}
+                              readOnly
+                          />
+                      </Form.Group>
+                      <Form.Group controlId="formLongitude">
+                          <Form.Label>Longitude</Form.Label>
+                          <Form.Control
+                              type="text"
+                              value={selectedLocation ? selectedLocation.longitude : ""}
+                              readOnly
+                          />
+                      </Form.Group>
+                      <Button variant="primary" type="submit">
+                          Save
+                      </Button>
+                  </Form>
+              </Modal.Body>
+          </Modal>
+          {selectedLocation ? <p>{selectedLocation.latitude}</p>: ""}
+          {selectedLocation ? <p>{selectedLocation.longitude}</p> : ""}
     </div>
   )
 }
