@@ -101,7 +101,7 @@
     color: #ffffff !important;
     /* transform: matrix(-1, 0, 0, 1, 0, 0); */
     font-size: 1.5em !important;
-    margin-left: 25px !important;
+    margin-left: 4px !important;
     /* margin-right: 5px !important; */
     z-index: 100;
 }
@@ -125,14 +125,14 @@
 .backicon {
     /* margin-left: 2px; */
     position: absolute;
-    left: -44px;
-    top: 40px;
+    left: -43px;
+    top: 5px;
 }
 
 .righticon {
     position: absolute;
-    left: 2.5px;
-    top: 8px;
+    left: 0px;
+    top: 4px;
 }
 
 ::-webkit-scrollbar {

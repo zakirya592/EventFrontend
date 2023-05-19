@@ -66,15 +66,15 @@ function Currenteventdashbord() {
                       <TableHead>
 
                           <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
-                          <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding text-center" >Event Name </TableCell>
+                          <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding " >Event Name </TableCell>
                               {/* <TableCell className="tablehad">ID</TableCell> */}
-                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">
+                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
                                   Event Description </TableCell>
-                          <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">Location</TableCell>
-                          <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Location Area</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Start Date </TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Action</TableCell>
+                          <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">Location</TableCell>
+                          <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Location Area</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Start Date </TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Status</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Action</TableCell>
                           </TableRow>
 
                       </TableHead>
@@ -94,21 +94,21 @@ function Currenteventdashbord() {
                                     {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
                                     <TableRow
                                         className="" key={index}>
-                                        <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter text-center">
+                                        <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
                                             {itme.event_name}
                                         </TableCell>
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                             {itme.event_description}
                                         </TableCell>
 
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center"> {itme.location}</TableCell>
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.location_area}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.location}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.location_area}</TableCell>
 
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                             {itme.start_date}
                                         </TableCell>
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.status}</TableCell>
-                                        <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-center">
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
+                                        <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">
                                             <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                 <img
                                                     className="cursor my-auto"

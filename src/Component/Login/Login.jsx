@@ -42,8 +42,10 @@ const apicall = () =>{
         setLoading(false);
         
         localStorage.setItem("id", res.data.user[0].memberID )
+        localStorage.setItem("selfieIDImage", res.data.user[0].selfieIDImage)
       
         if (res.status === 200) {
+            
             navigate("Dashbord");
             console.log(res);
         } else{
@@ -98,7 +100,6 @@ const apicall = () =>{
                                     setemail(e.target.value)
                                     {
                                       localStorage.setItem('emailhomme',e.target.value)
-                                      localStorage.setItem('selfieIDImage', e.target.value)
                                     }
                                 }}
                                 className='rounded emailinput py-2 ps-4'

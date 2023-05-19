@@ -21,7 +21,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import logo from '../../img/a1.webp'
 import "./Sidebar.css"
-import { UserOutlined, LogoutOutlined, CalendarOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, CalendarOutlined, UsergroupAddOutlined, CloseCircleOutlined , DashboardOutlined, MenuOutlined } from '@ant-design/icons';
 import { Avatar, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
 
@@ -131,7 +131,7 @@ function Sidebard(stat) {
                       }}
                       className="arrowforwardicon"
                   >
-                      <BsFillArrowRightCircleFill className="righticon" />
+                      <MenuOutlined className="righticon" />
                   </IconButton>
                   <IconButton
                       color="inherit"
@@ -144,7 +144,7 @@ function Sidebard(stat) {
                       }}
                       className="arrowbackicon"
                   >
-                      <BsFillArrowLeftCircleFill className="backicon" />
+                      <CloseCircleOutlined className="backicon" />
                   </IconButton>
 
                   {/* <Header /> */}
@@ -182,7 +182,6 @@ function Sidebard(stat) {
                   )}
                       {/* Dashboard and Health Providers section */}
                      
-
                   <Divider className="divhrline" />
                     <List>
                       {['Dashboard'].map((text, index) => (
@@ -191,7 +190,7 @@ function Sidebard(stat) {
                           })}>
                               <ListItemButton>
                                   <ListItemIcon>
-                                      {index % 2 === 0 ? <UserOutlined className="sidebaricon my-auto" /> : <UserOutlined className="sidebaricon my-auto" />}
+                                      {index % 2 === 0 ? <DashboardOutlined className="sidebaricon my-auto" /> : <DashboardOutlined className="sidebaricon my-auto" />}
                                   </ListItemIcon>
                                   <ListItemText primary={text} />
                               </ListItemButton>
