@@ -122,13 +122,13 @@ function Register() {
                                           <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
                                               <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding" >First Name </TableCell>
                                               {/* <TableCell className="tablehad">ID</TableCell> */}
-                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">
+                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
                                                   last Name </TableCell>
-                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">City</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club Name</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">National president </TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club secretry NO</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
+                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">National president </TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club secretry NO</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Status</TableCell>
                                           </TableRow>
 
                                       </TableHead>
@@ -148,18 +148,18 @@ function Register() {
                                                           <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
                                                               <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name}
                                                           </TableCell>
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
+                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                                               {itme.last_name}
                                                           </TableCell>
 
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter text-center"> {itme.city}</TableCell>
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_name}</TableCell>
+                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}</TableCell>
+                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
 
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
+                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                                               {itme.national_president}
                                                           </TableCell>
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_secretry_NO}</TableCell>
-                                                          <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-center">
+                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
+                                                          <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">
                                                               <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                                   <img
                                                                       className="cursor my-auto"
