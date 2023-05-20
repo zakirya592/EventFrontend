@@ -10,8 +10,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Swal from "sweetalert2";
 import eye from "../../img/eye.png";
 import deleteicon from "../../img/Delate.png"
+import { EyeFilled , EditFilled , DeleteFilled , CheckCircleFilled  } from '@ant-design/icons';
+
 // import "./Liststyle.css"
 import axios from 'axios'
 import { Avatar } from 'antd';
@@ -70,12 +73,12 @@ function Register() {
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
             .then((res) => {
-                setdataget(res.data.recordset);
-                // console.log(res.data);
+                // setdataget(res.data.recordset);
+                console.log(res.data);
                 setRows(res.data.recordset);
                 // setlength(res.data.recordset.length);
                 const dadad = res.data.recordset;
-                const dataga = dadad.filter((item) => item.status === 'Active'); // Filter the data based on the 'status' property
+                const dataga = dadad.filter((item) => item.status !== 'Active'); // Filter the data based on the 'status' property
                 setActiveData(dataga)
                 setlength(dataga.length);
             })
@@ -86,6 +89,25 @@ function Register() {
     useEffect(() => {
         apicall();
     }, []);
+
+    // Approve api section
+    const Approveapi = (memberID) => {
+        console.log(memberID);
+        axios.put(`http://gs1ksa.org:3015/api/tblApprovalUser/${memberID}`)
+            .then((res) => {
+                console.log(res);
+                apicall();
+                Swal.fire({
+                    title: "Success",
+                    text: "You have  Successfully Approva this User",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     function handleIconClick() {
         setShowInput(!showInput);
@@ -114,8 +136,8 @@ function Register() {
                       }}
                   >
                       <div className=" mt-5">
-                          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                              <TableContainer sx={{ maxHeight: 350 }}>
+                          <Paper sx={{ width: '100%', overflow: 'hidden', }}>
+                              <TableContainer sx={{ maxHeight: 400 }}>
                                   <Table stickyHeader aria-label="sticky table">
                                       <TableHead>
 
@@ -159,8 +181,23 @@ function Register() {
                                                               {itme.national_president}
                                                           </TableCell>
                                                           <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
-                                                          <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">
-                                                              <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
+                                                          <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
+                                                              {/* <!-- Example single danger button --> */}
+                                                              <div className="btn-group">
+                                                                  <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                      Action
+                                                                  </button>
+                                                                  <ul className="dropdown-menu">
+                                                                      <li><p className="dropdown-item forpointer"><EyeFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
+                                                                      <li><p className="dropdown-item forpointer"><EditFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Modify</span> </p></li>
+                                                                      <li><p className="dropdown-item forpointer"><DeleteFilled  className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder'>Remove</span> </p></li>
+                                                                      <li><p className="dropdown-item forpointer" onClick={
+                                                                          () =>
+                                                                              Approveapi(itme.memberID)
+                                                                      }><CheckCircleFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                                      </ul>
+                                                              </div>
+                                                              {/* <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                                   <img
                                                                       className="cursor my-auto"
                                                                       height="17px"
@@ -172,7 +209,7 @@ function Register() {
                                                                       }}
                                                                   />
                                                                   <img className="cursor" src={deleteicon} />
-                                                              </div>
+                                                              </div> */}
                                                           </TableCell>
                                                       </TableRow>
 

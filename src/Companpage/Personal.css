@@ -173,3 +173,6 @@
          border: 1px solid #000000;
          color: #223458;
       }
+      .forpointer{
+        cursor: pointer;
+      }

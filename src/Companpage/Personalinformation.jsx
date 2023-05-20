@@ -300,7 +300,7 @@ const geolocationset=()=>{
           <Modal.Title>Select Location</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
+          <LoadScriptNext googleMapsApiKey="AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU">
             <GoogleMap
               mapContainerStyle={{ height: "400px" }}
               options={mapOptions}
