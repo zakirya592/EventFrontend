@@ -9,7 +9,8 @@ import {
   GoogleMapsProvider, useGeocodingService,
   useGoogleMap, createGoogleMaps,
 } from "@ubilabs/google-maps-react-hooks";
-import { GoogleMap, LoadScriptNext, InfoWindow, Marker } from "@react-google-maps/api"
+import  Autocomplete from 'react-google-autocomplete';
+import { GoogleMap, LoadScriptNext, InfoWindow, Marker, StandaloneSearchBox } from "@react-google-maps/api"
 import { Modal, Button, Form } from "react-bootstrap";
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
@@ -74,6 +75,8 @@ function Personalinformation() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [error, setError] = useState(null);
+  const [searchBox, setSearchBox] = useState(null);
+
 const geolocationset=()=>{
   // Fetch geolocation when the component mounts
   if (navigator.geolocation) {
@@ -114,8 +117,11 @@ const geolocationset=()=>{
 
   const [showModal, setShowModal] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [addresses, setAddresses] = useState("");
+
   const handleShowModal = () => {
     setShowModal(true);
+    
   };
 
   const handleCloseModal = () => {
@@ -126,14 +132,48 @@ const geolocationset=()=>{
     const { latLng } = event;
     const latitude = latLng.lat();
     const longitude = latLng.lng();
-    setSelectedLocation({ latitude, longitude });
+    // Use the Geocoder service to get the address based on latitude and longitude
+    
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        const address = results[0].formatted_address;
+
+        setSelectedLocation({ latitude, longitude, address });
+      }
+     
+    });
+    // setSelectedLocation({ latitude, longitude, address });
   };
+
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // Handle form submission with selectedLocation data
     console.log(selectedLocation);
     setShowModal(false);
+  };
+
+  const [searchBoxauto, setSearchBoxauto] = useState();
+  const [center, setCenter] = useState({ lat: 43.68, lng: -79.43 });
+
+  const handleSearchBoxLoad = (ref) => {
+    setSearchBoxauto(ref);
+  };
+
+  const handlePlacesChanged = () => {
+    const places = searchBoxauto.getPlaces();
+    if (places && places.length > 0) {
+      const place = places[0];
+      const newCenter = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+        // lat: selectedLocation.place.geometry.location.lat(),
+        // lng: selectedLocation.place.geometry.location.lng(),
+        
+      };
+      setCenter(newCenter);
+    }
   };
   return (
     <>
@@ -179,8 +219,6 @@ const geolocationset=()=>{
                             </p>
                   </div>
                 </div>
-
-
 
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
@@ -278,17 +316,17 @@ const geolocationset=()=>{
               <button  className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
                 Pick your Location
               </button>
-              {/* <div className='border rounded border-secondary'>
-          <div onClick={geolocationset} className="fs-6 text-success loactiontak px-2 fw-bold">Click on this take your loaction auto</div>
-          {latitude && longitude ? (
+              <div className=''>
+          {selectedLocation && selectedLocation ? (
             <span className='d-flex px-2'>
-              <div className="fs-6 me-2 text-success">Latitude: {latitude}</div>
-              <div className="fs-6 mx-2 text-success">Longitude: {longitude}</div>
+              {/* <div className="fs-6 me-2 text-success">Latitude: {selectedLocation.latitude}</div>
+              <div className="fs-6 mx-2 text-success">Longitude: {selectedLocation.longitude}</div> */}
+              <div className="fs-6 mx-2 text-success">Address: {selectedLocation.address}</div>
             </span>
           ) : (
             <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
           )}
-              </div> */}
+              </div>
                       </div>
               </div>
 
@@ -300,20 +338,51 @@ const geolocationset=()=>{
           <Modal.Title>Select Location</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoadScriptNext googleMapsApiKey="AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU">
+          <LoadScriptNext googleMapsApiKey="AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU" >
             <GoogleMap
               mapContainerStyle={{ height: "400px" }}
               options={mapOptions}
               onClick={handleMapClicked}
+               zoom={1}
             >
+              <StandaloneSearchBox
+                onLoad={handleSearchBoxLoad}
+                onPlacesChanged={handlePlacesChanged}
+              >
+                <input
+                  type="text"
+                  placeholder="Search for a location"
+                  style={{
+                    boxSizing: "border-box",
+                    border: "1px solid transparent",
+                    width: "240px",
+                    height: "32px",
+                    padding: "0 12px",
+                    borderRadius: "3px",
+                    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+                    fontSize: "14px",
+                    outline: "none",
+                    textOverflow: "ellipses",
+                    position: "absolute",
+                    left: "50%",
+                    marginLeft: "-120px",
+                  }}
+                />
+              </StandaloneSearchBox>
+
               {selectedLocation && (
                 <Marker
                   position={{
                     lat: selectedLocation.latitude,
                     lng: selectedLocation.longitude,
                   }}
-                />
+                  address={selectedLocation.address}
+                >
+                  
+                </Marker>
               )}
+
+
             </GoogleMap>
           </LoadScriptNext>
           {selectedLocation && (
@@ -336,7 +405,7 @@ const geolocationset=()=>{
               <Form.Control
                 type="text"
                 value={selectedLocation ? selectedLocation.latitude : ""}
-                readOnly
+                // readOnly
               />
             </Form.Group>
             <Form.Group controlId="formLongitude">
@@ -344,9 +413,10 @@ const geolocationset=()=>{
               <Form.Control
                 type="text"
                 value={selectedLocation ? selectedLocation.longitude : ""}
-                readOnly
+                // readOnly
               />
             </Form.Group>
+            
             <Button variant="primary" type="submit">
               Save
             </Button>

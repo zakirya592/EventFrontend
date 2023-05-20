@@ -35,7 +35,7 @@ function Rountercom() {
           <Route exact path='/Helpdask' element={<Helpdask />} />
           <Route exact path='/EaglesClub' element={<EaglesClub />} />
           <Route exact path='/Register' element={<Register />} />
-          <Route exact path='/Userdetail' element={<Userdetail />} />
+          <Route exact path='/Userdetail/:_id' element={<Userdetail />} />
           
               </Routes>
           </BrowserRouter>

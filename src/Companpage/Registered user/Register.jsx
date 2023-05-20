@@ -18,11 +18,12 @@ import { EyeFilled , EditFilled , DeleteFilled , CheckCircleFilled  } from '@ant
 // import "./Liststyle.css"
 import axios from 'axios'
 import { Avatar } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 220
 
 function Register() {
-
+    const navigate =useNavigate()
     function createData(name, code, population, size) {
         const density = population / size;
         return { name, code, population, size, density };
@@ -188,7 +189,10 @@ function Register() {
                                                                       Action
                                                                   </button>
                                                                   <ul className="dropdown-menu">
-                                                                      <li><p className="dropdown-item forpointer"><EyeFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
+                                                                      <li><p className="dropdown-item forpointer" onClick={() => {
+                                                                          navigate(`/Userdetail/:id`);
+                                                                          sessionStorage.setItem("Userdetailid", itme.memberID);
+                                                                      }}><EyeFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
                                                                       <li><p className="dropdown-item forpointer"><EditFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Modify</span> </p></li>
                                                                       <li><p className="dropdown-item forpointer"><DeleteFilled  className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder'>Remove</span> </p></li>
                                                                       <li><p className="dropdown-item forpointer" onClick={
