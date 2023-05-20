@@ -86,7 +86,7 @@ function Helpdeskbodd() {
                             person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
                             person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
-                        ).map((itme, index) => {
+                          ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
                             return (
 
                                 <TableBody className="fortablebodypadding text-black fontfamilyInter">

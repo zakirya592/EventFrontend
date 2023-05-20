@@ -87,7 +87,7 @@ function Currenteventdashbord() {
                   ) */}
                          {/* <TableBody> */}
       {dataget && dataget.length > 0 ? (
-        dataget.map((itme,index) => {
+                      dataget.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme,index) => {
             return (
 
                                 <TableBody className="fortablebodypadding text-black fontfamilyInter">

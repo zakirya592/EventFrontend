@@ -13,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import Swal from "sweetalert2";
 import eye from "../../img/eye.png";
 import deleteicon from "../../img/Delate.png"
-import { EyeFilled , EditFilled , DeleteFilled , CheckCircleFilled  } from '@ant-design/icons';
+import { EyeFilled, EditFilled, DeleteFilled, CheckCircleFilled, FilterOutlined } from '@ant-design/icons';
 
 // import "./Liststyle.css"
 import axios from 'axios'
@@ -143,7 +143,7 @@ function Register() {
                                       <TableHead>
 
                                           <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
-                                              <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding" >First Name </TableCell>
+                                              <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding" > First Name  <FilterOutlined onClick={() => { setShowInput(!showInput) }} /></TableCell>
                                               {/* <TableCell className="tablehad">ID</TableCell> */}
                                               <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
                                                   last Name </TableCell>
@@ -155,13 +155,20 @@ function Register() {
                                           </TableRow>
 
                                       </TableHead>
+                                      {showInput &&
+                                          <input
+                                              type="text"
+                                              value={filter}
+                                              onChange={(e) => setFilter(e.target.value)}
+                                              className='w-50 rounded'
+                                          />}
 
                                       {
                                           activeData && activeData.filter((person) =>
                                               person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
                                               person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
-                                          ).map((itme, index) => {
+                                          ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
                                               return (
 
                                                   <TableBody className="fortablebodypadding text-black fontfamilyInter">
