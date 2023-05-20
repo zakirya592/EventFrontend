@@ -425,8 +425,8 @@ const geolocationset=()=>{
         </Modal.Body>
       </Modal>
       
-      {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
-      {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""}
+      {/* {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
+      {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""} */}
       {/* <p>{localStorage.getItem('latitude')}</p> */}
     </>
   )
