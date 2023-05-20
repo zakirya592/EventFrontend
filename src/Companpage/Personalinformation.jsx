@@ -12,6 +12,7 @@ import {
 import  Autocomplete from 'react-google-autocomplete';
 import { GoogleMap, LoadScriptNext, InfoWindow, Marker, StandaloneSearchBox } from "@react-google-maps/api"
 import { Modal, Button, Form } from "react-bootstrap";
+import Loaction from './Loaction';
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
     const navigate = useNavigate();
@@ -313,26 +314,25 @@ const geolocationset=()=>{
               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
               <p htmlFor="floatingSelectGridcity" className="form-label labeinput">My Location*</p>
-              <button  className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
+              <Loaction/>
+              {/* <button  className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
                 Pick your Location
               </button>
               <div className=''>
           {selectedLocation && selectedLocation ? (
             <span className='d-flex px-2'>
-              {/* <div className="fs-6 me-2 text-success">Latitude: {selectedLocation.latitude}</div>
-              <div className="fs-6 mx-2 text-success">Longitude: {selectedLocation.longitude}</div> */}
               <div className="fs-6 mx-2 text-success">Address: {selectedLocation.address}</div>
             </span>
           ) : (
             <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
           )}
-              </div>
+              </div> */}
                       </div>
               </div>
-
               </div>
         <button type="button" className="btn btnnext my-3 py-3 px-5" onClick={Detailnagation}>Next</button>
           </div>
+          
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Select Location</Modal.Title>
@@ -385,6 +385,7 @@ const geolocationset=()=>{
 
             </GoogleMap>
           </LoadScriptNext>
+          
           {selectedLocation && (
             <InfoWindow
               position={{
