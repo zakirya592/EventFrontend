@@ -69,7 +69,7 @@ function Tfoepedetails(props) {
         fromdata.append("password", sessionStorage.getItem("password"));
         fromdata.append("first_name", sessionStorage.getItem("item_key"));
         fromdata.append("last_name", sessionStorage.getItem("last_name"));
-        fromdata.append("street_address", sessionStorage.getItem("street_address"));
+        fromdata.append("street_address", sessionStorage.getItem("address"));
         fromdata.append("barangay", sessionStorage.getItem("barangay"));
         fromdata.append("province", sessionStorage.getItem("province"));
         fromdata.append("city", sessionStorage.getItem("city"));

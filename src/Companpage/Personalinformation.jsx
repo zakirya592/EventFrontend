@@ -205,7 +205,7 @@ function Personalinformation() {
                       <label htmlFor="addrass" className="form-label labeinput">Street Address*</label>
                  <div>
                 <Form.Control
-                  type="text" className="form-control inputsection py-3 bg-transparent" placeholder='Enter your Street Address '
+                  type="text" className="form-control inputsection py-3 bg-transparent" placeholder='Your Street Address '
                   value={selectedLocation ? selectedLocation.address : ""}
                 readOnly
                 disabled
