@@ -150,15 +150,11 @@ function Tfoepedetails(props) {
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
                           <label htmlFor="ClubRegion" className="form-label labeinput">Club Region*</label>
-                              <select className="form-select inputsection py-3" id="ClubRegion" aria-label="Floating label select example" required value={club_region}
+                              <input type="text" className="form-control inputsection py-3" id="ClubRegion" placeholder='Enter Club Region ' required value={club_region}
                                   onChange={(event) => {
                                       setclub_region(event.target.value)
-                                  }}>
-                              <option selected >Enter/Select Club Region</option>
-                              <option value={"Haripur"}>Haripur</option>
-                              <option value={"Bannu"}>Bannu</option>
-                              <option value={"Karak"}>Karak</option>
-                          </select></div>
+                                  }} />
+</div>
                   </div>
                   </div>
 
@@ -201,22 +197,22 @@ function Tfoepedetails(props) {
                                 <div className="py-3 ms-3">
 
                                   <div className="form-check radialabe">
-                                          <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="yes"
+                                          <input className="form-check-input" type="radio" name="flexRadioDefault" id="yessetpe_ID" value="yes"
                                               checked={pe_ID === 'yes'}
                                               onChange={(event) => {
                                                   setpe_ID(event.target.value);
                                               }} />
-                                          <label className="form-check-label radialabe my-auto ms-2" htmlFor="flexCheckDefault">
+                                          <label className="form-check-label radialabe my-auto ms-2" htmlFor="yessetpe_ID">
                                           YES, I  have my TFOE-PE ID
                                           </label>
                                   </div>
                                   <div className="form-check radialabe mt-2">
-                                          <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="no"
+                                          <input className="form-check-input" type="radio" name="flexRadioDefault" id="nosetpe_ID" value="no"
                                               checked={pe_ID === 'no'}
                                               onChange={(event) => {
                                                   setpe_ID(event.target.value);
                                               }} />
-                                          <label className="form-check-label radialabe my-auto ms-2" htmlFor="flexCheckChecked">
+                                          <label className="form-check-label radialabe my-auto ms-2" htmlFor="nosetpe_ID">
                                           NO, I don’t have my TFOE-PE ID yet
                                           </label>
                                   </div>

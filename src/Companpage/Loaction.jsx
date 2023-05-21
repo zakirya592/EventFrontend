@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import { GoogleMap, LoadScriptNext, LoadScript, Marker, StandaloneSearchBox } from "@react-google-maps/api"
 import { Modal, Button, Form } from "react-bootstrap";
 
@@ -10,6 +10,7 @@ function Loaction() {
     const [showModal, setShowModal] = useState(false);
     const [addresses, setAddresses] = useState("");
     const [error, setError] = useState(null);
+
     const handleShowModal = () => {
         setShowModal(true);
 
@@ -47,7 +48,13 @@ function Loaction() {
         setSearchBox(ref);
     };
 
+    const searchBoxRef = useRef(null);
+
     const handlePlacesChanged = () => {
+        const searchBox = searchBoxRef.current;
+        // const input = document.getElementById('search-input');
+        // const searchBox = new window.google.maps.places.SearchBox(input);
+        if (searchBox && searchBox.getPlaces) {
         const places = searchBox.getPlaces();
         if (places && places.length > 0) {
             const place = places[0];
@@ -57,7 +64,13 @@ function Loaction() {
             };
             setCenter(newCenter);
         }
+    }
+    else{
+        console.log("You can not get");
+    }
+        
     };
+    
     const [currentLocation, setCurrentLocation] = useState(null);
 
     useEffect(() => {
@@ -76,7 +89,6 @@ function Loaction() {
             console.log('Geolocation is not supported by this browser.');
         }
     }, []);
-
 
   return (
     <div>
@@ -98,9 +110,8 @@ function Loaction() {
                   <Modal.Title>Select Location</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                    <GoogleMap
+              <GoogleMap
               center={currentLocation}
-
               zoom={10}
               mapContainerStyle={{ height: "400px", width: "100%" }}
               onClick={handleMapClicked}
@@ -112,6 +123,7 @@ function Loaction() {
                   <input
                       type="text"
                       placeholder="Search for a location"
+                      id="search-input" 
                       style={{
                           boxSizing: "border-box",
                           border: "1px solid transparent",
@@ -128,7 +140,9 @@ function Loaction() {
                           marginLeft: "-120px",
                       }}
                   />
+                  
               </StandaloneSearchBox>
+              
               {currentLocation && <Marker position={currentLocation} />}
 
               {selectedLocation && (
@@ -172,8 +186,6 @@ function Loaction() {
           {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""}
 
 
-
-          
     </div>
   )
 }

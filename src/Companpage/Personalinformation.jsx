@@ -13,6 +13,7 @@ import  Autocomplete from 'react-google-autocomplete';
 import { GoogleMap, LoadScriptNext, InfoWindow, Marker, StandaloneSearchBox } from "@react-google-maps/api"
 import { Modal, Button, Form } from "react-bootstrap";
 import Loaction from './Loaction';
+import Mapss from './Mapss';
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
     const navigate = useNavigate();
@@ -314,7 +315,7 @@ const geolocationset=()=>{
               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
               <p htmlFor="floatingSelectGridcity" className="form-label labeinput">My Location*</p>
-              <Loaction/>
+              <Mapss/>
               {/* <button  className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
                 Pick your Location
               </button>
