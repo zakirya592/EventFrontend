@@ -1,19 +1,11 @@
 import React ,{useState,useEffect} from 'react';
 import "./Personal.css";
 import axios from 'axios'
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useNavigate, useParams } from "react-router-dom";
-import Item from 'antd/es/list/Item';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import {
-  GoogleMapsProvider, useGeocodingService,
-  useGoogleMap, createGoogleMaps,
-} from "@ubilabs/google-maps-react-hooks";
-import  Autocomplete from 'react-google-autocomplete';
-import { GoogleMap, LoadScriptNext, InfoWindow, Marker, StandaloneSearchBox } from "@react-google-maps/api"
-import { Modal, Button, Form } from "react-bootstrap";
-import Loaction from './Loaction';
 import Mapss from './Mapss';
+import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
+import { Modal, Button, Form } from "react-bootstrap";
 // import { ChatState } from '../CreateContext';
 function Personalinformation() {
     const navigate = useNavigate();
@@ -23,14 +15,6 @@ function Personalinformation() {
     const Detailnagation = () => {
         navigate("/Sendinquiry");
     }
-
-  const mapOptions = {
-    zoom: 12,
-    center: {
-      lat: 43.68,
-      lng: -79.43,
-    },
-  };
   const [passwordShown, setPasswordShown] = useState(false)
   const [first_name, setfirst_name] = useState()
   const [last_name, setlast_name] = useState('')
@@ -42,7 +26,6 @@ function Personalinformation() {
   const [password, setpassword] = useState('')
 
   const [DropDownProvince, setDropDownProvince] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('');
   
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
@@ -73,110 +56,82 @@ function Personalinformation() {
     Cityget();
   }, []);
 
-  const [inputValue, setInputValue] = useState('');
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [error, setError] = useState(null);
-  const [searchBox, setSearchBox] = useState(null);
 
-const geolocationset=()=>{
-  // Fetch geolocation when the component mounts
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-        console.log(position.coords.latitude);
-      },
-      (error) => {
-        setError(error.message);
-      }
-    );
-  } else {
-    setError('Geolocation is not supported by your browser.');
-  }
-}
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    geolocationset(e.target.value)
-  };
-  // Save the geolocation data to a database or API
-  useEffect(() => {
-    if (latitude && longitude) {
-      // Here, you can make an API request or perform any other data-saving operation
-      // to store the latitude and longitude values
-      saveGeolocationData(latitude, longitude);
-    }
-  }, [latitude, longitude]);
-
-  // Function to save geolocation data
-  const saveGeolocationData = (lat, lon) => {
-    // Implement your logic to save the data to a database or API
-    console.log('Saving geolocation data:', lat, lon);
-    // You can make an API request or use any state management system to save the data
-  };
-
-
+  // Design section 
   const [showModal, setShowModal] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [addresses, setAddresses] = useState("");
-
+  const [error, setError] = useState(null);
   const handleShowModal = () => {
     setShowModal(true);
-    
+
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-  const handleMapClicked = (event) => {
-    const { latLng } = event;
-    const latitude = latLng.lat();
-    const longitude = latLng.lng();
-    // Use the Geocoder service to get the address based on latitude and longitude
-    
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-      if (status === "OK" && results[0]) {
-        const address = results[0].formatted_address;
-
-        setSelectedLocation({ latitude, longitude, address });
-      }
-     
-    });
-    // setSelectedLocation({ latitude, longitude, address });
-  };
-
-
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // Handle form submission with selectedLocation data
     console.log(selectedLocation);
     setShowModal(false);
   };
-
-  const [searchBoxauto, setSearchBoxauto] = useState();
-  const [center, setCenter] = useState({ lat: 43.68, lng: -79.43 });
-
+  // Loaction section 
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [searchBox, setSearchBox] = useState(null);
   const handleSearchBoxLoad = (ref) => {
-    setSearchBoxauto(ref);
+    setSearchBox(ref);
   };
-
   const handlePlacesChanged = () => {
-    const places = searchBoxauto.getPlaces();
-    if (places && places.length > 0) {
-      const place = places[0];
-      const newCenter = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-        // lat: selectedLocation.place.geometry.location.lat(),
-        // lng: selectedLocation.place.geometry.location.lng(),
-        
-      };
-      setCenter(newCenter);
+    if (searchBox) {
+      const places = searchBox.getPlaces();
+      if (places && places.length > 0) {
+        const place = places[0];
+        const newLocation = {
+          latitude: place.geometry.location.lat(),
+          longitude: place.geometry.location.lng(),
+          address: place.formatted_address,
+        };
+        setSelectedLocation(newLocation);
+      }
     }
   };
+  // Current Loaction
+  const [currentLocation, setCurrentLocation] = useState(null);
+  useEffect(() => {
+    // Get the user's current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCurrentLocation({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.log('Error getting current location:', error);
+        }
+      );
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+  }, []);
+
+  const handleMapClicked = (event) => {
+    const { latLng } = event;
+    const latitude = latLng.lat();
+    const longitude = latLng.lng();
+    // Use the Geocoder service to get the address based on latitude and longitude
+
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        const address = results[0].formatted_address;
+
+        setSelectedLocation({ latitude, longitude, address });
+        console.log(address, latitude, longitude);
+        setCurrentLocation(null);
+      }
+
+    });
+  };  
+  
   return (
     <>
 <div className='Backgroundimgsection'>s</div>
@@ -249,11 +204,16 @@ const geolocationset=()=>{
                       <div className="mb-3">
                       <label htmlFor="addrass" className="form-label labeinput">Street Address*</label>
                  <div>
-                <textarea className="form-control inputsection" id="addrass" placeholder='Enter your Street Address ' value={street_address}
-                  onChange={(event) => {
-                    setstreet_address(event.target.value)
-                    sessionStorage.setItem("street_address", event.target.value);
-                  }} ></textarea>
+                <Form.Control
+                  type="text" className="form-control inputsection py-3 bg-transparent" placeholder='Enter your Street Address '
+                  value={selectedLocation ? selectedLocation.address : ""}
+                readOnly
+                disabled
+                />
+                {/* <p className="form-control inputsection py-4" id="addrass" placeholder='Enter your Street Address ' 
+                >
+                  {localStorage.getItem('address')}
+                  </p> */}
                     </div> 
                   </div>
                 </div>
@@ -315,99 +275,83 @@ const geolocationset=()=>{
               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
               <p htmlFor="floatingSelectGridcity" className="form-label labeinput">My Location*</p>
-              <Mapss/>
-              {/* <button  className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
+              <button className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
                 Pick your Location
               </button>
               <div className=''>
-          {selectedLocation && selectedLocation ? (
-            <span className='d-flex px-2'>
-              <div className="fs-6 mx-2 text-success">Address: {selectedLocation.address}</div>
-            </span>
-          ) : (
-            <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
-          )}
-              </div> */}
+                {selectedLocation && selectedLocation ? (
+                  <span className='d-flex px-2'>
+                    <div className="fs-6 mx-2 text-success">{localStorage.setItem('address', selectedLocation.address)}</div>
+                    <div className="fs-6 mx-2 text-success">longitude: {selectedLocation.longitude}</div>
+                    <div className="fs-6 mx-2 text-success">latitude: {selectedLocation.latitude}</div>
+                  </span>
+                ) : (
+                  <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
+                )}
+              </div>
                       </div>
               </div>
               </div>
         <button type="button" className="btn btnnext my-3 py-3 px-5" onClick={Detailnagation}>Next</button>
           </div>
           
+
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Select Location</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoadScriptNext googleMapsApiKey="AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU" >
-            <GoogleMap
-              mapContainerStyle={{ height: "400px" }}
-              options={mapOptions}
-              onClick={handleMapClicked}
-               zoom={1}
-            >
-              <StandaloneSearchBox
-                onLoad={handleSearchBoxLoad}
-                onPlacesChanged={handlePlacesChanged}
+
+          <GoogleMap
+            mapContainerStyle={{ height: '400px', width: '100%' }}
+            center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
+            zoom={10}
+            onClick={handleMapClicked}
+          >
+            <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+              <input
+                type="text"
+                placeholder="Search for a location"
+                style={{
+                  boxSizing: 'border-box',
+                  border: '1px solid transparent',
+                  width: '240px',
+                  height: '32px',
+                  padding: '0 12px',
+                  borderRadius: '3px',
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+                  fontSize: '14px',
+                  outline: 'none',
+                  textOverflow: 'ellipses',
+                  position: 'absolute',
+                  left: '50%',
+                  marginLeft: '-120px',
+                }}
+              />
+            </StandaloneSearchBox>
+
+            {currentLocation && <Marker position={currentLocation} />}
+
+            {selectedLocation && (
+              <Marker
+                position={{
+                  lat: selectedLocation.latitude,
+                  lng: selectedLocation.longitude,
+                }}
+                address={selectedLocation.address}
               >
-                <input
-                  type="text"
-                  placeholder="Search for a location"
-                  style={{
-                    boxSizing: "border-box",
-                    border: "1px solid transparent",
-                    width: "240px",
-                    height: "32px",
-                    padding: "0 12px",
-                    borderRadius: "3px",
-                    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
-                    fontSize: "14px",
-                    outline: "none",
-                    textOverflow: "ellipses",
-                    position: "absolute",
-                    left: "50%",
-                    marginLeft: "-120px",
-                  }}
-                />
-              </StandaloneSearchBox>
 
-              {selectedLocation && (
-                <Marker
-                  position={{
-                    lat: selectedLocation.latitude,
-                    lng: selectedLocation.longitude,
-                  }}
-                  address={selectedLocation.address}
-                >
-                  
-                </Marker>
-              )}
+              </Marker>
+            )}
+          </GoogleMap>
 
-
-            </GoogleMap>
-          </LoadScriptNext>
-          
-          {selectedLocation && (
-            <InfoWindow
-              position={{
-                lat: selectedLocation.latitude,
-                lng: selectedLocation.longitude,
-              }}
-            >
-              <div>
-                Latitude: {selectedLocation.latitude}
-                <br />
-                Longitude: {selectedLocation.longitude}
-              </div>
-            </InfoWindow>
-          )}
           <Form onSubmit={handleFormSubmit}>
             <Form.Group controlId="formLatitude">
               <Form.Label>Latitude</Form.Label>
               <Form.Control
                 type="text"
                 value={selectedLocation ? selectedLocation.latitude : ""}
-                // readOnly
+              // readOnly
               />
             </Form.Group>
             <Form.Group controlId="formLongitude">
@@ -415,20 +359,19 @@ const geolocationset=()=>{
               <Form.Control
                 type="text"
                 value={selectedLocation ? selectedLocation.longitude : ""}
-                // readOnly
+              // readOnly
               />
             </Form.Group>
-            
+
             <Button variant="primary" type="submit">
               Save
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
-      
-      {/* {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
-      {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""} */}
-      {/* <p>{localStorage.getItem('latitude')}</p> */}
+
+      {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
+      {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""}
     </>
   )
 }

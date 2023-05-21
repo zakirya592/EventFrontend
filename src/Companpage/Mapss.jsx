@@ -92,7 +92,9 @@ function Mapss() {
           <div className=''>
               {selectedLocation && selectedLocation ? (
                   <span className='d-flex px-2'>
-                      <div className="fs-6 mx-2 text-success">Address: {selectedLocation.address}</div>
+                      <div className="fs-6 mx-2 text-success">{localStorage.setItem('address', selectedLocation.address)}</div>
+                      <div className="fs-6 mx-2 text-success">longitude: {selectedLocation.longitude}</div>
+                      <div className="fs-6 mx-2 text-success">latitude: {selectedLocation.latitude}</div>
                   </span>
               ) : (
                   <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
