@@ -111,7 +111,7 @@ function Loaction() {
               </Modal.Header>
               <Modal.Body>
               <GoogleMap
-              center={currentLocation}
+              center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
               zoom={10}
               mapContainerStyle={{ height: "400px", width: "100%" }}
               onClick={handleMapClicked}
