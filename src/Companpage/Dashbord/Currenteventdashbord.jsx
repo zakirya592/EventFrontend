@@ -60,7 +60,7 @@ function Currenteventdashbord() {
     }
     const [row, setRows] = React.useState([])
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <Paper sx={{ width: '100%', overflow: 'hidden', height:'350px' }}>
       <TableContainer sx={{ maxHeight: 360 }}>
         <Table stickyHeader aria-label="sticky table">
                       <TableHead>

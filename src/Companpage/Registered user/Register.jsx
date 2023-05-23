@@ -138,7 +138,7 @@ function Register() {
                   >
                       <div className=" mt-5">
                           <Paper sx={{ width: '100%', overflow: 'hidden', }}>
-                              <TableContainer sx={{ maxHeight: 400 }}>
+                              <TableContainer sx={{ maxHeight: 500, height: '450px' } }>
                                   <Table stickyHeader aria-label="sticky table">
                                       <TableHead>
 
@@ -164,51 +164,52 @@ function Register() {
                                           />}
 
                                       {
-                                          activeData && activeData.filter((person) =>
-                                              person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
-                                              person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
+                                          activeData && activeData.length > 0 ?(
+                                              activeData && activeData.filter((person) =>
+                                                  person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
+                                                  person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
-                                          ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
-                                              return (
+                                              ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
+                                                  return (
 
-                                                  <TableBody className="fortablebodypadding text-black fontfamilyInter">
-                                                      {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
-                                                      <TableRow
-                                                          className="" key={index}>
-                                                          <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
-                                                              <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name}
-                                                          </TableCell>
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                              {itme.last_name}
-                                                          </TableCell>
+                                                      <TableBody className="fortablebodypadding text-black fontfamilyInter">
+                                                          {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
+                                                          <TableRow
+                                                              className="" key={index}>
+                                                              <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
+                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name}
+                                                              </TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                  {itme.last_name}
+                                                              </TableCell>
 
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}</TableCell>
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
 
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                              {itme.national_president}
-                                                          </TableCell>
-                                                          <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
-                                                          <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
-                                                              {/* <!-- Example single danger button --> */}
-                                                              <div className="btn-group">
-                                                                  <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                      Action
-                                                                  </button>
-                                                                  <ul className="dropdown-menu">
-                                                                      <li><p className="dropdown-item forpointer" onClick={() => {
-                                                                          navigate(`/Userdetail/:id`);
-                                                                          sessionStorage.setItem("Userdetailid", itme.memberID);
-                                                                      }}><EyeFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
-                                                                      <li><p className="dropdown-item forpointer"><EditFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Modify</span> </p></li>
-                                                                      <li><p className="dropdown-item forpointer"><DeleteFilled  className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder'>Remove</span> </p></li>
-                                                                      <li><p className="dropdown-item forpointer" onClick={
-                                                                          () =>
-                                                                              Approveapi(itme.memberID)
-                                                                      }><CheckCircleFilled  className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                  {itme.national_president}
+                                                              </TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
+                                                              <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
+                                                                  {/* <!-- Example single danger button --> */}
+                                                                  <div className="btn-group">
+                                                                      <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                          Action
+                                                                      </button>
+                                                                      <ul className="dropdown-menu">
+                                                                          <li><p className="dropdown-item forpointer" onClick={() => {
+                                                                              navigate(`/Userdetail/:id`);
+                                                                              sessionStorage.setItem("Userdetailid", itme.memberID);
+                                                                          }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
+                                                                          <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Modify</span> </p></li>
+                                                                          <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder'>Remove</span> </p></li>
+                                                                          <li><p className="dropdown-item forpointer" onClick={
+                                                                              () =>
+                                                                                  Approveapi(itme.memberID)
+                                                                          }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
                                                                       </ul>
-                                                              </div>
-                                                              {/* <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
+                                                                  </div>
+                                                                  {/* <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                                   <img
                                                                       className="cursor my-auto"
                                                                       height="17px"
@@ -221,14 +222,24 @@ function Register() {
                                                                   />
                                                                   <img className="cursor" src={deleteicon} />
                                                               </div> */}
-                                                          </TableCell>
-                                                      </TableRow>
+                                                              </TableCell>
+                                                          </TableRow>
 
-                                                      {/* ))} */}
-                                                  </TableBody>
+                                                          {/* ))} */}
+                                                      </TableBody>
 
-                                              );
-                                          })}
+                                                  );
+                                              })
+                                          ):(
+                                             <TableRow>
+          <TableCell >
+            No data available.
+          </TableCell>
+        </TableRow>
+                                          )
+                                         
+                                          
+                                          }
 
                                   </Table>
                               </TableContainer>

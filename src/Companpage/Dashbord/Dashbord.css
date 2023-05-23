@@ -26,3 +26,10 @@
 .backgroundcolor{
     height: 100%;
 }
+.css-xb04cy-MuiTableContainer-root {
+    width: 100%;
+    overflow-x: auto;
+    max-height: 414px;
+    height: 350px !important;
+    
+}
