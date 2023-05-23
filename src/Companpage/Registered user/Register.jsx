@@ -11,11 +11,8 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Swal from "sweetalert2";
-import eye from "../../img/eye.png";
-import deleteicon from "../../img/Delate.png"
 import { EyeFilled, EditFilled, DeleteFilled, CheckCircleFilled, FilterOutlined } from '@ant-design/icons';
 import moment from 'moment';
-
 // import "./Liststyle.css"
 import axios from 'axios'
 import { Avatar } from 'antd';
@@ -80,8 +77,7 @@ function Register() {
                 console.log(res.data);
                 setRows(res.data.recordset);
                 setlength(res.data.recordset.length);
-                const formattedDate = moment(res).format('M/D/Y')
-                console.log(formattedDate);
+                // const formattedDate = moment(res).format('M/D/Y')
                 const dadad = res.data.recordset;
                 const dataga = dadad.filter((item) => item.status !== 'Active'); // Filter the data based on the 'status' property
                 setActiveData(dataga)
@@ -118,6 +114,58 @@ function Register() {
         setShowInput(!showInput);
     }
     const [rowss, setRows] = React.useState([])
+
+    // Deleted api section
+    const Deletedapi = (memberID) => {
+        console.log(memberID);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success mx-2',
+                cancelButton: 'btn btn-danger mx-2',
+                // actions: 'mx-3'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://gs1ksa.org:3015/api/deleteMembersById/${memberID}`)
+                    .then((res) => {
+                        console.log(res);
+                        apicall();
+
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'User has been deleted.',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary User is safe :)',
+                    'error'
+                )
+            }
+        })
+        
+    };
+
+    
   return (
     <>
           <div className=''>
@@ -183,23 +231,24 @@ function Register() {
                                                           <TableRow
                                                               className="" key={index}>
                                                               <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
-                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name}
+                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name} {sessionStorage.setItem("first_name", itme.first_name)}
                                                               </TableCell>
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                                                   {itme.last_name}
+                                                                  {sessionStorage.setItem("last_name", itme.last_name)}
                                                               </TableCell>
 
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                                                   {itme.email}
                                                               </TableCell>
 
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}</TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}{sessionStorage.setItem("city", itme.city)}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name} {sessionStorage.setItem("club_name", itme.club_name)}</TableCell>
 
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                                  {itme.national_president}
+                                                                  {itme.national_president} {sessionStorage.setItem("national_president", itme.national_president)}
                                                               </TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}  {sessionStorage.setItem("club_secretry_NO", itme.club_secretry_NO)}</TableCell>
                                                               <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
                                                                   {/* <!-- Example single danger button --> */}
                                                                   <div className="btn-group">
@@ -211,8 +260,15 @@ function Register() {
                                                                               navigate(`/Userdetail/:id`);
                                                                               sessionStorage.setItem("Userdetailid", itme.memberID);
                                                                           }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
-                                                                          <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Modify</span> </p></li>
-                                                                          <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder'>Remove</span> </p></li>
+                                                                          <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
+                                                                              navigate(`/Register/Edit/:id`);
+                                                                              localStorage.setItem("updataregisteruser", itme.memberID);
+                                                                              // navigate("/Event/updata");
+                                                                          }}>Modify</span> </p></li>
+                                                                          <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
+                                                                              () =>
+                                                                                  Deletedapi(itme.memberID)
+                                                                          }>Remove</span> </p></li>
                                                                           <li><p className="dropdown-item forpointer" onClick={
                                                                               () =>
                                                                                   Approveapi(itme.memberID)

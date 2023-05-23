@@ -57,19 +57,19 @@ function Rigestermember() {
                 // console.log(res.data);
                 setRows(res.data.recordset);
                 const datesss = res.data.recordset
-                const dateString = { datesss }
+                // const dateString = { datesss }
                 // Format the date in "m/d/y" format
-                const formattedData = datesss.map(item => ({
-                    ...item,
-                    dates: new Date(item.date).toLocaleDateString('en-US', {
-                        month: 'numeric',
-                        day: 'numeric',
-                        year: 'numeric'
-                    })
-                }));
+                // const formattedData = dateString.map(item => ({
+                //     ...item,
+                //     dates: new Date(item.date).toLocaleDateString('en-US', {
+                //         month: 'numeric',
+                //         day: 'numeric',
+                //         year: 'numeric'
+                //     })
+                // }));
                 // Update the state with formatted data
-                setDatas(formattedData);
-                console.log(formattedData);
+                // setDatas(formattedData);
+                // console.log(formattedData);
                 
                 const dadad = res.data.recordset;
                 const dataga = dadad.filter((item) => item.status === 'Active'); // Filter the data based on the 'status' property
@@ -133,7 +133,7 @@ function Rigestermember() {
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
 
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                            {itme.date}
+                                            {itme.national_president}
                                         </TableCell>
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">

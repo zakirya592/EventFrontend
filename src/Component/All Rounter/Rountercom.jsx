@@ -14,6 +14,7 @@ import EaglesClub from '../../Companpage/Eagles Club/EaglesClub';
 import Register from '../../Companpage/Registered user/Register';
 import Userdetail from '../User Details/Userdetail';
 import Mapss from '../../Companpage/Mapss';
+import Edit from '../../Companpage/Registered user/Edit/Edit';
 
 function Rountercom() {
   function gat() {
@@ -36,6 +37,7 @@ function Rountercom() {
           <Route exact path='/Helpdask' element={<Helpdask />} />
           <Route exact path='/EaglesClub' element={<EaglesClub />} />
           <Route exact path='/Register' element={<Register />} />
+          <Route exact path='/Register/Edit/:id' element={<Edit />} />
           <Route exact path='/Userdetail/:_id' element={<Userdetail />} />
           
               </Routes>
