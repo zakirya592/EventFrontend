@@ -6,20 +6,27 @@ import Sidebard from '../../Component/Sidebard/Sidebard';
 import Card from 'react-bootstrap/Card';
 import { Avatar, Space } from 'antd';
 import { UserOutlined } from "@ant-design/icons"
+import moment from 'moment';
+
 const drawerWidth = 220
 
 function Userdetail() {
 
 
     const [dataget, setdataget] = useState();
-
-  
+    const [formattedDate, setFormattedDate] = useState();
 
     const fetchLocations = () => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersById/${sessionStorage.getItem("Userdetailid")}`)
             .then((res) => {
                 setdataget(res.data.recordset);
                 console.log(res.data);
+                const datesss = res.data.recordset
+                const dateString = { datesss }
+                const dateObject = moment(dateString).toDate();
+                const getdatasss = moment(dateObject).format("M/D/YYYY");
+                console.log(getdatasss);
+                setFormattedDate(getdatasss)
             })
             .catch((err) => {
                 console.log(err);
@@ -100,6 +107,10 @@ function Userdetail() {
                                         <div className="text-start d-flex justify-content-between">
                                             <h6 className="fw-bold headidet" >Club Secretary Contact Number</h6>
                                             <p className="prodel">{item.club_secretry_NO}</p>
+                                        </div>
+                                        <div className="text-start d-flex justify-content-between">
+                                            <h6 className="fw-bold headidet" >Data</h6>
+                                            <p className="prodel">{formattedDate}</p>
                                         </div>
                                         </div>
                                 </div>

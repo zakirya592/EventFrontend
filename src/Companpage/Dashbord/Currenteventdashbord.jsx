@@ -40,6 +40,7 @@ function Currenteventdashbord() {
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
     const [formattedDate, setFormattedDate] = useState();
+    const [datas, setDatas] = useState([]);
 
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getEventAll`)
@@ -50,10 +51,23 @@ function Currenteventdashbord() {
                 setlength(res.data.recordset.length);
                 const datesss = res.data.recordset
                 const dateString = { datesss }
-                const dateObject = moment(dateString).toDate();
-                const getdatasss = moment(dateObject).format("M/D/YYYY");
-                console.log(getdatasss);
-                setFormattedDate(getdatasss)
+                // const dateObject = moment(dateString).toDate();
+                // const getdatasss = moment(dateObject).format("M/D/YYYY");
+                // console.log(getdatasss);
+                // setFormattedDate(getdatasss)
+                // Format the date in "m/d/y" format
+                const formattedData = datesss.map(item => ({
+                    ...item,
+                    dates: new Date(item.date).toLocaleDateString('en-US', {
+                        month: 'numeric',
+                        day: 'numeric',
+                        year: 'numeric'
+                    })
+                }));
+
+                // Update the state with formatted data
+                setDatas(formattedData);
+                console.log(formattedData);
             })
             .catch((err) => {
                 console.log(err);
@@ -113,7 +127,7 @@ function Currenteventdashbord() {
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.location_area}</TableCell>
 
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                            {formattedDate}
+                                            {itme.datas}
                                         </TableCell>
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">
