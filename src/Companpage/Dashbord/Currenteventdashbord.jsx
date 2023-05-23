@@ -11,6 +11,7 @@ import eye from "../../img/eye.png";
 import deleteicon from "../../img/Delate.png"
 // import "./Liststyle.css"
 import axios from 'axios'
+import moment from 'moment';
 
 function Currenteventdashbord() {
   
@@ -38,6 +39,7 @@ function Currenteventdashbord() {
 
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
+    const [formattedDate, setFormattedDate] = useState();
 
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getEventAll`)
@@ -46,6 +48,12 @@ function Currenteventdashbord() {
                 console.log(res.data.recordset);
                 setRows(res.data.recordset);
                 setlength(res.data.recordset.length);
+                const datesss = res.data.recordset
+                const dateString = { datesss }
+                const dateObject = moment(dateString).toDate();
+                const getdatasss = moment(dateObject).format("M/D/YYYY");
+                console.log(getdatasss);
+                setFormattedDate(getdatasss)
             })
             .catch((err) => {
                 console.log(err);
@@ -105,7 +113,7 @@ function Currenteventdashbord() {
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.location_area}</TableCell>
 
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                            {itme.start_date}
+                                            {formattedDate}
                                         </TableCell>
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">

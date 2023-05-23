@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import eye from "../../img/eye.png";
 import deleteicon from "../../img/Delate.png"
 import { EyeFilled, EditFilled, DeleteFilled, CheckCircleFilled, FilterOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 // import "./Liststyle.css"
 import axios from 'axios'
@@ -70,6 +71,7 @@ function Register() {
 
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
+    const [data, setData] = useState([]);
     const [activeData, setActiveData] = useState();
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
@@ -78,6 +80,8 @@ function Register() {
                 console.log(res.data);
                 setRows(res.data.recordset);
                 // setlength(res.data.recordset.length);
+                const formattedDate = moment(res).format('M/D/Y')
+                console.log(formattedDate);
                 const dadad = res.data.recordset;
                 const dataga = dadad.filter((item) => item.status !== 'Active'); // Filter the data based on the 'status' property
                 setActiveData(dataga)
@@ -147,11 +151,13 @@ function Register() {
                                               {/* <TableCell className="tablehad">ID</TableCell> */}
                                               <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
                                                   last Name </TableCell>
+                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
+                                                  Email </TableCell>
                                               <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
                                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
                                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">National president </TableCell>
                                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club secretry NO</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Status</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
                                           </TableRow>
 
                                       </TableHead>
@@ -181,6 +187,10 @@ function Register() {
                                                               </TableCell>
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                                                   {itme.last_name}
+                                                              </TableCell>
+
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                  {itme.email}
                                                               </TableCell>
 
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}</TableCell>

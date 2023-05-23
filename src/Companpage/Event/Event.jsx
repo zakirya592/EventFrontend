@@ -177,7 +177,7 @@ function Event() {
                                         <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.location_area}  {localStorage.setItem("location_area", itme.location_area)}</TableCell>
 
                                         <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
-                                            {itme.start_date}
+                                            {formattedDate}
                                         </TableCell>
                                         <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.end_date}</TableCell>
                                         <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.status}</TableCell>
