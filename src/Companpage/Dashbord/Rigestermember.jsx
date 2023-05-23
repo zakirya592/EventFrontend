@@ -12,6 +12,7 @@ import deleteicon from "../../img/Delate.png"
 import { Avatar } from 'antd';
 // import "./Liststyle.css"
 import axios from 'axios'
+import moment from 'moment';
 
 function Rigestermember() {
 
@@ -47,13 +48,29 @@ function Rigestermember() {
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
     const [activeData, setActiveData] = useState();
+    const [formattedDate, setFormattedDate] = useState();
+    const [datas, setDatas] = useState([]);
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
             .then((res) => {
                 setdataget(res.data.recordset);
                 // console.log(res.data);
                 setRows(res.data.recordset);
-                // setlength(res.data.recordset.length);
+                const datesss = res.data.recordset
+                const dateString = { datesss }
+                // Format the date in "m/d/y" format
+                const formattedData = datesss.map(item => ({
+                    ...item,
+                    dates: new Date(item.date).toLocaleDateString('en-US', {
+                        month: 'numeric',
+                        day: 'numeric',
+                        year: 'numeric'
+                    })
+                }));
+                // Update the state with formatted data
+                setDatas(formattedData);
+                console.log(formattedData);
+                
                 const dadad = res.data.recordset;
                 const dataga = dadad.filter((item) => item.status === 'Active'); // Filter the data based on the 'status' property
                 setActiveData(dataga)
@@ -116,7 +133,7 @@ function Rigestermember() {
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
 
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                            {itme.national_president}
+                                            {itme.date}
                                         </TableCell>
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">

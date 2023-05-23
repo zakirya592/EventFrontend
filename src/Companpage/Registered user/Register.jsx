@@ -76,16 +76,16 @@ function Register() {
     const apicall = () => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
             .then((res) => {
-                // setdataget(res.data.recordset);
+                setdataget(res.data.recordset);
                 console.log(res.data);
                 setRows(res.data.recordset);
-                // setlength(res.data.recordset.length);
+                setlength(res.data.recordset.length);
                 const formattedDate = moment(res).format('M/D/Y')
                 console.log(formattedDate);
                 const dadad = res.data.recordset;
                 const dataga = dadad.filter((item) => item.status !== 'Active'); // Filter the data based on the 'status' property
                 setActiveData(dataga)
-                setlength(dataga.length);
+                // setlength(dataga.length);
             })
             .catch((err) => {
                 console.log(err);
@@ -170,8 +170,8 @@ function Register() {
                                           />}
 
                                       {
-                                          activeData && activeData.length > 0 ?(
-                                              activeData && activeData.filter((person) =>
+                                          dataget && dataget.length > 0 ?(
+                                              dataget && dataget.filter((person) =>
                                                   person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
                                                   person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
