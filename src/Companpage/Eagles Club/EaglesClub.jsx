@@ -4,7 +4,7 @@ import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Sidebard from '../../Component/Sidebard/Sidebard';
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Map, Marker, GoogleApiWrapper,  } from "google-maps-react";
 
 
 const style = {
@@ -79,13 +79,22 @@ function EaglesClub({ google }) {
 
                       <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }} zoom={12} containerStyle={containerStyle} >
                           {locationsapi && locationsapi.map((item, index) => (
+                   
+
                               <Marker
                                   key={index}
                                   position={{
                                       lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
                                       lng: parseFloat(item.longitude),
                                   }}
-                              //   name={location.name}
+                                  label={{
+                                    text:`${item.lattitiude.toString()} , ${item.longitude}`,
+                                      color:'orange',
+                                      className: 'marker-label d-flex', // Apply a CSS class for custom styling
+                                      fontSize: '16px', // Set the font size of the label
+                                      display: 'flex', // Apply flex display to the label
+                                  }} 
+                                // name={location.name}
                               />
                           ))}
                       </Map>
