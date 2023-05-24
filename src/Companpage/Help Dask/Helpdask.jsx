@@ -31,7 +31,25 @@ import moment from 'moment';
 const drawerWidth = 220
 
 function Helpdask() {
-    const navigate = useNavigate();
+
+    const navigate = useNavigate()
+    function createData(name, code, population, size) {
+        const density = population / size;
+        return { name, code, population, size, density };
+    }
+
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
     const [open, setOpen] = React.useState(false)
     const anchorRef = React.useRef(null)
 
@@ -39,22 +57,23 @@ function Helpdask() {
     const [dataget, setdataget] = useState();
     const [filter, setFilter] = useState("");
     const [filterlastname, setfilterlastname] = useState("");
-
+    const [length, setlength] = useState("");
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
-    const [formattedDate, setFormattedDate] = useState();
+    const [data, setData] = useState([]);
+    const [activeData, setActiveData] = useState();
     const apicall = () => {
-        axios.get(`http://gs1ksa.org:3015/api/getEventAll`)
+        axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
             .then((res) => {
                 setdataget(res.data.recordset);
                 console.log(res.data);
                 setRows(res.data.recordset);
-                const datesss = res.data.recordset
-                const dateString = { datesss }
-                const dateObject = moment(dateString).toDate();
-                const getdatasss = moment(dateObject).format("M/D/YYYY");
-                console.log(getdatasss);
-                setFormattedDate(getdatasss)
+                setlength(res.data.recordset.length);
+                // const formattedDate = moment(res).format('M/D/Y')
+                const dadad = res.data.recordset;
+                const dataga = dadad.filter((item) => item.status !== 'Active'); // Filter the data based on the 'status' property
+                setActiveData(dataga)
+                // setlength(dataga.length);
             })
             .catch((err) => {
                 console.log(err);
@@ -63,25 +82,8 @@ function Helpdask() {
     useEffect(() => {
         apicall();
     }, []);
+    const [rowss, setRows] = React.useState([])
 
-    // Deleted api section
-    const Deletedapi = (id) => {
-        console.log(id);
-        axios
-            .delete(`http://gs1ksa.org:3015/api/deleteEventById/${id}`)
-            .then((res) => {
-                console.log(res);
-                apicall();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
-    function handleIconClick() {
-        setShowInput(!showInput);
-    }
-    const [rows, setRows] = React.useState([])
   return (
      <div className=''>
             <Box sx={{ display: 'flex' }}>
@@ -106,116 +108,100 @@ function Helpdask() {
 
 
         <div className='mt-5 w-100 h-100 overflow-aut'>
-{/* <div className='d-flex  mt-4'>
-              <button
-                  className='loginbtn border-0 w-auto px-4 py-2 rounded text-white'
-                  type='submit'
-                  onClick={(()=>{
-                      navigate('/Event/Add')
-                  })}
-              >
-                 Create new Event
+          
 
-              </button>
-              </div> */}
-            <Paper className="w-100 h-100 overflow-auto mt-1">
-                <Table className="tablebg mt-4" id="data">
-                    {/* Header section */}
-                    <TableHead>
+          <Paper sx={{ width: '100%', overflow: 'hidden', }}>
+                              <TableContainer sx={{ maxHeight: 500, height: '450px' } }>
+                                  <Table stickyHeader aria-label="sticky table">
+                                      <TableHead>
 
-                        <TableRow classname='fontfamilyRoboto contracttableheader'>
-                            <TableCell numeric className="fontfamilyRoboto contracttableheader text-center" >Event Name  <FilterOutlined onClick={() => { setShowInput(!showInput) }} /></TableCell>
-                            {/* <TableCell className="tablehad">ID</TableCell> */}
-                            <TableCell className=" fontfamilyRoboto contracttableheader text-center">
-                                Event Description   </TableCell>
-                            <TableCell className=" fontfamilyRoboto contracttableheader text-center">Location</TableCell>
-                            <TableCell className="fontfamilyRoboto contracttableheader text-center">Location Area</TableCell>
-                            <TableCell className="fontfamilyRoboto contracttableheader text-center">Start Date </TableCell>
-                            <TableCell className="fontfamilyRoboto contracttableheader text-center">End Date</TableCell>
-                            <TableCell className="fontfamilyRoboto contracttableheader text-center">Status</TableCell>
-                             <TableCell className="fontfamilyRoboto contracttableheader text-center">Action</TableCell>
-                        </TableRow>
+                                          <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
+                                              <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding" > First Name  <FilterOutlined onClick={() => { setShowInput(!showInput) }} /></TableCell>
+                                              {/* <TableCell className="tablehad">ID</TableCell> */}
+                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
+                                                  last Name </TableCell>
+                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
+                                                  Email </TableCell>
+                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">National president </TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club secretry NO</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
+                                             </TableRow>
 
-                    </TableHead>
-                    {showInput &&
-                        <input
-                            type="text"
-                            value={filter}
-                            onChange={(e) => setFilter(e.target.value)}
-                            className='w-50 rounded'
-                        />}
+                                      </TableHead>
+                                      {showInput &&
+                                          <input
+                                              type="text"
+                                              value={filter}
+                                              onChange={(e) => setFilter(e.target.value)}
+                                              className='w-50 rounded'
+                                          />}
 
-                    {filterlastnameinput &&
-                        <input
-                            type="text"
-                            value={filterlastname}
-                            onChange={(e) => setfilterlastname(e.target.value)}
-                            className='w-50 rounded'
-                        />} 
+                                      {
+                                          dataget && dataget.length > 0 ?(
+                                              dataget && dataget.filter((person) =>
+                                                  person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
+                                                  person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
+                                              ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
+                                                  return (
 
-                    {
-                        dataget && dataget.filter((person) =>
-                            person.event_name.toLowerCase().includes(filter.toLowerCase())
-                        ).map((itme, index) => {
-                            return (
+                                                      <TableBody className="fortablebodypadding text-black fontfamilyInter">
+                                                          {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
+                                                          <TableRow
+                                                              className="" key={index}>
+                                                              <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
+                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name} {sessionStorage.setItem("first_name", itme.first_name)}
+                                                              </TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                  {itme.last_name}
+                                                                  {sessionStorage.setItem("last_name", itme.last_name)}
+                                                              </TableCell>
 
-                                <TableBody className="fortablebodycontract text-black fontfamilyInter">
-                                    {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
-                                    <TableRow
-                                        className="" key={index}>
-                                        <TableCell numeric className="fortablebodycontract text-blackcontract text-black fontfamilyInter text-center">
-                                            {itme.event_name}
-                                            {localStorage.setItem("eventnae", itme.event_name )}
-                                        </TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
-                                            {itme.event_description}
-                                            {localStorage.setItem("description", itme.event_description)}
-                                        </TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                  {itme.email}
+                                                              </TableCell>
 
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center"> {itme.location} {localStorage.setItem("location", itme.location)}</TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.location_area}  {localStorage.setItem("location_area", itme.location_area)}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}{sessionStorage.setItem("city", itme.city)}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name} {sessionStorage.setItem("club_name", itme.club_name)}</TableCell>
 
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">
-                                            {itme.start_date}
-                                        </TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.end_date}</TableCell>
-                                        <TableCell className="fortablebodycontract text-black fontfamilyInter text-center">{itme.status}</TableCell>
-                                        <TableCell numeric className="fortablebodycontract text-black fontfamilyInter text-center">
-                                            <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
-                                                <EditFilled className="cursor my-auto deletingimag text-white"
-                                                    height="17px" onClick={() => {
-                                                        navigate(`/Event/updata/:id`);
-                                                        sessionStorage.setItem("updata", itme.id);
-                                                        // navigate("/Event/updata");
-                                                    }}/>
-                                                {/* <img
-                                                    className="cursor my-auto deletingimag" 
-                                                    height="17px"
-                                                    src={eye}
-                                                    onClick={() => {
-                                                        // navigate(`/Event/updata/:_id/${itme.id}`);
-                                                          sessionStorage.setItem("updata", itme._id);
-                                                        navigate("/Event/updata");
-                                                    }}
-                                                /> */}
-                                                <img className="cursor deletingimag" src={deleteicon}  onClick = {
-                               () => 
-                                Deletedapi(itme.id)
-                             }/>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                  {itme.national_president} {sessionStorage.setItem("national_president", itme.national_president)}
+                                                              </TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}  {sessionStorage.setItem("club_secretry_NO", itme.club_secretry_NO)}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
+                                                             
+                                                          </TableRow>
 
-                                    {/* ))} */}
-                                </TableBody>
+                                                          {/* ))} */}
+                                                      </TableBody>
 
-                            );
-                        })}
+                                                  );
+                                              })
+                                          ):(
+                                             <div>
+          <p className='text-center w-100 nodata'  >
+            No data available.
+          </p>
+        </div>
+                                          )
+                                         
+                                          
+                                          }
 
-                </Table>
-            </Paper>
-
+                                  </Table>
+                              </TableContainer>
+                              <TablePagination
+                                  rowsPerPageOptions={[10, 25, 100]}
+                                  component="div"
+                                  count={length}
+                                  rowsPerPage={rowsPerPage}
+                                  page={page}
+                                  onPageChange={handleChangePage}
+                                  onRowsPerPageChange={handleChangeRowsPerPage}
+                              />
+                          </Paper>
 
         </div>
 

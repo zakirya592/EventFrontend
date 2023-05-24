@@ -133,7 +133,7 @@ function Eventupdata() {
                   type='submit'
                   onClick={Update}
               >
-                  Up Data
+                  Save
               </button>
               </div>
                
