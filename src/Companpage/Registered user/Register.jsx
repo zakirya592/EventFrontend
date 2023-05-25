@@ -108,6 +108,25 @@ function Register() {
             });
     };
 
+    // Approve api section
+    const InActive = (memberID) => {
+        console.log(memberID);
+        axios.put(`http://gs1ksa.org:3015/api/tblInActiveUser/${memberID}`)
+            .then((res) => {
+                console.log(res);
+                apicall();
+                Swal.fire({
+                    title: "Success",
+                    text: "You have  Successfully InActive this User",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     function handleIconClick() {
         setShowInput(!showInput);
     }
@@ -281,6 +300,18 @@ function Register() {
                                                                                           Approveapi(itme.memberID)
                                                                                   }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
                                                                   )}
+
+                                                                          {itme.status === 'Active' ? (
+                                                                              <li><p className="dropdown-item forpointer " onClick={
+                                                                                  () =>
+                                                                                      InActive(itme.memberID)
+                                                                              }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
+                                                                          ) : (
+                                                                              <li><p className="dropdown-item forpointer disabled" onClick={
+                                                                                  () =>
+                                                                                      InActive(itme.memberID)
+                                                                              }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
+                                                                          )}
                                                                               </ul>
                                                                           </div>
                                                                 
