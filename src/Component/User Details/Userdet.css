@@ -7,3 +7,7 @@
     font-size: 14px;
     font-family: auto;
 }
+.useraddrloaction{
+    cursor: pointer;
+    font-weight: bolder;
+}

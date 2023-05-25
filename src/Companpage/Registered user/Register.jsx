@@ -251,9 +251,9 @@ function Register() {
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
                                                               <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
                                                                   {/* <!-- Example single danger button --> */}
-                                                                  {itme.status === 'Active' ? (
+                                                                  {/* {itme.status === 'Active' ? ( */}
                                                                     <div className="btn-group">
-                                                                              <button type="button" disabled className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                              <button type="button"  className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                                                   Action
                                                                               </button>
                                                                               <ul className="dropdown-menu">
@@ -270,79 +270,24 @@ function Register() {
                                                                                       () =>
                                                                                           Deletedapi(itme.memberID)
                                                                                   }>Remove</span> </p></li>
+                                                                              {itme.status === 'Active' ? (
+                                                                              <li><p className="dropdown-item forpointer disabled" onClick={
+                                                                                      () =>
+                                                                                          Approveapi(itme.memberID)
+                                                                                  }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                                          ) : (
                                                                                   <li><p className="dropdown-item forpointer" onClick={
                                                                                       () =>
                                                                                           Approveapi(itme.memberID)
                                                                                   }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
-                                                                              </ul>
-                                                                          </div>
-                                                                  ) : (
-                                                                          <div className="btn-group">
-                                                                              <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                                  Action
-                                                                              </button>
-                                                                              <ul className="dropdown-menu">
-                                                                                  <li><p className="dropdown-item forpointer" onClick={() => {
-                                                                                      navigate(`/Userdetail/:id`);
-                                                                                      sessionStorage.setItem("Userdetailid", itme.memberID);
-                                                                                  }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
-                                                                                  <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
-                                                                                      navigate(`/Register/Edit/:id`);
-                                                                                      localStorage.setItem("updataregisteruser", itme.memberID);
-                                                                                      // navigate("/Event/updata");
-                                                                                  }}>Modify</span> </p></li>
-                                                                                  <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
-                                                                                      () =>
-                                                                                          Deletedapi(itme.memberID)
-                                                                                  }>Remove</span> </p></li>
-                                                                                  <li><p className="dropdown-item forpointer" onClick={
-                                                                                      () =>
-                                                                                          Approveapi(itme.memberID)
-                                                                                  }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
-                                                                              </ul>
-                                                                          </div>
                                                                   )}
-                                                                  {/* <div className="btn-group">
-                                                                      <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                          Action
-                                                                      </button>
-                                                                      <ul className="dropdown-menu">
-                                                                          <li><p className="dropdown-item forpointer" onClick={() => {
-                                                                              navigate(`/Userdetail/:id`);
-                                                                              sessionStorage.setItem("Userdetailid", itme.memberID);
-                                                                          }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
-                                                                          <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
-                                                                              navigate(`/Register/Edit/:id`);
-                                                                              localStorage.setItem("updataregisteruser", itme.memberID);
-                                                                              // navigate("/Event/updata");
-                                                                          }}>Modify</span> </p></li>
-                                                                          <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
-                                                                              () =>
-                                                                                  Deletedapi(itme.memberID)
-                                                                          }>Remove</span> </p></li>
-                                                                          <li><p className="dropdown-item forpointer" onClick={
-                                                                              () =>
-                                                                                  Approveapi(itme.memberID)
-                                                                          }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
-                                                                      </ul>
-                                                                  </div> */}
-                                                                  {/* <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
-                                                                  <img
-                                                                      className="cursor my-auto"
-                                                                      height="17px"
-                                                                      src={eye}
-                                                                      onClick={() => {
-                                                                          //   navigate(`/Hospitalview/${itme._id}`);
-                                                                          //   sessionStorage.setItem("detailshosta", itme._id);
-                                                                          // navigate("/Hospitalview");
-                                                                      }}
-                                                                  />
-                                                                  <img className="cursor" src={deleteicon} />
-                                                              </div> */}
+                                                                              </ul>
+                                                                          </div>
+                                                                
+                                                                
                                                               </TableCell>
                                                           </TableRow>
 
-                                                          {/* ))} */}
                                                       </TableBody>
 
                                                   );

@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import { Avatar, Space } from 'antd';
 import { UserOutlined } from "@ant-design/icons"
 import moment from 'moment';
-
+import "./Userdet.css"
 const drawerWidth = 220
 
 function Userdetail() {
@@ -36,6 +36,14 @@ function Userdetail() {
     useEffect(() => {
         fetchLocations();
     }, []);
+
+    const handleClick = () => {
+        // Generate the map URL using the address data
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${localStorage.getItem('loacation',) }`;
+
+        // Open the map URL in a new window or tab
+        window.open(mapUrl, '_blank');
+    };
   return (
       <div className=''>
           <Box sx={{ display: 'flex' }}>
@@ -111,6 +119,10 @@ function Userdetail() {
                                         <div className="text-start d-flex justify-content-between">
                                             <h6 className="fw-bold headidet" >Data</h6>
                                             <p className="prodel">{formattedDate}</p>
+                                        </div>
+                                        <div className="text-start d-flex justify-content-between">
+                                            <h6 className="fw-bold headidet" >Street Address</h6>
+                                            <u> <p className="prodel page-link useraddrloaction text-primary" onClick={handleClick}>{item.street_address}{localStorage.setItem('loacation', item.street_address)}</p></u>
                                         </div>
                                         </div>
                                 </div>
