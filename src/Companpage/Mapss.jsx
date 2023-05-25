@@ -1,26 +1,11 @@
 import React, { useState ,useEffect} from 'react';
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import { Modal, Button, Form } from "react-bootstrap";
-
+import axios from "axios";
 
 function Mapss() {
     // Design section 
     const [showModal, setShowModal] = useState(false);
-    const [error, setError] = useState(null);
-    const handleShowModal = () => {
-        setShowModal(true);
-
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission with selectedLocation data
-        console.log(selectedLocation);
-        setShowModal(false);
-    };
     // Loaction section 
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [searchBox, setSearchBox] = useState(null);
@@ -78,6 +63,24 @@ function Mapss() {
 
         });
     };  
+
+
+    const [locationsapi, setlocationsapi] = useState([]);
+
+    useEffect(() => {
+        fetchLocations();
+    }, []);
+
+    const fetchLocations = () => {
+        axios.get(`http://gs1ksa.org:3015/api/ListOFAllLocation`)
+            .then((res) => {
+                setlocationsapi(res.data.recordset);
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    };
   return (
 
     <div>
@@ -86,26 +89,6 @@ function Mapss() {
 
 
 
-          <button className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
-              Pick your Location
-          </button>
-          <div className=''>
-              {selectedLocation && selectedLocation ? (
-                  <span className='d-flex px-2'>
-                      <div className="fs-6 mx-2 text-success">{localStorage.setItem('address', selectedLocation.address)}</div>
-                      <div className="fs-6 mx-2 text-success">longitude: {selectedLocation.longitude}</div>
-                      <div className="fs-6 mx-2 text-success">latitude: {selectedLocation.latitude}</div>
-                  </span>
-              ) : (
-                  <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
-              )}
-          </div>
-
-          <Modal show={showModal} onHide={handleCloseModal} size="lg">
-              <Modal.Header closeButton>
-                  <Modal.Title>Select Location</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
 
                   <GoogleMap
                       mapContainerStyle={{ height: '400px', width: '100%' }}
@@ -137,46 +120,29 @@ function Mapss() {
 
                       {currentLocation && <Marker position={currentLocation} />}
 
-                      {selectedLocation && (
+                      {/* {selectedLocation && ( */}
+                  { locationsapi.map((item, index) => (
                           <Marker
                               position={{
-                                  lat: selectedLocation.latitude,
-                                  lng: selectedLocation.longitude,
+                              lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
+                              lng: parseFloat(item.longitude),
                               }}
-                              address={selectedLocation.address}
+                              address={item.address}
+                          label={{
+                              text: `${item.lattitiude.toString()} , ${item.longitude}`,
+                              color: 'orange',
+                              className: 'marker-label d-flex', // Apply a CSS class for custom styling
+                              fontSize: '16px', // Set the font size of the label
+                              display: 'flex', // Apply flex display to the label
+                          }} 
                           >
 
                           </Marker>
-                      )}
+                  ))}
+                      {/* )} */}
                   </GoogleMap>
 
-                  <Form onSubmit={handleFormSubmit}>
-                      <Form.Group controlId="formLatitude">
-                          <Form.Label>Latitude</Form.Label>
-                          <Form.Control
-                              type="text"
-                              value={selectedLocation ? selectedLocation.latitude : ""}
-                          // readOnly
-                          />
-                      </Form.Group>
-                      <Form.Group controlId="formLongitude">
-                          <Form.Label>Longitude</Form.Label>
-                          <Form.Control
-                              type="text"
-                              value={selectedLocation ? selectedLocation.longitude : ""}
-                          // readOnly
-                          />
-                      </Form.Group>
 
-                      <Button variant="primary" type="submit">
-                          Save
-                      </Button>
-                  </Form>
-              </Modal.Body>
-          </Modal>
-
-          {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
-          {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""}
     </div>
   )
 }

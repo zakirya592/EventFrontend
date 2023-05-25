@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, LoadScriptNext } from "@react-google-maps/api";
+// import { GoogleMap, LoadScriptNext } from "@react-google-maps/api";
 import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Sidebard from '../../Component/Sidebard/Sidebard';
-import { Map, Marker, GoogleApiWrapper,  } from "google-maps-react";
+import {  GoogleApiWrapper,  } from "google-maps-react";
+import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 
 
 const style = {
@@ -37,7 +38,66 @@ function EaglesClub({ google }) {
                 console.log(err);
             })
     };
+   
+
+    // Loaction section 
+    const [selectedLocation, setSelectedLocation] = useState(null);
+    const [searchBox, setSearchBox] = useState(null);
+    const handleSearchBoxLoad = (ref) => {
+        setSearchBox(ref);
+    };
+    const handlePlacesChanged = () => {
+        if (searchBox) {
+            const places = searchBox.getPlaces();
+            if (places && places.length > 0) {
+                const place = places[0];
+                const newLocation = {
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
+                    address: place.formatted_address,
+                };
+                setSelectedLocation(newLocation);
+            }
+        }
+    };
+    // Current Loaction
+    const [currentLocation, setCurrentLocation] = useState(null);
+    useEffect(() => {
+        // Get the user's current location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setCurrentLocation({ lat: latitude, lng: longitude });
+                },
+                (error) => {
+                    console.log('Error getting current location:', error);
+                }
+            );
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+        }
+    }, []);
     
+    const handleMapClicked = (event) => {
+        const { latLng } = event;
+        const latitude = latLng.lat();
+        const longitude = latLng.lng();
+        // Use the Geocoder service to get the address based on latitude and longitude
+
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+            if (status === "OK" && results[0]) {
+                const address = results[0].formatted_address;
+
+                setSelectedLocation({ latitude, longitude, address });
+                console.log(address, latitude, longitude);
+                setCurrentLocation(null);
+            }
+
+        });
+    }; 
+
   return (
      <div className=''>
             <Box sx={{ display: 'flex' }}>
@@ -59,28 +119,12 @@ function EaglesClub({ google }) {
                             width: { sm: `calc(100% - ${drawerWidth}px)` }
                         }}
                     >
-                        <div className="container mx-3 mt-5" style={{width:"97%"}}>
-                      {/* <LoadScriptNext googleMapsApiKey="AIzaSyDVCqqdXFDq8EjLgNI60Tge8lStQu4A6Sg">
-                          <Map google={google}  mapContainerStyle={containerStyle} center={center} zoom={2}>
-                              {locationsapi && locationsapi.map((items,ind) => {
-                                 return(
-                                    <div>
-                                 <Marker
-                                      key={ind}
-                                      position={{
-                                          lat: parseFloat(items.latitude), // Ensure latitude is parsed as a float
-                                          lng: parseFloat(items.longitude), // Ensure longitude is parsed as a float
-                                        }}
-                                  />
-                                       </div>
-                              )})}
-                          </Map>
-                      </LoadScriptNext> */}
-
-                      <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }} zoom={12} containerStyle={containerStyle} >
-                          {locationsapi && locationsapi.map((item, index) => (
+                        <div className="container mx-3 mt-5" style={{width:"100%"}}>
                    
 
+                      {/* <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }} zoom={12} containerStyle={containerStyle} >
+                          {locationsapi && locationsapi.map((item, index) => (
+                   
                               <Marker
                                   key={index}
                                   position={{
@@ -97,8 +141,59 @@ function EaglesClub({ google }) {
                                 // name={location.name}
                               />
                           ))}
-                      </Map>
+                      </Map> */}
 
+ <GoogleMap
+                      mapContainerStyle={{ height: '400px', width: '110%' ,}}
+                      center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
+                      zoom={10}
+                      onClick={handleMapClicked}
+                  >
+                      <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+                          <input
+                              type="text"
+                              placeholder="Search for a location"
+                              style={{
+                                  boxSizing: 'border-box',
+                                  border: '1px solid transparent',
+                                  width: '240px',
+                                  height: '32px',
+                                  padding: '0 12px',
+                                  borderRadius: '3px',
+                                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+                                  fontSize: '14px',
+                                  outline: 'none',
+                                  textOverflow: 'ellipses',
+                                  position: 'absolute',
+                                  left: '50%',
+                                  marginLeft: '-120px',
+                              }}
+                          />
+                      </StandaloneSearchBox>
+
+                      {currentLocation && <Marker position={currentLocation} />}
+
+                      {/* {selectedLocation && ( */}
+                  { locationsapi.map((item, index) => (
+                          <Marker
+                              position={{
+                              lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
+                              lng: parseFloat(item.longitude),
+                              }}
+                              address={item.address}
+                          label={{
+                              text: `${item.lattitiude.toString()} , ${item.longitude}`,
+                              color: 'orange',
+                              className: 'marker-label d-flex', // Apply a CSS class for custom styling
+                              fontSize: '16px', // Set the font size of the label
+                              display: 'flex', // Apply flex display to the label
+                          }} 
+                          >
+
+                          </Marker>
+                  ))}
+                      {/* )} */}
+                  </GoogleMap>
                         </div>
                        
                 </Box>
