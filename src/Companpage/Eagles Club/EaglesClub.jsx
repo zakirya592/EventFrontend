@@ -6,7 +6,8 @@ import Box from "@mui/material/Box";
 import Sidebard from '../../Component/Sidebard/Sidebard';
 import {  GoogleApiWrapper,  } from "google-maps-react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
-
+// import dotenv from "dotenv";
+// import env from "../../../.env"
 
 const style = {
     width: '95%',
@@ -47,9 +48,6 @@ function EaglesClub({ google }) {
         setSearchBox(ref);
     };
   
-    useEffect(() => {
-        handleSearchBoxLoad()
-    }, [])
     const handlePlacesChanged = () => {
         if (searchBox) {
             const places = searchBox.getPlaces();
@@ -67,6 +65,8 @@ function EaglesClub({ google }) {
     // Current Loaction
     const [currentLocation, setCurrentLocation] = useState(null);
     useEffect(() => {
+        const apiKey = process.env;
+        console.log(apiKey);
         // Get the user's current location
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -102,6 +102,8 @@ function EaglesClub({ google }) {
         });
     }; 
 
+ 
+
   return (
      <div className=''>
             <Box sx={{ display: 'flex' }}>
@@ -124,7 +126,7 @@ function EaglesClub({ google }) {
                         }}
                     >
                         <div className="container mx-3 mt-5" style={{width:"100%"}}>
-                   
+                    
 
                       {/* <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }} zoom={12} containerStyle={containerStyle} >
                           {locationsapi && locationsapi.map((item, index) => (
@@ -198,6 +200,7 @@ function EaglesClub({ google }) {
                   ))}
                       {/* )} */}
                   </GoogleMap>
+                      {/* <p>key {process.env.REACT_APP_MAP_KEY}</p> */}
                         </div>
                        
                 </Box>
