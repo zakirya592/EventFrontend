@@ -145,8 +145,10 @@ function EaglesClub({ google }) {
 
  <GoogleMap
                       mapContainerStyle={{ height: '400px', width: '110%' ,}}
-                      center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
-                      zoom={10}
+                    //   center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
+                          center={selectedLocation ? locationsapi : currentLocation}
+
+                    zoom={10}
                       onClick={handleMapClicked}
                   >
                       <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
@@ -203,6 +205,8 @@ function EaglesClub({ google }) {
   )
 }
 
-export default  GoogleApiWrapper({
-    apiKey: "AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU",
-})(EaglesClub)
+// export default  GoogleApiWrapper({
+//     apiKey: "AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU",
+// })(EaglesClub)
+
+export default EaglesClub
