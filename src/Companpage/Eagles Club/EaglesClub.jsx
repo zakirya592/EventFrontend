@@ -47,7 +47,9 @@ function EaglesClub({ google }) {
         setSearchBox(ref);
     };
   
-    
+    useEffect(() => {
+        handleSearchBoxLoad()
+    }, [])
     const handlePlacesChanged = () => {
         if (searchBox) {
             const places = searchBox.getPlaces();
@@ -148,9 +150,7 @@ function EaglesClub({ google }) {
  <GoogleMap
                       mapContainerStyle={{ height: '400px', width: '110%' ,}}
                       center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
-                        //   center={selectedLocation ? locationsapi : currentLocation}
-
-                    zoom={10}
+                   zoom={10}
                       onClick={handleMapClicked}
                   >
                       <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
