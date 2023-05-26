@@ -102,8 +102,6 @@ function EaglesClub({ google }) {
         });
     };
 
-
-
     return (
         <div className=''>
             <Box sx={{ display: 'flex' }}>
@@ -148,7 +146,6 @@ function EaglesClub({ google }) {
                               />
                           ))}
                       </Map> */}
-                        {/* <LoadScript googleMapsApiKey={process.env.REACT_APP_MAP_KEY}> */}
 
                         <GoogleMap
                             mapContainerStyle={{ height: '400px', width: '110%', }}
@@ -180,7 +177,7 @@ function EaglesClub({ google }) {
 
                             {currentLocation && <Marker position={currentLocation} />}
 
-                            {locationsapi.map((item, index) => (
+                            {/* {locationsapi.map((item, index) => (
                                 <Marker
                                     position={{
                                         lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
@@ -197,11 +194,21 @@ function EaglesClub({ google }) {
                                 >
 
                                 </Marker>
-                            ))}
+                            ))} */}
+                            
+                            {selectedLocation && (
+                                <Marker
+                                    position={{
+                                        lat: selectedLocation.latitude,
+                                        lng: selectedLocation.longitude,
+                                    }}
+                                    address={selectedLocation.address}
+                                >
 
+                                </Marker>
+                            )}
                         </GoogleMap>
 
-                        {/* </LoadScript> */}
                     </div>
 
                 </Box>
