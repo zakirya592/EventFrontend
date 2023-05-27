@@ -149,11 +149,11 @@ function EaglesClub({ google }) {
                         <GoogleMap
                             mapContainerStyle={{ height: '400px', width: '110%', }}
                             center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
-                            options={{ disableDefaultUI: true }}
+                            // options={{ disableDefaultUI: true }}
                             zoom={10}
                             onClick={handleMapClicked}
                         >
-                            <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+                            {/* <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
                                 <input
                                     type="text"
                                     placeholder="Search for a location"
@@ -173,7 +173,7 @@ function EaglesClub({ google }) {
                                         marginLeft: '-120px',
                                     }}
                                 />
-                            </StandaloneSearchBox>
+                            </StandaloneSearchBox> */}
 
                             {currentLocation && <Marker position={currentLocation} />}
 
