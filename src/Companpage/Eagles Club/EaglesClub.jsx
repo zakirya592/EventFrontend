@@ -150,7 +150,7 @@ function EaglesClub({ google }) {
                         <GoogleMap
                             mapContainerStyle={{ height: '400px', width: '110%', }}
                             center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
-
+                            onLoad={handleSearchBoxLoad}
                             zoom={10}
                             onClick={handleMapClicked}
                         >
