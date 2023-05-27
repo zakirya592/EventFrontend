@@ -81,39 +81,17 @@ function Mapss() {
             })
     };
 
-    // Define your API key if you haven't done so already
-    const API_KEY = 'AIzaSyAUI_hqf3GJQ7c80e0rK9aki1fT6kDVuiU';
-
-    // Configure the libraries and options for the map
-    const libraries = ['places'];
-    const mapOptions = {
-        disableDefaultUI: true, // Disable default controls
-    };
-
-    // Define the component
-    const MapComponent = () => {
-        const { isLoaded, loadError } = useLoadScript({
-            googleMapsApiKey: API_KEY,
-            libraries,
-        });
-
-        if (loadError) {
-            return <div>Error loading Google Maps</div>;
-        }
-
-        if (!isLoaded) {
-            return <div>Loading Google Maps...</div>;
-        }
-    }
+ 
   return (
 
     <div>
+         
                   <GoogleMap
                       mapContainerStyle={{ height: '400px', width: '100%' }}
                       center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
                       zoom={10}
                       onClick={handleMapClicked}
-                      options={mapOptions}
+                    //   options={mapOptions}
                   >
                       <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
                           <input
@@ -137,7 +115,7 @@ function Mapss() {
                           />
                       </StandaloneSearchBox>
 
-                      {currentLocation && <Marker position={currentLocation} />}
+                    <Marker position={currentLocation} />
 
                       {/* {selectedLocation && ( */}
                   { locationsapi.map((item, index) => (
