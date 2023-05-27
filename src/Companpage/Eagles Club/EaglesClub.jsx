@@ -88,7 +88,6 @@ function EaglesClub({ google }) {
         const latitude = latLng.lat();
         const longitude = latLng.lng();
         // Use the Geocoder service to get the address based on latitude and longitude
-
         const geocoder = new window.google.maps.Geocoder();
         geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
             if (status === "OK" && results[0]) {
@@ -150,10 +149,9 @@ function EaglesClub({ google }) {
                         <GoogleMap
                             mapContainerStyle={{ height: '400px', width: '110%', }}
                             center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
-                            onLoad={handleSearchBoxLoad}
+                            options={{ disableDefaultUI: true }}
                             zoom={10}
                             onClick={handleMapClicked}
-                            onPlacesChanged={handlePlacesChanged}
                         >
                             <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
                                 <input
