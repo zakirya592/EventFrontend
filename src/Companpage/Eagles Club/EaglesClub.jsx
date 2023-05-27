@@ -153,6 +153,7 @@ function EaglesClub({ google }) {
                             onLoad={handleSearchBoxLoad}
                             zoom={10}
                             onClick={handleMapClicked}
+                            onPlacesChanged={handlePlacesChanged}
                         >
                             <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
                                 <input
