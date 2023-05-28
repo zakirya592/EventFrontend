@@ -66,9 +66,6 @@ function Mapss() {
 
     const [locationsapi, setlocationsapi] = useState([]);
 
-    useEffect(() => {
-        fetchLocations();
-    }, []);
 
     const fetchLocations = () => {
         axios.get(`http://gs1ksa.org:3015/api/ListOFAllLocation`)
@@ -81,6 +78,9 @@ function Mapss() {
             })
     };
 
+    useEffect(() => {
+        fetchLocations();
+    }, []);
  
   return (
 
