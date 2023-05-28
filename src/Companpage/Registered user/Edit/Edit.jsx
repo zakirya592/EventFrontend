@@ -10,17 +10,17 @@ const drawerWidth = 220
 
 function Edit() {
     const navigate = useNavigate();
-    const [first_name, setfirst_name] = useState()
-    const [last_name, setlast_name] = useState()
+    const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
+    const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
     const [barangay, setbarangay] = useState()
-    const [province, setprovince] = useState()
-    const [city, setcity] = useState()
-    const [club_name, setclub_name] = useState()
-    const [club_region, setclub_region] = useState()
-    const [club_president, setclub_president] = useState('')
-    const [national_president, setnational_president] = useState('')
-    const [club_secretry_name, setclub_secretry_name] = useState(sessionStorage.getItem("club_secretry_name"))
-    const [club_secretry_NO, setclub_secretry_NO] = useState('')
+    const [province, setprovince] = useState(localStorage.getItem("userprovinceup"))
+    const [city, setcity] = useState(localStorage.getItem("usercityup"))
+    const [club_name, setclub_name] = useState(localStorage.getItem("userclubnameup"))
+    const [club_region, setclub_region] = useState(localStorage.getItem("userclubregionup"))
+    const [club_president, setclub_president] = useState(localStorage.getItem("userclubpresidentup"))
+    const [national_president, setnational_president] = useState(localStorage.getItem("usernationalpresidentup"))
+    const [club_secretry_name, setclub_secretry_name] = useState(sessionStorage.getItem("userclubsecretrynameup"))
+    const [club_secretry_NO, setclub_secretry_NO] = useState(sessionStorage.getItem("usernumberup"))
 
     const [DropDownCities, setDropDownCities] = useState([])
     const Cityget = () => {

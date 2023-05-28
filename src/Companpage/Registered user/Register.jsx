@@ -249,7 +249,8 @@ function Register() {
                                                           <TableRow
                                                               className="" key={index}>
                                                               <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
-                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name} {sessionStorage.setItem("first_name", itme.first_name)}
+                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name} 
+                                                                 
                                                               </TableCell>
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">
                                                                   {itme.last_name}
@@ -283,6 +284,16 @@ function Register() {
                                                                                   <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
                                                                                       navigate(`/Register/Edit/:id`);
                                                                                       localStorage.setItem("updataregisteruser", itme.memberID);
+                                                                                      localStorage.setItem('userregisternameup',itme.first_name)
+                                                                                       localStorage.setItem('userlastnameup',itme.last_name)
+                                                                                        localStorage.setItem('userclubnameup',itme.club_name)
+                                                                                         localStorage.setItem('userprovinceup',itme.province)
+                                                                                        localStorage.setItem('usercityup',itme.city)
+                                                                                         localStorage.setItem('userclubregionup',itme.club_region)
+                                                                                          localStorage.setItem('userclubpresidentup',itme.club_president)
+                                                                                        localStorage.setItem('usernationalpresidentup',itme.national_president)
+                                                                                         localStorage.setItem('userclubsecretrynameup',itme.club_secretry_name)
+                                                                                          localStorage.setItem('usernumberup',itme.club_secretry_NO)
                                                                                       // navigate("/Event/updata");
                                                                                   }}>Modify</span> </p></li>
                                                                                   <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
