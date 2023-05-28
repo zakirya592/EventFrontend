@@ -12,7 +12,7 @@ function Edit() {
     const navigate = useNavigate();
     const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
     const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
-    const [barangay, setbarangay] = useState()
+    const [barangay, setbarangay] = useState(localStorage.getItem("userbarangayup"))
     const [province, setprovince] = useState(localStorage.getItem("userprovinceup"))
     const [city, setcity] = useState(localStorage.getItem("usercityup"))
     const [club_name, setclub_name] = useState(localStorage.getItem("userclubnameup"))

@@ -294,6 +294,7 @@ function Register() {
                                                                                         localStorage.setItem('usernationalpresidentup',itme.national_president)
                                                                                          localStorage.setItem('userclubsecretrynameup',itme.club_secretry_name)
                                                                                           localStorage.setItem('usernumberup',itme.club_secretry_NO)
+                                                                                            localStorage.setItem('userbarangayup',itme.barangay)
                                                                                       // navigate("/Event/updata");
                                                                                   }}>Modify</span> </p></li>
                                                                                   <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
