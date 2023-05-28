@@ -147,6 +147,7 @@ function EaglesClub({ google }) {
                       </Map> */}
 
                         <GoogleMap
+                            google={window.google}
                             mapContainerStyle={{ height: '400px', width: '110%', }}
                             center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
                             // options={{ disableDefaultUI: true }}
@@ -178,7 +179,7 @@ function EaglesClub({ google }) {
                             </StandaloneSearchBox>
 
                             {currentLocation && <Marker position={currentLocation} />}
-                            
+
                             {locationsapi.map((item, index) => (
                                 <Marker
                                     position={{

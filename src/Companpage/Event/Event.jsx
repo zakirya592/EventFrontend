@@ -228,19 +228,19 @@ function Event () {
                       />
                     </TableCell>
                     {/* <TableCell className="tablehad">ID</TableCell> */}
-                    <TableCell className=' fontfamilyRoboto contracttableheader text-center'>
+                    <TableCell className=' fontfamilyRoboto contracttableheader text-start'>
                       Event Description{' '}
                     </TableCell>
-                    <TableCell className=' fontfamilyRoboto contracttableheader text-center'>
+                    <TableCell className=' fontfamilyRoboto contracttableheader text-start'>
                       Location
                     </TableCell>
-                    <TableCell className='fontfamilyRoboto contracttableheader text-center'>
+                    <TableCell className='fontfamilyRoboto contracttableheader text-start'>
                       Location Area
                     </TableCell>
-                    <TableCell className='fontfamilyRoboto contracttableheader text-center'>
+                    <TableCell className='fontfamilyRoboto contracttableheader text-start'>
                       Start Date{' '}
                     </TableCell>
-                    <TableCell className='fontfamilyRoboto contracttableheader text-center'>
+                    <TableCell className='fontfamilyRoboto contracttableheader text-start'>
                       End Date
                     </TableCell>
                     <TableCell className='fontfamilyRoboto contracttableheader text-center'>
@@ -282,7 +282,7 @@ function Event () {
                           <TableRow className='' key={index}>
                             <TableCell
                               numeric
-                              className='fortablebodycontract text-blackcontract text-black fontfamilyInter text-center'
+                              className='fortablebodycontract text-blackcontract text-black fontfamilyInter text-start'
                             >
                               {itme.event_name}
                               {localStorage.setItem(
@@ -290,7 +290,7 @@ function Event () {
                                 itme.event_name
                               )}
                             </TableCell>
-                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-center'>
+                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-start'>
                               {itme.event_description}
                               {localStorage.setItem(
                                 'description',
@@ -298,12 +298,12 @@ function Event () {
                               )}
                             </TableCell>
 
-                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-center'>
+                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-start'>
                               {' '}
                               {itme.location}{' '}
                               {localStorage.setItem('location', itme.location)}
                             </TableCell>
-                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-center'>
+                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-start'>
                               {itme.location_area}{' '}
                               {localStorage.setItem(
                                 'location_area',
@@ -311,10 +311,10 @@ function Event () {
                               )}
                             </TableCell>
 
-                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-center'>
+                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-start'>
                               {formattedDate}
                             </TableCell>
-                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-center'>
+                            <TableCell className='fortablebodycontract text-black fontfamilyInter text-start'>
                               {itme.end_date}
                             </TableCell>
                             <TableCell className='fortablebodycontract text-black fontfamilyInter text-center'>
