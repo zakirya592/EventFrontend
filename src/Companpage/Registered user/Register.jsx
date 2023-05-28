@@ -293,7 +293,7 @@ function Register() {
                                                                                           localStorage.setItem('userclubpresidentup',itme.club_president)
                                                                                         localStorage.setItem('usernationalpresidentup',itme.national_president)
                                                                                          localStorage.setItem('userclubsecretrynameup',itme.club_secretry_name)
-                                                                                          localStorage.setItem('usernumberup',itme.club_secretry_NO)
+                                                                                          localStorage.setItem('userphonenumberup',itme.club_secretry_NO)
                                                                                             localStorage.setItem('userbarangayup',itme.barangay)
                                                                                       // navigate("/Event/updata");
                                                                                   }}>Modify</span> </p></li>

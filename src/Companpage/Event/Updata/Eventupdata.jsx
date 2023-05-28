@@ -128,6 +128,9 @@ function Eventupdata() {
                   </div>
                 </div>
                 <div className='d-flex align-items-center justify-content-center mt-4'>
+              <button type="button" class="btn btn-outline-secondary px-4 py-2 mx-3 " onClick={() => {
+                navigate("/Event");
+              }}>Back</button>
               <button
                   className='loginbtn border-0 w-auto px-4 py-2 rounded text-white'
                   type='submit'

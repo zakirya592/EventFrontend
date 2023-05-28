@@ -153,7 +153,7 @@ function EaglesClub({ google }) {
                             zoom={10}
                             onClick={handleMapClicked}
                         >
-                            {currentLocation && <Marker position={currentLocation} />}
+                          
 
                             <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
                                 <input
@@ -177,7 +177,8 @@ function EaglesClub({ google }) {
                                 />
                             </StandaloneSearchBox>
 
-
+                            {currentLocation && <Marker position={currentLocation} />}
+                            
                             {locationsapi.map((item, index) => (
                                 <Marker
                                     position={{

@@ -19,8 +19,8 @@ function Edit() {
     const [club_region, setclub_region] = useState(localStorage.getItem("userclubregionup"))
     const [club_president, setclub_president] = useState(localStorage.getItem("userclubpresidentup"))
     const [national_president, setnational_president] = useState(localStorage.getItem("usernationalpresidentup"))
-    const [club_secretry_name, setclub_secretry_name] = useState(sessionStorage.getItem("userclubsecretrynameup"))
-    const [club_secretry_NO, setclub_secretry_NO] = useState(sessionStorage.getItem("usernumberup"))
+    const [club_secretry_name, setclub_secretry_name] = useState(localStorage.getItem("userclubsecretrynameup"))
+    const [club_secretry_NO, setclub_secretry_NO] = useState(localStorage.getItem("userphonenumberup"))
 
     const [DropDownCities, setDropDownCities] = useState([])
     const Cityget = () => {
@@ -51,6 +51,7 @@ function Edit() {
     };
     useEffect(() => {
         apicallprovince();
+        
     }, []);
     // Main fuction of the compount
     console.log(localStorage.getItem("updataregisteruser"));
@@ -263,6 +264,9 @@ function Edit() {
 
 
                 <div className='d-flex align-items-center justify-content-center mt-4'>
+                          <button type="button" class="btn btn-outline-secondary px-4 py-2 mx-3 " onClick={() => {
+                              navigate("/Register");
+                          }}>Back</button>
               <button
                   className='loginbtn border-0 w-auto px-4 py-2 rounded text-white'
                   type='submit'
