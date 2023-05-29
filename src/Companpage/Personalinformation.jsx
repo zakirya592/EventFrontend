@@ -31,7 +31,7 @@ function Personalinformation() {
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
             .then((res) => {
               setDropDownProvince(res.data.recordset);
-              // console.log(res.data);
+              console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
