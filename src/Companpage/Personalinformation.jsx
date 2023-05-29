@@ -27,7 +27,7 @@ function Personalinformation() {
 
   const [DropDownProvince, setDropDownProvince] = useState([]);
   
-    const apicall = () => {
+  const apicall = (province) => {
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownProvince`)
             .then((res) => {
               setDropDownProvince(res.data.recordset);
@@ -41,6 +41,31 @@ function Personalinformation() {
         apicall();
     }, []);
 
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+
+  // useEffect(() => {
+  //   // Filter cities based on the selected province
+  //   const filteredCities = DropDownCities.filter(city => city.province === DropDownProvince);
+  //   setDropDownCities(filteredCities);
+  // }, [DropDownProvince]);
+
+  const handleProvinceChange = (event)=>{
+    setprovince(event.target.value)
+    const selectedProvince = event.target.value;
+    sessionStorage.setItem("province", event.target.value);
+    setSelectedProvince(selectedProvince);
+
+    axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownCities?province=${selectedProvince}`)
+      .then((res) => {
+        setDropDownCities(res.data.recordset);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
    const [DropDownCities, setDropDownCities] = useState([])
   const Cityget = () => {
     axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownCities`)
@@ -53,7 +78,7 @@ function Personalinformation() {
       });
   };
   useEffect(() => {
-    Cityget();
+    // Cityget();
   }, []);
 
 
@@ -237,11 +262,8 @@ function Personalinformation() {
               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
                       <label htmlFor="floatingSelectGrid2" className="form-label labeinput">Province*</label>
-                      <select className="form-select inputsection py-3" id="floatingSelectGrid2" aria-label="Floating label select example" value={province}
-                                  onChange={(event) => {
-                                    setprovince(event.target.value)
-                                    sessionStorage.setItem("province", event.target.value);
-                                  }}>
+              <select className="form-select inputsection py-3" id="floatingSelectGrid2" aria-label="Floating label select example" value={selectedProvince}
+                                  onChange={handleProvinceChange }>
                           <option selected >Enter/Select Province</option>
                           {
                   DropDownProvince && DropDownProvince.map((itme,index)=>{
@@ -256,9 +278,10 @@ function Personalinformation() {
               <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                   <div className="mb-3">
                       <label htmlFor="floatingSelectGridcity" className="form-label labeinput">City*</label>
-                      <select className="form-select inputsection py-3" id="floatingSelectGridcity" aria-label="Floating label select example" value={city}
+              <select className="form-select inputsection py-3" id="floatingSelectGridcity" aria-label="Floating label select example" value={selectedCity}
                                   onChange={(event) => {
-                                    setcity(event.target.value)
+                                    // setcity(event.target.value)
+                                    setSelectedCity(event.target.value)
                                     sessionStorage.setItem("city", event.target.value);
                                   }}>
                           <option selected >Enter/Select City</option>
