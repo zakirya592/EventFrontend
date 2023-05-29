@@ -11,3 +11,12 @@
     cursor: pointer;
     font-weight: bolder;
 }
+.topcard{
+    -webkit-box-shadow: -1px 1px 5px 5px rgba(199, 195, 199, 0.81);
+    -moz-box-shadow: -1px 1px 5px 5px rgba(199, 195, 199, 0.81);
+    box-shadow: -1px 1px 5px 5px rgba(199, 195, 199, 0.81);
+}
+.leftside{
+    background-color: rgb(35, 35, 87);
+    color: white;
+}

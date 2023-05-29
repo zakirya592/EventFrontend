@@ -9,7 +9,6 @@ import { UserOutlined } from "@ant-design/icons"
 import moment from 'moment';
 import "./Userdet.css"
 const drawerWidth = 220
-
 function Userdetail() {
 
 
@@ -69,62 +68,68 @@ function Userdetail() {
                     {
                           dataget && dataget.map((item, index)=>{
                             return(
-                                <div className="card " key={index}>
-                                   <div>
-                                        <Avatar shape="square" className="card-img-top " src={item.selfieIDImage} size={300}  ><span className="text-center"> user Have no Image</span></Avatar>
+                                <div className="card topcard " key={index}>
+                                    <div className="w-100 row justify-content-between">
+                                        
+                                   <div className=" leftside col-4  ">
+                                        <Avatar className="card-img- mt-3 " src={item.selfieIDImage} size={200}  ><span className="text-center"> user Have no Image</span></Avatar>
                                         <h5 className="card-title fw-bold mt-2">{item.first_name} {item.first_name}</h5>
+                                          <div className="conatinere my-4">
+                                            <h6 className="fw-bolder headidet " >Phone Number :</h6>
+                                            <p className="prodel text-white">{item.club_secretry_NO}</p>
+                                          </div>
 
+                                           <div className="emailss my-4 ">
+                                            <h6 className="fw-bolder headidet" >Email :</h6>
+                                            <p className="prodel text-white">{item.email}</p>
+                                           </div>
                                    </div>
-                                    <div className="card-body container">
-                                        <div className="text-start d-flex justify-content-between">
-                                            <h6 className="fw-bold headidet" >Email</h6>
-                                            <p className="prodel">{item.email}</p>
-                                        </div>
-                                        <div className="text-start d-flex justify-content-between">
-                                            <h6 className="fw-bold headidet" >Phone Number</h6>
-                                            <p className="prodel">{item.club_secretry_NO}</p>
-                                        </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                   
+                                        <div className="card-body col-4 offset-md-1  mt-3 ">
+                                  
+                                            <div className=" d-flex justify-content-between">
                                             <h6 className="fw-bold headidet" >Street Address</h6>
                                             <p className="prodel">{item.street_address}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Barangay</h6>
                                             <p className="prodel">{item.barangay}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Province</h6>
                                             <p className="prodel">{item.province}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >City</h6>
                                             <p className="prodel">{item.city}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Club Name</h6>
                                             <p className="prodel">{item.club_name}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Club Region</h6>
                                             <p className="prodel">{item.club_region}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                            <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >National President</h6>
                                             <p className="prodel">{item.national_president}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Club Secretary Contact Number</h6>
                                             <p className="prodel">{item.club_secretry_NO}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Data</h6>
                                             <p className="prodel">{formattedDate}</p>
                                         </div>
-                                        <div className="text-start d-flex justify-content-between">
+                                        <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Street Address</h6>
                                             <u> <p className="prodel page-link useraddrloaction text-primary" onClick={handleClick}>{item.street_address}{localStorage.setItem('loacation', item.street_address)}</p></u>
                                         </div>
                                         </div>
+                                        <div className="col-2"></div>
+                                    </div>
                                 </div>
                             )
                           })
