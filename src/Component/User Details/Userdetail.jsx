@@ -115,10 +115,7 @@ function Userdetail() {
                                             <h6 className="fw-bold headidet" >National President</h6>
                                             <p className="prodel">{item.national_president}</p>
                                         </div>
-                                        <div className="justify-content-between d-flex ">
-                                            <h6 className="fw-bold headidet" >Club Secretary Contact Number</h6>
-                                            <p className="prodel">{item.club_secretry_NO}</p>
-                                        </div>
+                                        
                                         <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Data</h6>
                                             <p className="prodel">{formattedDate}</p>
