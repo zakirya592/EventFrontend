@@ -15,6 +15,13 @@ import Register from '../../Companpage/Registered user/Register';
 import Userdetail from '../User Details/Userdetail';
 import Mapss from '../../Companpage/Mapss';
 import Edit from '../../Companpage/Registered user/Edit/Edit';
+import NewTicket from '../../Companpage/Help Dask/NewTicket';
+import Forgetpassword from '../Login/Forgetpassword';
+import Changepassword from '../Login/Changepassword';
+import OTP from '../Login/OTP';
+import Helpdeskdetails from '../../Companpage/Help Dask/Helpdesk details/Helpdeskdetails';
+import Updatahelp from '../../Companpage/Help Dask/Updatahelp';
+import Addhelpdesk from '../../Companpage/Help Dask/Addhelpdesk';
 
 function Rountercom() {
   function gat() {
@@ -24,21 +31,34 @@ function Rountercom() {
     <>
           <BrowserRouter>
               <Routes>
-                  {/* ---------Home Section----------- */}
+                  {/* ---------Register Section----------- */}
           <Route exact path='/Personalinformation' element={<Personalinformation  />}  />
           <Route axact path='/Sendinquiry' element={<Tfoepedetails handleFunction={gat} />} />
+          {/* =================Login section=================== */}
           <Route exact path='/' element={<Login />} />
+          <Route exact path='/Forgetpassword' element={<Forgetpassword />} />
+          <Route exact path='/OTP' element={<OTP />} />
+          <Route exact path='/Changepassword' element={<Changepassword />} />
+          {/*==================== Dashbord section================= */}
           <Route exact path='/Dashbord' element={<Dashbord />} />
           <Route exact path='/List/members' element={<ListofALL />} />
-          <Route exact path='/Event/Add' element={<Createevent/>} />
+          {/* =============Event================ */}
           <Route exact path='/Event' element={<Event />} />
+          <Route exact path='/Event/Add' element={<Createevent/>} />
           <Route exact path='/Event/updata/:_id' element={<Eventupdata />} />
+          {/* ==============Eagles club ================== */}
           <Route exact path='/Loaction' element={<Mapss/>} />
-          <Route exact path='/Helpdask' element={<Helpdask />} />
           <Route exact path='/EaglesClub' element={<EaglesClub />} />
+          {/* ===================Register user============== */}
           <Route exact path='/Register' element={<Register />} />
           <Route exact path='/Register/Edit/:id' element={<Edit />} />
           <Route exact path='/Userdetail/:_id' element={<Userdetail />} />
+          {/* ===============Help Dask ======================= */}
+          <Route exact path='/Helpdask' element={<Helpdask />} />
+          <Route exact path='NewTicket' element={<NewTicket />} />
+          <Route exact path='/Helpdeskdetails/:_id' element={<Helpdeskdetails />} />
+          <Route exact path='/Helpdask/Updata/:_id' element={<Updatahelp />} />
+          <Route exact path='/Helpdask/Add' element={<Addhelpdesk />} />
           
               </Routes>
           </BrowserRouter>

@@ -220,9 +220,9 @@ function Register() {
                                                   Email </TableCell>
                                               <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
                                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">National president </TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club secretry NO</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Suffix </TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">club_region</TableCell>
+                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-start">Status</TableCell>
                                               <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Action</TableCell>
                                           </TableRow>
 
@@ -265,9 +265,9 @@ function Register() {
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name} {sessionStorage.setItem("club_name", itme.club_name)}</TableCell>
 
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                                  {itme.national_president} {sessionStorage.setItem("national_president", itme.national_president)}
+                                                                  {itme.Suffix} {sessionStorage.setItem("national_president", itme.national_president)}
                                                               </TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}  {sessionStorage.setItem("club_secretry_NO", itme.club_secretry_NO)}</TableCell>
+                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_region}  {sessionStorage.setItem("club_secretry_NO", itme.club_region)}</TableCell>
                                                               <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
                                                               <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
                                                                   {/* <!-- Example single danger button --> */}

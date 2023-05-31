@@ -103,8 +103,8 @@ function Rigestermember() {
                                   last Name </TableCell>
                               <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">National president </TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club secretry NO</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Suffix</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Region</TableCell>
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Status</TableCell>
                           </TableRow>
 
@@ -133,9 +133,9 @@ function Rigestermember() {
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name}</TableCell>
 
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                            {itme.national_president}
+                                            {itme.Suffix}
                                         </TableCell>
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_secretry_NO}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_region}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">
                                             <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                 <img

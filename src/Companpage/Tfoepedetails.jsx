@@ -39,6 +39,7 @@ function Tfoepedetails(props) {
   const [club_secretry_NO, setclub_secretry_NO] = useState('')
     const [governmentIDImage, setgovernmentIDImage] = useState('')
     const [selfieIDImage, setselfieIDImage] = useState('')
+    const [Suffix, setSuffix] = useState('')
 
     
 
@@ -72,6 +73,7 @@ function Tfoepedetails(props) {
         fromdata.append("street_address", sessionStorage.getItem("address"));
         fromdata.append("barangay", sessionStorage.getItem("barangay"));
         fromdata.append("province", sessionStorage.getItem("province"));
+        fromdata.append("Suffix", localStorage.getItem("Suffix"))
         fromdata.append("city", sessionStorage.getItem("city"));
         fromdata.append("club_name", club_name);
         fromdata.append("club_region", club_region);
@@ -144,9 +146,7 @@ function Tfoepedetails(props) {
                                   }} />
                   </div>
                 </div>
-                  </div>
-
-                  <div className="row  p-2 mx-auto">
+                
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
                           <label htmlFor="ClubRegion" className="form-label labeinput">Club Region*</label>
@@ -157,7 +157,6 @@ function Tfoepedetails(props) {
 </div>
                   </div>
                   </div>
-
                   <div className="row  p-2 mx-auto">
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
@@ -169,16 +168,6 @@ function Tfoepedetails(props) {
                       </div>
                   </div>
 
-                  <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
-                      <div className="mb-3">
-                              <label htmlFor="National" className="form-label labeinput">National President*</label>
-                              <input type="text" className="form-control py-3 inputsection" id="National" aria-describedby="emailHelp" placeholder='Enter your National President' value={national_president}
-                                  onChange={(event) => {
-                                      setnational_president(event.target.value)
-
-                                  }} />
-                      </div>
-                  </div>
 {/* Data */}
                   <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                       <div className="mb-3">
@@ -225,32 +214,7 @@ function Tfoepedetails(props) {
               </div>
 
               <div className="row p-2 mx-auto ">
-                  <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
-                      <div className="mb-3">
-                              <label htmlFor="ClubSecretary" className="form-label labeinput">Club Secretary Name*</label>
-                              <input type="text" className="form-control inputsection py-3" id="ClubSecretary" placeholder='Enter your Club Secretary Name'  value={club_secretry_name}
-                                  onChange={(event) => {
-                                      setclub_secretry_name(event.target.value)
-                                  }} />
-                      </div>
-                  </div>
-
-                  <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
-                      <div className="mb-3">
-                          <label htmlFor="exampleInputEmail1" className="form-label labeinput">Club Secretary Contact Number*</label>
-                              {/* <input type="tel" className="form-control inputsection" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='0000000000' /> */}
-                              <PhoneInput
-                                  className="w-100 py-3 rounded inputsection" 
-                                  placeholder="()0000000000"
-                                  country="US"
-                                  value={club_secretry_NO}
-                                  onChange={(event) => {
-                                      setclub_secretry_NO(event)
-                                  }} />
-                              
-                      </div>
-                  </div>
-
+                 
                       <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                           <div className="mb-3">
                               <label htmlFor="image" className="form-label labeinput">Government ID</label>

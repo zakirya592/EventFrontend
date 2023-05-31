@@ -34,3 +34,6 @@ code {
   background-color: #555;
   /* Set your preferred handle color on hover */
 }
+.pointername{
+  cursor: pointer;
+}

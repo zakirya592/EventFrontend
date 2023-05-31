@@ -87,8 +87,8 @@ const [status, setstatus] = useState("")
                                   last Name </TableCell>
                               <TableCell className=" fontfamilyRoboto contracttableheaderpadding text-center">City</TableCell>
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club Name</TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">National president </TableCell>
-                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club secretry NO</TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Suffix </TableCell>
+                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Club Region</TableCell>
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Status</TableCell>
                           </TableRow>
 
@@ -118,9 +118,9 @@ const [status, setstatus] = useState("")
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_name}</TableCell>
 
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">
-                                            {itme.national_president}
+                                            {itme.Suffix}
                                         </TableCell>
-                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_secretry_NO}</TableCell>
+                                        <TableCell className="fortablebodypadding text-black fontfamilyInter text-center">{itme.club_region}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-center">
                                             <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
                                                 <img

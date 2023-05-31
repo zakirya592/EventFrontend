@@ -1,0 +1,72 @@
+.headinglogin {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+}
+
+.forOTPpro {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    /* Grey/500 */
+
+    color: #94A0B4;
+}
+
+#optinput {
+    border: none;
+    border-bottom: 1px solid #7a9857;
+    width: 50%;
+    color: #7a9857 !important;
+    font-family: 'Inter', sans-serif;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    outline: none !important;
+}
+
+#optinput:focus {
+    border: none;
+    outline: none !important;
+    border-bottom: 1px solid #00629E;
+    width: 50%;
+    color: #00629E !important;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.receiveopt {
+    font-family: 'Inter', sans-serif !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.resand {
+    font-family: 'Inter', sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.forlogin_btn {
+    font-family: 'Cera Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    background: #7a9857;
+}

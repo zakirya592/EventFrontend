@@ -24,6 +24,7 @@ function Personalinformation() {
   const [city, setcity] = useState('')
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
+  const [Suffix, setSuffix] = useState('')
 
   const [DropDownProvince, setDropDownProvince] = useState([]);
 
@@ -191,6 +192,21 @@ function Personalinformation() {
             </div>
           </div>
 
+          <div className="col-12 mt-3">
+            <div className="mb-3">
+              <label htmlFor="Suffix" className="form-label labeinput">Suffix*</label>
+              <input type="text" className="form-control inputsection py-3" id="Suffix" aria-describedby="emailHelp" placeholder='Suffix' value={Suffix}
+                onChange={(event) => {
+                  setSuffix(event.target.value)
+                  localStorage.setItem("Suffix", event.target.value);
+                }}
+              />
+              <div>
+
+              </div>
+            </div>
+          </div>
+
           <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
             <div className="mb-3">
               <label htmlFor="FirstName" className="form-label labeinput">First Name*</label>
@@ -213,6 +229,7 @@ function Personalinformation() {
               />
             </div>
           </div>
+
 
           <div className="col-12 mt-3">
             <div className="mb-3">
