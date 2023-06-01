@@ -6,8 +6,8 @@ function Loaction() {
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [searchBox, setSearchBox] = useState(null);
 
-    useEffect(() => {
-        // Get the user's current location
+   
+     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
