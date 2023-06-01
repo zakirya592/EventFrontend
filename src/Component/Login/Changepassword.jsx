@@ -66,6 +66,7 @@ function Changepassword() {
     axios.post(
         `http://gs1ksa.org:3015/api/changePassword`,
         {
+            email : localStorage.getItem('emailforget'),
             password: password
         }
       )
@@ -108,7 +109,7 @@ function Changepassword() {
                                   {/* New Password section */}
                                   <div className='emailsection position-relative my-3 d-grid text-start'>
                                       <label htmlFor='NewPassword' className='lablesection my-1'>New Password</label>
-                                      <input type={passwordShown ? "text" : "password"} id='NewPassword' value={password}
+                                      <input type={passwordShown ? "text" : "password"} id='NewPassword'  value={password}
                                           // onChange={(e) => setpassword(e.target.value)}
                                           onChange={strengthpassword}
                                           className=' rounded my-2 w-100 emailinput p-2' placeholder='*********' required ></input>
