@@ -7,7 +7,7 @@ import axios from "axios";
 function Loaction() {
     
   
-    const [currentLocation, setCurrentLocation] = useState(null);
+    const [currentLocation, setCurrentLocation] = useState();
     useEffect(() => {
         // Get the user's current location
         if (navigator.geolocation) {
@@ -27,7 +27,8 @@ function Loaction() {
 
     const mapOptions = {
         zoom: 10,
-        center: { currentLocation }, // Set initial center to (0, 0)
+        center: currentLocation ? currentLocation : { lat: 0, lng: 0 },
+ // Set initial center to (0, 0)
     };
 
     const [locationsapi, setlocationsapi] = useState([]);

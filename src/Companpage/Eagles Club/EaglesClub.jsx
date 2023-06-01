@@ -96,7 +96,7 @@ function EaglesClub({ google }) {
 
                 setSelectedLocation({ latitude, longitude, address });
                 console.log(address, latitude, longitude);
-                setCurrentLocation(null);
+                setCurrentLocation();
             }
 
         });
