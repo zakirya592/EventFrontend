@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleMap, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 
-function Loaction() {
+function Location() {
     const [currentLocation, setCurrentLocation] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [searchBox, setSearchBox] = useState(null);
 
-   
-     useEffect(() => {
+    useEffect(() => {
+        // Get the user's current location
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -23,8 +23,8 @@ function Loaction() {
         }
     }, []);
 
-    const handleSearchBoxLoad = (ref) => {
-        setSearchBox(ref);
+    const handleMapLoaded = (map) => {
+        setSearchBox(new window.google.maps.places.SearchBox(map.getDiv()));
     };
 
     const handlePlacesChanged = () => {
@@ -33,8 +33,8 @@ function Loaction() {
             if (places && places.length > 0) {
                 const place = places[0];
                 const newLocation = {
-                    lat: place.geometry.location.lat(),
-                    lng: place.geometry.location.lng(),
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
                     address: place.formatted_address,
                 };
                 setSelectedLocation(newLocation);
@@ -47,14 +47,11 @@ function Loaction() {
         const latitude = latLng.lat();
         const longitude = latLng.lng();
 
-        // Use the Geocoder service to get the address based on latitude and longitude
         const geocoder = new window.google.maps.Geocoder();
         geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-            if (status === 'OK' && results[0]) {
+            if (status === "OK" && results[0]) {
                 const address = results[0].formatted_address;
-
-                setSelectedLocation({ lat: latitude, lng: longitude, address });
-                setCurrentLocation(null);
+                setSelectedLocation({ latitude, longitude, address });
             }
         });
     };
@@ -65,9 +62,10 @@ function Loaction() {
                 mapContainerStyle={{ width: '100%', height: '400px' }}
                 center={selectedLocation ? selectedLocation : currentLocation}
                 zoom={10}
+                onLoad={handleMapLoaded}
                 onClick={handleMapClicked}
             >
-                <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+                <StandaloneSearchBox onPlacesChanged={handlePlacesChanged}>
                     <input
                         type="text"
                         placeholder="Search for a location"
@@ -93,7 +91,7 @@ function Loaction() {
 
                 {selectedLocation && (
                     <Marker
-                        position={selectedLocation}
+                        position={{ lat: selectedLocation.latitude, lng: selectedLocation.longitude }}
                         address={selectedLocation.address}
                     />
                 )}
@@ -102,4 +100,4 @@ function Loaction() {
     );
 }
 
-export default Loaction;
+export default Location;
