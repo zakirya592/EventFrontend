@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleMap, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 
+const containerStyle = {
+    width: '100%',
+    height: '400px',
+};
+
 function Location() {
     const [currentLocation, setCurrentLocation] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -59,33 +64,35 @@ function Location() {
     return (
         <div>
             <GoogleMap
-                mapContainerStyle={{ width: '100%', height: '400px' }}
+                mapContainerStyle={containerStyle}
                 center={selectedLocation ? selectedLocation : currentLocation}
                 zoom={10}
                 onLoad={handleMapLoaded}
                 onClick={handleMapClicked}
             >
-                <StandaloneSearchBox onPlacesChanged={handlePlacesChanged}>
-                    <input
-                        type="text"
-                        placeholder="Search for a location"
-                        style={{
-                            boxSizing: 'border-box',
-                            border: '1px solid transparent',
-                            width: '240px',
-                            height: '32px',
-                            padding: '0 12px',
-                            borderRadius: '3px',
-                            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-                            fontSize: '14px',
-                            outline: 'none',
-                            textOverflow: 'ellipses',
-                            position: 'absolute',
-                            left: '50%',
-                            marginLeft: '-120px',
-                        }}
-                    />
-                </StandaloneSearchBox>
+                {searchBox && (
+                    <StandaloneSearchBox onLoad={() => console.log('searchbox loaded')} onPlacesChanged={handlePlacesChanged}>
+                        <input
+                            type="text"
+                            placeholder="Search for a location"
+                            style={{
+                                boxSizing: 'border-box',
+                                border: '1px solid transparent',
+                                width: '240px',
+                                height: '32px',
+                                padding: '0 12px',
+                                borderRadius: '3px',
+                                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+                                fontSize: '14px',
+                                outline: 'none',
+                                textOverflow: 'ellipses',
+                                position: 'absolute',
+                                left: '50%',
+                                marginLeft: '-120px',
+                            }}
+                        />
+                    </StandaloneSearchBox>
+                )}
 
                 {currentLocation && <Marker position={currentLocation} />}
 
