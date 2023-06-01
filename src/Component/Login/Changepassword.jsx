@@ -59,6 +59,35 @@ function Changepassword() {
         setlabshow(true);
     }
 
+
+      // Main fuction of the compount
+  const apicall = () => {
+    console.log(password)
+    axios.post(
+        `http://gs1ksa.org:3015/api/changePassword`,
+        {
+            password: password
+        }
+      )
+      .then(res => {
+        console.log(res)
+        setLoading(false)
+        if (res.status === 201) {
+          navigate('/')
+        } 
+      })
+      .catch(err => {
+        console.log(err)
+        setLoading(false)
+      })
+  }
+
+  function loginbutton (e) {
+    e.preventDefault()
+    setLoading(true)
+    apicall();
+
+  }
   return (
     <>
       <div className='main_div'>
@@ -75,7 +104,7 @@ function Changepassword() {
                     <center>
                         <h6 className='fw-bolder fs-3'>Change Password</h6>
                     </center>
-                              <form className="modal-content w-100  " >
+                              <form className="modal-content w-100  " onSubmit={loginbutton}>
                                   {/* New Password section */}
                                   <div className='emailsection position-relative my-3 d-grid text-start'>
                                       <label htmlFor='NewPassword' className='lablesection my-1'>New Password</label>
@@ -89,6 +118,7 @@ function Changepassword() {
                                       </p>
                                     
                                   </div>
+
                                   {/* password section */}
                                   <div className='emailsection position-relative my-3 d-grid'>
                                       <label htmlFor='ConfirmPassword' className='lablesection my-1 text-start'>Confirm Password</label>
@@ -101,23 +131,16 @@ function Changepassword() {
 
                                   {/* Button section */}
                                   <div className='w-100 mt-3 d-grid'>
-
                                       <button
                                           className='loginbtn w-100 border-0 py-2 rounded text-white'
                                           type='submit'
-                                          onClick={() => {
-                                              navigate("/");
-                                          }}
                                       >
-                                          Reset Password
+                                         Save
                                       </button>
                                   </div>
 
                               </form>
-                    
-
                     </div>
-
 }
                 </div>
             </div>

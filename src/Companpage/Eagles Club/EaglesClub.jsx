@@ -47,6 +47,8 @@ function EaglesClub({ google }) {
     const [searchBox, setSearchBox] = useState(null);
     const handleSearchBoxLoad = (ref) => {
         setSearchBox(ref);
+        // setSearchBox(new window.google.maps.places.SearchBox(map.getDiv()));
+
     };
 
     const handlePlacesChanged = () => {
@@ -93,10 +95,9 @@ function EaglesClub({ google }) {
         geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
             if (status === "OK" && results[0]) {
                 const address = results[0].formatted_address;
-
                 setSelectedLocation({ latitude, longitude, address });
                 console.log(address, latitude, longitude);
-                setCurrentLocation();
+                setCurrentLocation(null);
             }
 
         });
@@ -133,6 +134,7 @@ function EaglesClub({ google }) {
                             // options={{ disableDefaultUI: true }}
                             zoom={10}
                             onClick={handleMapClicked}
+                            onLoad={handleSearchBoxLoad}
                         >
                           
 
@@ -162,6 +164,7 @@ function EaglesClub({ google }) {
 
                             {locationsapi.map((item, index) => (
                                 <Marker
+                                key={index}
                                     position={{
                                         lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
                                         lng: parseFloat(item.longitude),

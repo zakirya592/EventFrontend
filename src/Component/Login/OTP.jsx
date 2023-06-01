@@ -15,32 +15,18 @@ function OTP() {
   // Main fuction of the compount
   const apicall = () => {
     console.log(email, code.join(""));
-    const otpCode = code.join('')
-    console.log(code)
-    axios.post(
-        // `https://gold-courageous-cocoon.cyclic.app/emailVrifyOtp/${localStorage.getItem("email")}/${otp.join("")}`,
-        `https://gold-courageous-cocoon.cyclic.app/admin/varifyPasswordOtp`, {
-          code: otpCode
+    const OTP_NO = code.join('')
+    console.log(OTP_NO)
+    axios.post( `http://gs1ksa.org:3015/api/varifyOtp`, {
+      OTP_NO: OTP_NO
         },
-        {
-          headers: {
-              autherization: `Bearer ${localStorage.getItem("Tokensss")}`
-          },
-        }
       )
       .then((res) => {
-        // console.log(resutl)
-        sessionStorage.setItem("access_key",res.headers.bearer)
         console.log(res);
         setLoading(false);
-        if (res.status === 201) {
-          // navigate("/");
+        if (res.status === 200) {
           navigate("/Changepassword");
-        } else {
-          throw new Error(
-            `This is an HTTP error : The status is ${res.status}`
-          );
-        }
+        } 
       })
       .catch((err) => {
         console.log(err);
@@ -52,7 +38,6 @@ function OTP() {
     e.preventDefault();
     setLoading(true);
     apicall();
-    console.log("Error is ");
   }
 
   // Resand timer section
@@ -85,7 +70,7 @@ const resendOTP = () => {
 };
 
 
-  const [code, setcode] = useState(new Array(6).fill(""));
+  const [code, setcode] = useState(new Array(4).fill(""));
   // const [code, setcode] = useState()
 
   const handleChange = (element, index) => {
@@ -108,8 +93,7 @@ const resendOTP = () => {
         <p className='forOTPpro'>We have sent you one time password to your email.</p>
         <div className="bg-center-form">
           <form className="modal-content w-100" 
-        //   onSubmit={loginbutton}
-          >
+            onSubmit={loginbutton}      >
             <div className="mt-5 d-flex justify-content-center">
               {
                 code.map((data, index) => {
@@ -131,9 +115,7 @@ const resendOTP = () => {
 
             <button
               className="forlogin_btn rounded border-0 py-2 text-white w-100 mt-5" type="submit"
-              onClick={() => {
-                navigate("/Changepassword");
-              }}
+             
             >
              Verify OTP
             </button>

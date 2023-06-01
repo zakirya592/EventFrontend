@@ -142,7 +142,7 @@ const apicall = () =>{
                         {error ? <lable className='text-danger text-start mb-2'>{error}</lable> : null}  
                         {/* Forgetpassword */}
                         <p
-                            className='Forgetpassword text-end cursor '
+                            className='Forgetpassword text-end cursor pointername'
                             onClick={() => {
                                 navigate('/Forgetpassword')
                             }}
@@ -162,9 +162,9 @@ const apicall = () =>{
                         </div>
                     </form>
                     <div className="registerbtn mt-3">
-                        <p className='registerbtn'>Don't have an account ? <span className='Registersingup' onClick={()=>{
+                                    <p className='registerbtn'>Don't have an account ? <span className='Registersingup pointername' onClick={()=>{
                             navigate("/Personalinformation");
-                        }}>Register</span></p>
+                        }}> Register</span></p>
                     </div>
 
                     </div>

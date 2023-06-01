@@ -37,25 +37,17 @@ function Forgetpassword() {
 
 
     const apicall = () => {
-        axios.post('http://gs1ksa.org:3015/api/UserLoginAuth', {
-            email: email,
-            password: password,
+        axios.post('http://gs1ksa.org:3015/api/passwordchangeotpSend', {
+            email: email
         },).then((res) => {
             setLoading(false);
-
-            localStorage.setItem("id", res.data.user[0].memberID)
-            localStorage.setItem("selfieIDImage", res.data.user[0].selfieIDImage)
-
             if (res.status === 200) {
-
-                navigate("Dashbord");
+                navigate("/OTP");
                 console.log(res);
             } else {
                 setError("Invalid Username or Password!");
             }
-
         }).catch((err) => {
-
             setLoading(false);
             setError("Invalid Username or Password!");
 
@@ -117,9 +109,6 @@ function Forgetpassword() {
                             <button
                                 className='loginbtn w-100 border-0 py-2 rounded text-white'
                                 type='submit'
-                                          onClick={() => {
-                                              navigate("/OTP");
-                                          }}
                             >
                                Reset Password
                             </button>
