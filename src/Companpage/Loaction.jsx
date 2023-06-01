@@ -34,7 +34,7 @@ function Loaction() {
 
   
     const [selectedLocation, setSelectedLocation] = useState();
-    const [searchBox, setSearchBox] = useState(null);
+    const [searchBox, setSearchBox] = useState(currentLocation);
     const handleSearchBoxLoad = (ref) => {
         setSearchBox(ref);
     };
