@@ -65,7 +65,7 @@ function Loaction() {
 >
                   {currentLocation && <Marker position={currentLocation} />}
                   
-                            <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+                            {/* <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
                                 <input
                                     type="text"
                                     placeholder="Search for a location"
@@ -85,7 +85,7 @@ function Loaction() {
                                         marginLeft: '-120px',
                                     }}
                                 />
-                            </StandaloneSearchBox>
+                            </StandaloneSearchBox> */}
                   {/* {locationsapi.map((item, index) => (
                       <Marker
                           position={{
