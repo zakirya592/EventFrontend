@@ -25,7 +25,7 @@ function Personalinformation() {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [Suffix, setSuffix] = useState('')
-
+  const [DropDownCities, setDropDownCities] = useState()
   const [DropDownProvince, setDropDownProvince] = useState([]);
 
   const apicall = () => {
@@ -44,29 +44,30 @@ function Personalinformation() {
 
 
   const [selectedProvince, setSelectedProvince] = useState('');
-  const [ProvinceID, setProvinceID] = useState('');
+  const [ProvinceID, setProvinceID] = useState();
 
   const handleProvinceChange = (event) => {
     // setprovince(event.target.value)
     sessionStorage.setItem("province", event.target.value);
     const ProvinceID = event.target.value;
-    setProvinceID(ProvinceID)
-    Cityget()
-    console.log(ProvinceID);
+    // setProvinceID(ProvinceID)
+    const ProvinceId = ProvinceID
+    
+  
+      axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities/${ProvinceID}`)
+        .then((res) => {
+          setDropDownCities(res.data.recordset);
+          console.log("city", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    
+
   }
 
-  const [DropDownCities, setDropDownCities] = useState([])
-  const Cityget = () => {
-    axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities/${ProvinceID}`)
-      .then((res) => {
-        setDropDownCities(res.data.recordset);
-        console.log("city", res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  
+  
   
 
 
@@ -275,7 +276,9 @@ function Personalinformation() {
                 {
                   DropDownProvince && DropDownProvince.map((itme, index) => {
                     return (
-                      <option key={itme.id} value={itme.provinceID}>{itme.provincename}{localStorage.setItem('provinceID', itme.id)}</option>
+                      <option key={itme.id} value={itme.provinceID} onChange={(()=>{
+                        { localStorage.setItem('provinceID', itme.provinceID) }
+                      })}>{itme.provincename}</option>
                     )
                   })
                 }
