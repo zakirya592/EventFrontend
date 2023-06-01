@@ -16,8 +16,10 @@ function OTP() {
   const apicall = () => {
     console.log(email, code.join(""));
     const OTP_NO = code.join('')
+    console.log(localStorage.getItem('emailforget'));
     console.log(OTP_NO)
     axios.post( `http://gs1ksa.org:3015/api/varifyOtp`, {
+      email: localStorage.getItem('emailforget'),
       OTP_NO: OTP_NO
         },
       )

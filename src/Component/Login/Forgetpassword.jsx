@@ -92,9 +92,7 @@ function Forgetpassword() {
                                 value={email}
                                 onChange={e => {
                                     setemail(e.target.value)
-                                    {
-                                      localStorage.setItem('emailhomme',e.target.value)
-                                    }
+                                      localStorage.setItem('emailforget',e.target.value)
                                 }}
                                 className='rounded emailinput py-2 ps-4'
                                 placeholder='example@gmail.com'
