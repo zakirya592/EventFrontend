@@ -125,8 +125,6 @@ function EaglesClub({ google }) {
                     }}
                 >
                     <div className="container mx-3 mt-5" style={{ width: "100%" }}>
-
-
                         <GoogleMap
                             google={window.google}
                             mapContainerStyle={{ height: '400px', width: '110%', }}
