@@ -105,7 +105,9 @@ function Changepassword() {
                                       <button
                                           className='loginbtn w-100 border-0 py-2 rounded text-white'
                                           type='submit'
-
+                                          onClick={() => {
+                                              navigate("/");
+                                          }}
                                       >
                                           Reset Password
                                       </button>
