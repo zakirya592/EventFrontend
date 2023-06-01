@@ -43,7 +43,7 @@ function EaglesClub({ google }) {
 
 
     // Loaction section 
-    const [selectedLocation, setSelectedLocation] = useState(null);
+    const [selectedLocation, setSelectedLocation] = useState();
     const [searchBox, setSearchBox] = useState(null);
     const handleSearchBoxLoad = (ref) => {
         setSearchBox(ref);
