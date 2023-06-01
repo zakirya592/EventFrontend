@@ -6,8 +6,35 @@ import axios from "axios";
 
 function Loaction() {
     
-  
-    const [currentLocation, setCurrentLocation] = useState();
+const [currentLocation, setCurrentLocation] = useState();
+    const [selectedLocation, setSelectedLocation] = useState();
+    const [searchBox, setSearchBox] = useState();
+
+    const mapOptions = {
+        zoom: 10,
+        center: currentLocation ? currentLocation : { lat: 0, lng: 0 },
+ // Set initial center to (0, 0)
+    };
+
+
+    const handleSearchBoxLoad = (ref) => {
+        setSearchBox(ref);
+    };
+    const handlePlacesChanged = () => {
+        if (searchBox) {
+            const places = searchBox.getPlaces();
+            if (places && places.length > 0) {
+                const place = places[0];
+                const newLocation = {
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
+                    address: place.formatted_address,
+                };
+                setSelectedLocation(newLocation);
+            }
+        }
+    };
+    // Current Loaction
     useEffect(() => {
         // Get the user's current location
         if (navigator.geolocation) {
@@ -25,86 +52,73 @@ function Loaction() {
         }
     }, []);
 
-    const mapOptions = {
-        zoom: 10,
-        center: currentLocation ? currentLocation : { lat: 0, lng: 0 },
- // Set initial center to (0, 0)
-    };
+    const handleMapClicked = (event) => {
+        const { latLng } = event;
+        const latitude = latLng.lat();
+        const longitude = latLng.lng();
+        // Use the Geocoder service to get the address based on latitude and longitude
 
-    const [locationsapi, setlocationsapi] = useState([]);
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+            if (status === "OK" && results[0]) {
+                const address = results[0].formatted_address;
+
+                setSelectedLocation({ latitude, longitude, address });
+                console.log(address, latitude, longitude);
+                setCurrentLocation(null);
+            }
+
+        });
+    };
 
   
-    const [selectedLocation, setSelectedLocation] = useState();
-    const [searchBox, setSearchBox] = useState(currentLocation);
-    const handleSearchBoxLoad = (ref) => {
-        setSearchBox(ref);
-    };
-
-    const handlePlacesChanged = () => {
-        if (searchBox) {
-            const places = searchBox.getPlaces();
-            if (places && places.length > 0) {
-                const place = places[0];
-                const newLocation = {
-                    latitude: place.geometry.location.lat(),
-                    longitude: place.geometry.location.lng(),
-                    address: place.formatted_address,
-                };
-                setSelectedLocation(newLocation);
-            }
-        }
-    };
   return (
     <div>
          
        
           <div className="App">
-              
-              <GoogleMap mapContainerStyle={{ width: '100%', height: '400px' }} options={mapOptions} 
-              center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
->
-                  {currentLocation && <Marker position={currentLocation} />}
-                  
-                            {/* <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
-                                <input
-                                    type="text"
-                                    placeholder="Search for a location"
-                                    style={{
-                                        boxSizing: 'border-box',
-                                        border: '1px solid transparent',
-                                        width: '240px',
-                                        height: '32px',
-                                        padding: '0 12px',
-                                        borderRadius: '3px',
-                                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-                                        fontSize: '14px',
-                                        outline: 'none',
-                                        textOverflow: 'ellipses',
-                                        position: 'absolute',
-                                        left: '50%',
-                                        marginLeft: '-120px',
-                                    }}
-                                />
-                            </StandaloneSearchBox> */}
-                  {/* {locationsapi.map((item, index) => (
-                      <Marker
-                          position={{
-                              lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
-                              lng: parseFloat(item.longitude),
-                          }}
-                          address={item.address}
-                          label={{
-                              text: `${item.lattitiude.toString()} , ${item.longitude}`,
-                              color: 'orange',
-                              className: 'marker-label d-flex', // Apply a CSS class for custom styling
-                              fontSize: '16px', // Set the font size of the label
-                              display: 'flex', // Apply flex display to the label
-                          }}
-                      >
+               <GoogleMap
+                  mapContainerStyle={{ width: '100%', height: '400px' }} 
+            center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
+            zoom={10}
+            onClick={handleMapClicked}
+          >
+            <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
+              <input
+                type="text"
+                placeholder="Search for a location"
+                style={{
+                  boxSizing: 'border-box',
+                  border: '1px solid transparent',
+                  width: '240px',
+                  height: '32px',
+                  padding: '0 12px',
+                  borderRadius: '3px',
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+                  fontSize: '14px',
+                  outline: 'none',
+                  textOverflow: 'ellipses',
+                  position: 'absolute',
+                  left: '50%',
+                  marginLeft: '-120px',
+                }}
+              />
+            </StandaloneSearchBox>
 
-                      </Marker>
-                  ))} */}
-              </GoogleMap>
+            {currentLocation && <Marker position={currentLocation} />}
+
+            {selectedLocation && (
+              <Marker
+                position={{
+                  lat: selectedLocation.latitude,
+                  lng: selectedLocation.longitude,
+                }}
+                address={selectedLocation.address}
+              >
+
+              </Marker>
+            )}
+          </GoogleMap>
           </div>
 
     </div>
