@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Sidebard from '../../Component/Sidebard/Sidebard';
 import { GoogleApiWrapper, } from "google-maps-react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
+
 // import dotenv from "dotenv";
 // import env from "../../../.env"
 
@@ -124,27 +125,6 @@ function EaglesClub({ google }) {
                 >
                     <div className="container mx-3 mt-5" style={{ width: "100%" }}>
 
-
-                        {/* <Map google={google} initialCenter={{ lat: 43.68, lng: -79.43 }} zoom={12} containerStyle={containerStyle} >
-                          {locationsapi && locationsapi.map((item, index) => (
-                   
-                              <Marker
-                                  key={index}
-                                  position={{
-                                      lat: parseFloat(item.lattitiude), // Ensure latitude is parsed as a float
-                                      lng: parseFloat(item.longitude),
-                                  }}
-                                  label={{
-                                    text:`${item.lattitiude.toString()} , ${item.longitude}`,
-                                      color:'orange',
-                                      className: 'marker-label d-flex', // Apply a CSS class for custom styling
-                                      fontSize: '16px', // Set the font size of the label
-                                      display: 'flex', // Apply flex display to the label
-                                  }} 
-                                // name={location.name}
-                              />
-                          ))}
-                      </Map> */}
 
                         <GoogleMap
                             google={window.google}

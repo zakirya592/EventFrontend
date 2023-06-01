@@ -52,8 +52,8 @@ function Personalinformation() {
     const ProvinceID = event.target.value;
     // setProvinceID(ProvinceID)
     const ProvinceId = ProvinceID
+    console.log(ProvinceId);
     
-  
       axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities/${ProvinceID}`)
         .then((res) => {
           setDropDownCities(res.data.recordset);
@@ -62,7 +62,6 @@ function Personalinformation() {
         .catch((err) => {
           console.log(err);
         });
-    
 
   }
 
