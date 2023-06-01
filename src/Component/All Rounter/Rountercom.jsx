@@ -47,7 +47,7 @@ function Rountercom() {
           <Route exact path='/Event/Add' element={<Createevent/>} />
           <Route exact path='/Event/updata/:_id' element={<Eventupdata />} />
           {/* ==============Eagles club ================== */}
-          <Route exact path='/Loaction' element={<Mapss/>} />
+          <Route exact path='/Loaction' element={<Loaction />} />
           <Route exact path='/EaglesClub' element={<EaglesClub />} />
           {/* ===================Register user============== */}
           <Route exact path='/Register' element={<Register />} />

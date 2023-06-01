@@ -1,98 +1,130 @@
 import React,{useState,useEffect,useRef} from "react";
 import { GoogleMap, LoadScriptNext, LoadScript, Marker, StandaloneSearchBox } from "@react-google-maps/api"
 import { Modal, Button, Form } from "react-bootstrap";
+// import { GoogleMap, Marker } from 'react-google-maps';
 
 function Loaction() {
     
-    const [searchBox, setSearchBox] = useState();
-    const [center, setCenter] = useState({ lat: 43.68, lng: -79.43 });
-    const [selectedLocation, setSelectedLocation] = useState();
-    const [showModal, setShowModal] = useState(false);
-    const [addresses, setAddresses] = useState("");
-    const [error, setError] = useState(null);
+    // const [searchBox, setSearchBox] = useState();
+    // const [center, setCenter] = useState({ lat: 43.68, lng: -79.43 });
+    // const [selectedLocation, setSelectedLocation] = useState();
+    // const [showModal, setShowModal] = useState(false);
+    // const [addresses, setAddresses] = useState("");
+    // const [error, setError] = useState(null);
 
-    const handleShowModal = () => {
-        setShowModal(true);
+    // const handleShowModal = () => {
+    //     setShowModal(true);
 
-    };
+    // };
 
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission with selectedLocation data
-        console.log(selectedLocation);
-        setShowModal(false);
-    };
-    const handleMapClicked = (event) => {
-        const { latLng } = event;
-        const latitude = latLng.lat();
-        const longitude = latLng.lng();
-        // Use the Geocoder service to get the address based on latitude and longitude
+    // const handleCloseModal = () => {
+    //     setShowModal(false);
+    // };
+    // const handleFormSubmit = (event) => {
+    //     event.preventDefault();
+    //     // Handle form submission with selectedLocation data
+    //     console.log(selectedLocation);
+    //     setShowModal(false);
+    // };
+    // const handleMapClicked = (event) => {
+    //     const { latLng } = event;
+    //     const latitude = latLng.lat();
+    //     const longitude = latLng.lng();
+    //     // Use the Geocoder service to get the address based on latitude and longitude
 
-        const geocoder = new window.google.maps.Geocoder();
-        geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-            if (status === "OK" && results[0]) {
-                const address = results[0].formatted_address;
+    //     const geocoder = new window.google.maps.Geocoder();
+    //     geocoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+    //         if (status === "OK" && results[0]) {
+    //             const address = results[0].formatted_address;
 
-                setSelectedLocation({ latitude, longitude, address });
-                console.log(address, latitude, longitude);
-                setCurrentLocation(null);
-            }
+    //             setSelectedLocation({ latitude, longitude, address });
+    //             console.log(address, latitude, longitude);
+    //             setCurrentLocation(null);
+    //         }
 
-        });
-    };  
+    //     });
+    // };  
 
-    const handleSearchBoxLoad = (ref) => {
-        setSearchBox(ref);
-    };
+    // const handleSearchBoxLoad = (ref) => {
+    //     setSearchBox(ref);
+    // };
 
-    const searchBoxRef = useRef(null);
+    // const searchBoxRef = useRef(null);
 
-    const handlePlacesChanged = () => {
-        const searchBox = searchBoxRef.current;
-        // const input = document.getElementById('search-input');
-        // const searchBox = new window.google.maps.places.SearchBox(input);
-        if (searchBox && searchBox.getPlaces) {
-        const places = searchBox.getPlaces();
-        if (places && places.length > 0) {
-            const place = places[0];
-            const newCenter = {
-                lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng(),
-            };
-            setCenter(newCenter);
-        }
-    }
-    else{
-        console.log("You can not get");
-    }
+    // const handlePlacesChanged = () => {
+    //     const searchBox = searchBoxRef.current;
+    //     // const input = document.getElementById('search-input');
+    //     // const searchBox = new window.google.maps.places.SearchBox(input);
+    //     if (searchBox && searchBox.getPlaces) {
+    //     const places = searchBox.getPlaces();
+    //     if (places && places.length > 0) {
+    //         const place = places[0];
+    //         const newCenter = {
+    //             lat: place.geometry.location.lat(),
+    //             lng: place.geometry.location.lng(),
+    //         };
+    //         setCenter(newCenter);
+    //     }
+    // }
+    // else{
+    //     console.log("You can not get");
+    // }
         
-    };
+    // };
     
-    const [currentLocation, setCurrentLocation] = useState(null);
+    // const [currentLocation, setCurrentLocation] = useState(null);
 
-    useEffect(() => {
-        // Get the user's current location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setCurrentLocation({ lat: latitude, lng: longitude });
-                },
-                (error) => {
-                    console.log('Error getting current location:', error);
-                }
-            );
-        } else {
-            console.log('Geolocation is not supported by this browser.');
+    // useEffect(() => {
+    //     // Get the user's current location
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 const { latitude, longitude } = position.coords;
+    //                 setCurrentLocation({ lat: latitude, lng: longitude });
+    //             },
+    //             (error) => {
+    //                 console.log('Error getting current location:', error);
+    //             }
+    //         );
+    //     } else {
+    //         console.log('Geolocation is not supported by this browser.');
+    //     }
+    // }, []);
+ // Set initial state for the current location
+  const [currentLocation, setCurrentLocation] = useState(null);
+
+  // Function to get the current location
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCurrentLocation({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.log('Error getting current location:', error.message);
         }
-    }, []);
+      );
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+  };
 
+  useEffect(() => {
+    getCurrentLocation();
+  }, []); // Run once on component mount
   return (
     <div>
-          <button className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
+          <GoogleMap
+              center={currentLocation}
+              zoom={10}
+              mapContainerStyle={{ width: '100%', height: '400px' }}
+          >
+              {currentLocation && (
+                  <Marker position={currentLocation} />
+              )}
+          </GoogleMap>
+          {/* <button className='fs-6 py-3 w-100 loactiontak px-2 fw-bold bg-light border border-secondary loactioncolor' onClick={handleShowModal}>
               Pick your Location
           </button>
           <div className=''>
@@ -180,10 +212,7 @@ function Loaction() {
                       </Button>
                   </Form>
               </Modal.Body>
-          </Modal>
-
-          {selectedLocation ? <p>{localStorage.setItem('latitude', selectedLocation.latitude)}</p> : ""}
-          {selectedLocation ? <p>{localStorage.setItem('longitude', selectedLocation.longitude)}</p> : ""}
+          </Modal> */}
 
 
     </div>
