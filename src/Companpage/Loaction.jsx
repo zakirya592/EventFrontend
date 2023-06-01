@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import axios from "axios";
 
-
-
 function Loaction() {
     
 const [currentLocation, setCurrentLocation] = useState();
@@ -82,6 +80,7 @@ const [currentLocation, setCurrentLocation] = useState();
             center={selectedLocation ? { lat: selectedLocation.latitude, lng: selectedLocation.longitude } : currentLocation}
             zoom={10}
             onClick={handleMapClicked}
+            onLoad={handleSearchBoxLoad}
           >
             <StandaloneSearchBox onLoad={handleSearchBoxLoad} onPlacesChanged={handlePlacesChanged}>
               <input
