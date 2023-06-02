@@ -224,45 +224,6 @@ function Edit() {
                           </div>
                       </div>
 
-                      <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
-                          <div className="mb-3 text-start">
-                              <label htmlFor="National" className="form-label labeinput">National President*</label>
-                              <input type="text" className="form-control py-3 inputsection" id="National" aria-describedby="emailHelp" placeholder='Enter your National President' value={national_president}
-                                  onChange={(event) => {
-                                      setnational_president(event.target.value)
-
-                                  }} />
-                          </div>
-                      </div>
-
-                       <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
-                          <div className="mb-3 text-start">
-                              <label htmlFor="ClubSecretary" className="form-label labeinput">Club Secretary Name*</label>
-                              <input type="text" className="form-control inputsection py-3" id="ClubSecretary" placeholder='Enter your Club Secretary Name'  value={club_secretry_name}
-                                  onChange={(event) => {
-                                      setclub_secretry_name(event.target.value)
-                                  }} />
-                      </div>
-                  </div>
-
-                  <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
-                      <div className="mb-3 text-start">
-                          <label htmlFor="exampleInputEmail1" className="form-label labeinput">Club Secretary Contact Number*</label>
-                              {/* <input type="tel" className="form-control inputsection" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='0000000000' /> */}
-                              <PhoneInput
-                                  className="w-100 py-3 rounded inputsection" 
-                                  placeholder="()0000000000"
-                                  country="US"
-                                  value={club_secretry_NO}
-                                  onChange={(event) => {
-                                      setclub_secretry_NO(event)
-                                  }} />
-                              
-                      </div>
-                  </div>
-                 
-
-
                 <div className='d-flex align-items-center justify-content-center mt-4'>
                           <button type="button" class="btn btn-outline-secondary px-4 py-2 mx-3 " onClick={() => {
                               navigate("/Register");
