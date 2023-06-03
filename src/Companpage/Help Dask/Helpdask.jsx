@@ -254,7 +254,7 @@ function Helpdask() {
                                                                                 <EditFilled className='text-primary fw-bolder me-2' />
                                                                                 <span className='my-3 fw-bolder'
                                                                                     onClick={() => {
-                                                                                        navigate(`/Helpdask/Updata/:_id`);
+                                                                                        navigate(`/Helpdask/Updata/${itme.deskID}`);
                                                                                         localStorage.setItem('deskIDedit', itme.deskID)
                                                                                         localStorage.setItem('Helpdasfirntname', itme.first_name)
                                                                                         localStorage.setItem('Helpdasklastname', itme.last_name)

@@ -278,11 +278,11 @@ function Register() {
                                                                         </button>
                                                                         <ul className="dropdown-menu">
                                                                             <li><p className="dropdown-item forpointer" onClick={() => {
-                                                                                navigate(`/Userdetail/:id`);
+                                                                                navigate(`/Userdetail/${itme.memberID}`);
                                                                                 sessionStorage.setItem("Userdetailid", itme.memberID);
                                                                             }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
                                                                             <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
-                                                                                navigate(`/Register/Edit/:id`);
+                                                                                navigate(`/Register/Edit/${itme.memberID}`);
                                                                                 localStorage.setItem("updataregisteruser", itme.memberID);
                                                                                 localStorage.setItem('userregisternameup', itme.first_name)
                                                                                 localStorage.setItem('userlastnameup', itme.last_name)

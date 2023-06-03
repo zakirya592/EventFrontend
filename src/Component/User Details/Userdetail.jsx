@@ -7,16 +7,17 @@ import Card from 'react-bootstrap/Card';
 import { Avatar, Space } from 'antd';
 import { UserOutlined } from "@ant-design/icons"
 import moment from 'moment';
+import { useNavigate, useParams } from "react-router-dom";
 import "./Userdet.css"
 const drawerWidth = 220
 function Userdetail() {
 
-
+    let { userId } = useParams();
     const [dataget, setdataget] = useState();
     const [formattedDate, setFormattedDate] = useState();
 
     const fetchLocations = () => {
-        axios.get(`http://gs1ksa.org:3015/api/getMembersById/${sessionStorage.getItem("Userdetailid")}`)
+        axios.get(`http://gs1ksa.org:3015/api/getMembersById/${userId}`)
             .then((res) => {
                 setdataget(res.data.recordset);
                 console.log(res.data);

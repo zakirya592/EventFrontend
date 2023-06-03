@@ -48,19 +48,19 @@ function Rountercom() {
           {/* =============Event================ */}
           <Route exact path='/Event' element={<Event />} />
           <Route exact path='/Event/Add' element={<Createevent/>} />
-          <Route exact path='/Event/updata/:_id' element={<Eventupdata />} />
+          <Route exact path='/Event/updata/:userId' element={<Eventupdata />} />
           {/* ==============Eagles club ================== */}
           <Route exact path='/Loaction' element={<Loaction />} />
           <Route exact path='/EaglesClub' element={<EaglesClub />} />
           {/* ===================Register user============== */}
           <Route exact path='/Register' element={<Register />} />
-          <Route exact path='/Register/Edit/:id' element={<Edit />} />
-          <Route exact path='/Userdetail/:_id' element={<Userdetail />} />
+          <Route exact path='/Register/Edit/:userId' element={<Edit />} />
+          <Route exact path='/Userdetail/:userId' element={<Userdetail />} />
           {/* ===============Help Dask ======================= */}
           <Route exact path='/Helpdask' element={<Helpdask />} />
           <Route exact path='NewTicket' element={<NewTicket />} />
           <Route exact path='/Helpdeskdetails/:_id' element={<Helpdeskdetails />} />
-          <Route exact path='/Helpdask/Updata/:_id' element={<Updatahelp />} />
+          <Route exact path='/Helpdask/Updata/:userId' element={<Updatahelp />} />
           <Route exact path='/Helpdask/Add' element={<Addhelpdesk />} />
           
               </Routes>

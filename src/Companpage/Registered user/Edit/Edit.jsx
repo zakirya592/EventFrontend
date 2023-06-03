@@ -13,6 +13,7 @@ import { GoogleMap, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 const drawerWidth = 220
 
 function Edit() {
+    let { userId } = useParams();
     const navigate = useNavigate();
     const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
     const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
@@ -25,8 +26,8 @@ function Edit() {
     const [club_president, setclub_president] = useState(localStorage.getItem("updataclub_president"))
     const [pe_ID, setpe_ID] = useState(localStorage.getItem("updatape_ID"))
     const [Suffix, setSuffix] = useState(localStorage.getItem("updataSuffix"))
-    const [governmentIDImage, setgovernmentIDImage] = useState(null)
-    const [selfieIDImage, setselfieIDImage] = useState(null)
+    const [governmentIDImage, setgovernmentIDImage] = useState(localStorage.getItem('updataselfieIDImage'))
+    const [selfieIDImage, setselfieIDImage] = useState(localStorage.getItem('updataselfieIDImage'))
 
     const [barangayDropDown, setbarangayDropDown] = useState()
     const [DropDownCities, setDropDownCities] = useState()
@@ -165,8 +166,8 @@ function Edit() {
     };
     // Main fuction of the compount
     const apicall = () => {
-        const userID = localStorage.getItem("updataregisteruser")
-        console.log(userID);
+        // const userID = localStorage.getItem("updataregisteruser")
+        console.log(userId);
         console.log(setgovernmentIDImage);
         console.log(setselfieIDImage);
         const fromdata = new FormData();
@@ -189,7 +190,7 @@ function Edit() {
         console.log(fromdata);
 
         axios.put(
-            `http://gs1ksa.org:3015/api/tblUpdateMembers/${userID}`,fromdata
+            `http://gs1ksa.org:3015/api/tblUpdateMembers/${userId}`,fromdata
          )
             .then((res) => {
                 if (res.status === 200) {
@@ -402,14 +403,11 @@ function Edit() {
                                 <div>
                                     <Form.Control
                                         type="text" className="form-control inputsection py-3 bg-transparent" placeholder='Your Street Address '
-                                        value={selectedLocation ? selectedLocation.address : ""}
+                                        value={selectedLocation ? selectedLocation.address : localStorage.getItem('userlastreet_address')}
                                         readOnly
                                         disabled
                                     />
-                                    {/* <p className="form-control inputsection py-4" id="addrass" placeholder='Enter your Street Address ' 
-                >
-                  {localStorage.getItem('address')}
-                  </p> */}
+                               
                                 </div>
                             </div>
                         </div>
@@ -428,7 +426,7 @@ function Edit() {
                                             <div className="fs-6 mx-2 text-success">latitude: {selectedLocation.latitude}</div>
                                         </span>
                                     ) : (
-                                        <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : 'Fetching geolocation...'}</div>
+                                            <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : `${localStorage.getItem('updatalongitude')} ${localStorage.getItem('updatalattitiude')}`}</div>
                                     )}
                                 </div>
                             </div>
@@ -503,7 +501,7 @@ function Edit() {
 
                     </div>
 
-                    {selectedLocation ? <p>{localStorage.setItem('latitudeupdata', selectedLocation.latitude)}</p> : ""}
+                    {selectedLocation ? <p>{localStorage.setItem('latitudeupdata', selectedLocation.latitude)}</p> : ''}
                     {selectedLocation ? <p>{localStorage.setItem('longitudeupdata', selectedLocation.longitude)}</p> : ""}
                     <Modal show={showModal} onHide={handleCloseModal} size="lg">
                         <Modal.Header closeButton>
@@ -540,7 +538,7 @@ function Edit() {
                                 </StandaloneSearchBox>
 
                                 {currentLocation && <Marker position={currentLocation} />}
-
+                              
                                 {selectedLocation && (
                                     <Marker
                                         position={{

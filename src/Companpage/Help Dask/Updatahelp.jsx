@@ -11,6 +11,7 @@ const drawerWidth = 220
 
 function Updatahelp() {
     const navigate = useNavigate()
+    let { userId } = useParams();
 
     const [first_name, setfirst_name] = useState(localStorage.getItem('Helpdasfirntname'))
     const [last_name, setlast_name] = useState(localStorage.getItem('Helpdasklastname'))
@@ -21,7 +22,7 @@ function Updatahelp() {
     // Main fuction of the compount
     const apicall = () => {
         axios.put(
-            `http://gs1ksa.org:3015/api/tblUpdateHelp_desk/${localStorage.getItem('deskIDedit')}`, {
+            `http://gs1ksa.org:3015/api/tblUpdateHelp_desk/${userId}`, {
                 first_name: first_name,
                 last_name: last_name,
                 email: email,
