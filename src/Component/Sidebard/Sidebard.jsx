@@ -173,7 +173,9 @@ function Sidebard(stat) {
                   ) : (
                       <span className="p-1 ">
                           <center>
-                                  <Avatar size={120} className="bg-secondary" src={<img src={localStorage.getItem('selfieIDImage')} alt="User Image" />} />
+                                  <Avatar size={120} className="bg-secondary" src={<img src={localStorage.getItem('selfieIDImage')} alt="User Image" />} onClick={(() => {
+                                      navigate('/Setting')
+                                  })} />
                                   
                                   <p className="emailscolr mt-2 fw-bold">{localStorage.getItem('emailhomme')}</p>
                               {/* <img className="w-75 mx-auto mt-1" src={logo} alt="" /> */}

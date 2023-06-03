@@ -22,6 +22,7 @@ import OTP from '../Login/OTP';
 import Helpdeskdetails from '../../Companpage/Help Dask/Helpdesk details/Helpdeskdetails';
 import Updatahelp from '../../Companpage/Help Dask/Updatahelp';
 import Addhelpdesk from '../../Companpage/Help Dask/Addhelpdesk';
+import Setting from '../../Companpage/Setting/Setting';
 
 function Rountercom() {
   function gat() {
@@ -34,6 +35,8 @@ function Rountercom() {
                   {/* ---------Register Section----------- */}
           <Route exact path='/Personalinformation' element={<Personalinformation  />}  />
           <Route axact path='/Sendinquiry' element={<Tfoepedetails handleFunction={gat} />} />
+          {/* ==================Setting========================== */}
+          <Route exact path='/Setting' element={<Setting />} />
           {/* =================Login section=================== */}
           <Route exact path='/' element={<Login />} />
           <Route exact path='/Forgetpassword' element={<Forgetpassword />} />

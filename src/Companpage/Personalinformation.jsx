@@ -27,24 +27,20 @@ function Personalinformation() {
   const [Suffix, setSuffix] = useState('')
   const [DropDownCities, setDropDownCities] = useState()
   const [DropDownProvince, setDropDownProvince] = useState([]);
-
-  const apicall = () => {
-    axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDProvince`)
-      .then((res) => {
-        setDropDownProvince(res.data.recordset);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    apicall();
-  }, []);
-
-
-  const [selectedProvince, setSelectedProvince] = useState('');
+  const [barangayDropDown, setbarangayDropDown] = useState()
   const [ProvinceID, setProvinceID] = useState();
+
+  useEffect(() => {
+        axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities`)
+            .then((res) => {
+                setDropDownCities(res.data.recordset);
+                console.log("city", res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+    }, [])
 
   const handleProvinceChange = (event) => {
     // setprovince(event.target.value)
@@ -53,24 +49,27 @@ function Personalinformation() {
     // setProvinceID(ProvinceID)
     const ProvinceId = ProvinceID
     console.log(ProvinceId);
-    
-      axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities/${ProvinceID}`)
-        .then((res) => {
-          setDropDownCities(res.data.recordset);
-          console.log("city", res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    // Province get api
+      axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDProvince/${ProvinceId}`)
+      .then((res) => {
+        setDropDownProvince(res.data.recordset);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+       // barangays get api
+      axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDbarangays/${ProvinceId}`)
+      .then((res) => {
+          setbarangayDropDown(res.data.recordset);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
   }
-
-  
-  
-  
-
-
-
 
   // Design section 
   const [showModal, setShowModal] = useState(false);
@@ -251,31 +250,37 @@ function Personalinformation() {
 
           <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
             <div className="mb-3">
-              <label htmlFor="floatingSelectGrid" className="form-label labeinput">Barangay*</label>
-              <select className="form-select inputsection py-3" id="floatingSelectGrid" aria-label="Floating label select example" value={barangay}
-                onChange={(event) => {
-                  setbarangay(event.target.value)
-                  sessionStorage.setItem("barangay", event.target.value);
-                }}>
-                <option selected >Enter/Select Barangay</option>
-                <option value={"First"}>One</option>
-                <option value={"Second"}>Two</option>
-                <option value={"three"}>Three</option>
-              </select>
-            </div>
+              <label htmlFor="floatingSelectGridcity" className="form-label labeinput">City*</label>
+              <select className="form-select inputsection py-3" id="floatingSelectGridcity" aria-label="Floating label select example"
+                // onChange={(event) => {
+                //   setcity(event.target.value)
+                // setSelectedCity(event.target.value)
+                //   sessionStorage.setItem("city", event.target.value);
+                // }}
+                value={ProvinceID}
+                onChange={handleProvinceChange}>
+                <option selected >Enter/Select City</option>
+                {
+                  DropDownCities && DropDownCities.map((itme, index) => {
+                    return (
+                      <option key={itme.id} value={itme.provanceID}>{itme.Citiyname}</option>
+                    )
+                  })
+                }
+              </select></div>
           </div>
 
           <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
             <div className="mb-3">
               <label htmlFor="floatingSelectGrid2" className="form-label labeinput">Province*</label>
               <select className="form-select inputsection py-3" id="floatingSelectGrid2" aria-label="Floating label select example"
-                value={ProvinceID}
-                onChange={handleProvinceChange}>
+
+              >
                 <option selected >Enter/Select Province</option>
                 {
                   DropDownProvince && DropDownProvince.map((itme, index) => {
                     return (
-                      <option key={itme.id} value={itme.provinceID} onChange={(()=>{
+                      <option key={itme.id} value={itme.provincename} onChange={(() => {
                         { localStorage.setItem('provinceID', itme.provinceID) }
                       })}>{itme.provincename}</option>
                     )
@@ -286,22 +291,22 @@ function Personalinformation() {
 
           <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
             <div className="mb-3">
-              <label htmlFor="floatingSelectGridcity" className="form-label labeinput">City*</label>
-              <select className="form-select inputsection py-3" id="floatingSelectGridcity" aria-label="Floating label select example" value={city}
+              <label htmlFor="floatingSelectGrid" className="form-label labeinput">Barangay*</label>
+              <select className="form-select inputsection py-3" id="floatingSelectGrid" aria-label="Floating label select example" value={barangay}
                 onChange={(event) => {
-                  setcity(event.target.value)
-                  // setSelectedCity(event.target.value)
-                  sessionStorage.setItem("city", event.target.value);
+                  setbarangay(event.target.value)
+                  //   sessionStorage.setItem("barangay", event.target.value);
                 }}>
-                <option selected >Enter/Select City</option>
+                <option selected >Enter/Select Barangay</option>
                 {
-                  DropDownCities && DropDownCities.map((itme, index) => {
+                  barangayDropDown && barangayDropDown.map((itme, index) => {
                     return (
-                      <option key={itme.id} value={itme.value}>{itme.Citiyname}</option>
+                      <option key={itme.id} value={itme.barangayName}>{itme.barangayName}</option>
                     )
                   })
                 }
-              </select></div>
+              </select>
+            </div>
           </div>
 
           <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">

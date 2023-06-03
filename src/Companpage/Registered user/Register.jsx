@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
 const drawerWidth = 220
 
 function Register() {
-    const navigate =useNavigate()
+    const navigate = useNavigate()
     function createData(name, code, population, size) {
         const density = population / size;
         return { name, code, population, size, density };
@@ -179,191 +179,197 @@ function Register() {
                 )
             }
         })
-        
+
     };
 
-    
-  return (
-    <>
-          <div className=''>
-              <Box sx={{ display: 'flex' }}>
-                  <Sidebard />
-                  <AppBar
-                      className='fortrans'
-                      position='fixed'
-                      sx={{
-                          width: { sm: `calc(100% - ${drawerWidth}px)` },
-                          ml: { sm: `${drawerWidth}px` }
-                      }}
-                  ></AppBar>
-                  <Box
-                      className=''
-                      sx={{
-                          flexGrow: 1,
-                          my: 5,
-                          mx: 1,
-                          width: { sm: `calc(100% - ${drawerWidth}px)` }
-                      }}
-                  >
-                      <div className=" mt-5">
-                          <Paper sx={{ width: '100%', overflow: 'hidden', }}>
-                              <TableContainer sx={{ maxHeight: 500, height: '450px' } }>
-                                  <Table stickyHeader aria-label="sticky table">
-                                      <TableHead>
 
-                                          <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
-                                              <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding" > First Name  <FilterOutlined onClick={() => { setShowInput(!showInput) }} /></TableCell>
-                                              {/* <TableCell className="tablehad">ID</TableCell> */}
-                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
-                                                  last Name </TableCell>
-                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
-                                                  Email </TableCell>
-                                              <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Suffix </TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding ">club_region</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-start">Status</TableCell>
-                                              <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Action</TableCell>
-                                          </TableRow>
+    return (
+        <>
+            <div className=''>
+                <Box sx={{ display: 'flex' }}>
+                    <Sidebard />
+                    <AppBar
+                        className='fortrans'
+                        position='fixed'
+                        sx={{
+                            width: { sm: `calc(100% - ${drawerWidth}px)` },
+                            ml: { sm: `${drawerWidth}px` }
+                        }}
+                    ></AppBar>
+                    <Box
+                        className=''
+                        sx={{
+                            flexGrow: 1,
+                            my: 5,
+                            mx: 1,
+                            width: { sm: `calc(100% - ${drawerWidth}px)` }
+                        }}
+                    >
+                        <div className=" mt-5">
+                            <Paper sx={{ width: '100%', overflow: 'hidden', }}>
+                                <TableContainer sx={{ maxHeight: 500, height: '450px' }}>
+                                    <Table stickyHeader aria-label="sticky table">
+                                        <TableHead>
 
-                                      </TableHead>
-                                      {showInput &&
-                                          <input
-                                              type="text"
-                                              value={filter}
-                                              onChange={(e) => setFilter(e.target.value)}
-                                              className='w-50 rounded'
-                                          />}
+                                            <TableRow classname='fontfamilyRoboto contracttableheaderpadding'>
+                                                <TableCell numeric className="fontfamilyRoboto contracttableheaderpadding" > First Name  <FilterOutlined onClick={() => { setShowInput(!showInput) }} /></TableCell>
+                                                {/* <TableCell className="tablehad">ID</TableCell> */}
+                                                <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
+                                                    last Name </TableCell>
+                                                <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">
+                                                    Email </TableCell>
+                                                <TableCell className=" fontfamilyRoboto contracttableheaderpadding ">City</TableCell>
+                                                <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Name</TableCell>
+                                                <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Suffix </TableCell>
+                                                <TableCell className="fontfamilyRoboto contracttableheaderpadding ">club_region</TableCell>
+                                                <TableCell className="fontfamilyRoboto contracttableheaderpadding text-start">Status</TableCell>
+                                                <TableCell className="fontfamilyRoboto contracttableheaderpadding text-center">Action</TableCell>
+                                            </TableRow>
 
-                                      {
-                                          dataget && dataget.length > 0 ?(
-                                              dataget && dataget.filter((person) =>
-                                                  person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
-                                                  person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
+                                        </TableHead>
+                                        {showInput &&
+                                            <input
+                                                type="text"
+                                                value={filter}
+                                                onChange={(e) => setFilter(e.target.value)}
+                                                className='w-50 rounded'
+                                            />}
 
-                                              ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
-                                                  return (
+                                        {
+                                            dataget && dataget.length > 0 ? (
+                                                dataget && dataget.filter((person) =>
+                                                    person.first_name.toLowerCase().includes(filter.toLowerCase()) &&
+                                                    person.last_name.toLowerCase().includes(filterlastname.toLowerCase())
 
-                                                      <TableBody className="fortablebodypadding text-black fontfamilyInter">
-                                                          {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
-                                                          <TableRow
-                                                              className="" key={index}>
-                                                              <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
-                                                                  <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name} 
-                                                                 
-                                                              </TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                                  {itme.last_name}
-                                                                  {sessionStorage.setItem("last_name", itme.last_name)}
-                                                              </TableCell>
+                                                ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((itme, index) => {
+                                                    return (
 
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                                  {itme.email}
-                                                              </TableCell>
+                                                        <TableBody className="fortablebodypadding text-black fontfamilyInter">
+                                                            {/* {rows.map(({ id, name, calories, fat, carbs, protein }) => ( */}
+                                                            <TableRow
+                                                                className="" key={index}>
+                                                                <TableCell numeric className="fortablebodypadding text-blackcontract text-black fontfamilyInter ">
+                                                                    <Avatar src={<img src={itme.selfieIDImage} alt="UserImage" style={{ backgroundColor: '#505254', color: '#f56a00' }} />} ></Avatar> {itme.first_name}
 
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}{sessionStorage.setItem("city", itme.city)}</TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name} {sessionStorage.setItem("club_name", itme.club_name)}</TableCell>
+                                                                </TableCell>
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                    {itme.last_name}
+                                                                    {sessionStorage.setItem("last_name", itme.last_name)}
+                                                                </TableCell>
 
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">
-                                                                  {itme.Suffix} {sessionStorage.setItem("national_president", itme.national_president)}
-                                                              </TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_region}  {sessionStorage.setItem("club_secretry_NO", itme.club_region)}</TableCell>
-                                                              <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
-                                                              <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
-                                                                  {/* <!-- Example single danger button --> */}
-                                                                  {/* {itme.status === 'Active' ? ( */}
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                    {itme.email}
+                                                                </TableCell>
+
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter "> {itme.city}{sessionStorage.setItem("city", itme.city)}</TableCell>
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_name} {sessionStorage.setItem("club_name", itme.club_name)}</TableCell>
+
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter ">
+                                                                    {itme.Suffix} {sessionStorage.setItem("national_president", itme.national_president)}
+                                                                </TableCell>
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_region}  {sessionStorage.setItem("club_secretry_NO", itme.club_region)}</TableCell>
+                                                                <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.status}</TableCell>
+                                                                <TableCell numeric className="fortablebodypadding text-black fontfamilyInter text-end">
+                                                                    {/* <!-- Example single danger button --> */}
+                                                                    {/* {itme.status === 'Active' ? ( */}
                                                                     <div className="btn-group">
-                                                                              <button type="button"  className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                                  Action
-                                                                              </button>
-                                                                              <ul className="dropdown-menu">
-                                                                                  <li><p className="dropdown-item forpointer" onClick={() => {
-                                                                                      navigate(`/Userdetail/:id`);
-                                                                                      sessionStorage.setItem("Userdetailid", itme.memberID);
-                                                                                  }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
-                                                                                  <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
-                                                                                      navigate(`/Register/Edit/:id`);
-                                                                                      localStorage.setItem("updataregisteruser", itme.memberID);
-                                                                                      localStorage.setItem('userregisternameup',itme.first_name)
-                                                                                       localStorage.setItem('userlastnameup',itme.last_name)
-                                                                                        localStorage.setItem('userclubnameup',itme.club_name)
-                                                                                         localStorage.setItem('userprovinceup',itme.province)
-                                                                                        localStorage.setItem('usercityup',itme.city)
-                                                                                         localStorage.setItem('userclubregionup',itme.club_region)
-                                                                                          localStorage.setItem('userclubpresidentup',itme.club_president)
-                                                                                        localStorage.setItem('usernationalpresidentup',itme.national_president)
-                                                                                         localStorage.setItem('userclubsecretrynameup',itme.club_secretry_name)
-                                                                                          localStorage.setItem('userphonenumberup',itme.club_secretry_NO)
-                                                                                            localStorage.setItem('userbarangayup',itme.barangay)
-                                                                                      // navigate("/Event/updata");
-                                                                                  }}>Modify</span> </p></li>
-                                                                                  <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
-                                                                                      () =>
-                                                                                          Deletedapi(itme.memberID)
-                                                                                  }>Remove</span> </p></li>
-                                                                              {itme.status === 'Active' ? (
-                                                                              <li><p className="dropdown-item forpointer disabled" onClick={
-                                                                                      () =>
-                                                                                          Approveapi(itme.memberID)
-                                                                                  }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
-                                                                          ) : (
-                                                                                  <li><p className="dropdown-item forpointer" onClick={
-                                                                                      () =>
-                                                                                          Approveapi(itme.memberID)
-                                                                                  }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
-                                                                  )}
+                                                                        <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            Action
+                                                                        </button>
+                                                                        <ul className="dropdown-menu">
+                                                                            <li><p className="dropdown-item forpointer" onClick={() => {
+                                                                                navigate(`/Userdetail/:id`);
+                                                                                sessionStorage.setItem("Userdetailid", itme.memberID);
+                                                                            }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
+                                                                            <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
+                                                                                navigate(`/Register/Edit/:id`);
+                                                                                localStorage.setItem("updataregisteruser", itme.memberID);
+                                                                                localStorage.setItem('userregisternameup', itme.first_name)
+                                                                                localStorage.setItem('userlastnameup', itme.last_name)
+                                                                                localStorage.setItem('userlastreet_address', itme.street_address)
+                                                                                localStorage.setItem("updatabarangay", itme.barangay);
+                                                                                localStorage.setItem('updataprovince', itme.province)
+                                                                                localStorage.setItem('updatacity', itme.city)
+                                                                                localStorage.setItem('updataclub_name', itme.club_name)
+                                                                                localStorage.setItem('updataclub_region', itme.club_region)
+                                                                                localStorage.setItem('updataclub_president', itme.club_president)
+                                                                                localStorage.setItem('updatape_ID', itme.pe_ID)
+                                                                                localStorage.setItem("updataSuffix", itme.Suffix);
+                                                                                localStorage.setItem('updatalattitiude', itme.lattitiude)
+                                                                                localStorage.setItem('updataclub_president', itme.club_president)
+                                                                                localStorage.setItem('updatalongitude', itme.longitude)
+                                                                                localStorage.setItem('updataselfieIDImage', itme.selfieIDImage)
+                                                                                localStorage.setItem('updatagovernmentIDImage', itme.governmentIDImage)
 
-                                                                          {itme.status === 'Active' ? (
-                                                                              <li><p className="dropdown-item forpointer " onClick={
-                                                                                  () =>
-                                                                                      InActive(itme.memberID)
-                                                                              }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
-                                                                          ) : (
-                                                                              <li><p className="dropdown-item forpointer disabled" onClick={
-                                                                                  () =>
-                                                                                      InActive(itme.memberID)
-                                                                              }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
-                                                                          )}
-                                                                              </ul>
-                                                                          </div>
-                                                                
-                                                                
-                                                              </TableCell>
-                                                          </TableRow>
+                                                                                // navigate("/Event/updata");
+                                                                            }}>Modify</span> </p></li>
+                                                                            <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
+                                                                                () =>
+                                                                                    Deletedapi(itme.memberID)
+                                                                            }>Remove</span> </p></li>
+                                                                            {itme.status === 'Active' ? (
+                                                                                <li><p className="dropdown-item forpointer disabled" onClick={
+                                                                                    () =>
+                                                                                        Approveapi(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                                            ) : (
+                                                                                <li><p className="dropdown-item forpointer" onClick={
+                                                                                    () =>
+                                                                                        Approveapi(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                                            )}
 
-                                                      </TableBody>
+                                                                            {itme.status === 'Active' ? (
+                                                                                <li><p className="dropdown-item forpointer " onClick={
+                                                                                    () =>
+                                                                                        InActive(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
+                                                                            ) : (
+                                                                                <li><p className="dropdown-item forpointer disabled" onClick={
+                                                                                    () =>
+                                                                                        InActive(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
+                                                                            )}
+                                                                        </ul>
+                                                                    </div>
 
-                                                  );
-                                              })
-                                          ):(
-                                             <div>
-          <p className='text-center w-100 nodata'  >
-            No data available.
-          </p>
-        </div>
-                                          )
-                                         
-                                          
-                                          }
 
-                                  </Table>
-                              </TableContainer>
-                              <TablePagination
-                                  rowsPerPageOptions={[10, 25, 100]}
-                                  component="div"
-                                  count={length}
-                                  rowsPerPage={rowsPerPage}
-                                  page={page}
-                                  onPageChange={handleChangePage}
-                                  onRowsPerPageChange={handleChangeRowsPerPage}
-                              />
-                          </Paper>
-                      </div>
-                  </Box>
-              </Box>
-          </div >
-    </>
-  )
+                                                                </TableCell>
+                                                            </TableRow>
+
+                                                        </TableBody>
+
+                                                    );
+                                                })
+                                            ) : (
+                                                <div>
+                                                    <p className='text-center w-100 nodata'  >
+                                                        No data available.
+                                                    </p>
+                                                </div>
+                                            )
+
+
+                                        }
+
+                                    </Table>
+                                </TableContainer>
+                                <TablePagination
+                                    rowsPerPageOptions={[10, 25, 100]}
+                                    component="div"
+                                    count={length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
+                            </Paper>
+                        </div>
+                    </Box>
+                </Box>
+            </div >
+        </>
+    )
 }
 
 export default Register
