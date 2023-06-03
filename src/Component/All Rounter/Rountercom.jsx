@@ -36,7 +36,7 @@ function Rountercom() {
           <Route exact path='/Personalinformation' element={<Personalinformation  />}  />
           <Route axact path='/Sendinquiry' element={<Tfoepedetails handleFunction={gat} />} />
           {/* ==================Setting========================== */}
-          <Route exact path='/Setting' element={<Setting />} />
+          {/* <Route exact path='/Setting' element={<Setting />} /> */}
           {/* =================Login section=================== */}
           <Route exact path='/' element={<Login />} />
           <Route exact path='/Forgetpassword' element={<Forgetpassword />} />
