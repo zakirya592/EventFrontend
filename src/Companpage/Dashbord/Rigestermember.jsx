@@ -13,9 +13,12 @@ import { Avatar } from 'antd';
 // import "./Liststyle.css"
 import axios from 'axios'
 import moment from 'moment';
+import Swal from "sweetalert2";
+import { EyeFilled, EditFilled, DeleteFilled, CheckCircleFilled, FilterOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 function Rigestermember() {
-
+    const navigate = useNavigate()
    
     
     function createData(name, code, population, size) {
@@ -37,13 +40,11 @@ function Rigestermember() {
 
     const [open, setOpen] = React.useState(false)
     const anchorRef = React.useRef(null)
-
     // Main API fuction of the compount
     const [dataget, setdataget] = useState();
     const [filter, setFilter] = useState("");
     const [filterlastname, setfilterlastname] = useState("");
     const [length, setlength] = useState("");
-
 
     const [showInput, setShowInput] = useState(false);
     const [filterlastnameinput, setfilterlastnameinput] = useState(false);
@@ -89,6 +90,93 @@ function Rigestermember() {
     }
     const [rowss, setRows] = React.useState([])
 
+// Approve api section
+    const Approveapi = (memberID) => {
+        console.log(memberID);
+        axios.put(`http://gs1ksa.org:3015/api/tblApprovalUser/${memberID}`)
+            .then((res) => {
+                console.log(res);
+                apicall();
+                Swal.fire({
+                    title: "Success",
+                    text: "You have  Successfully Approva this User",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    // Approve api section
+    const InActive = (memberID) => {
+        console.log(memberID);
+        axios.put(`http://gs1ksa.org:3015/api/tblInActiveUser/${memberID}`)
+            .then((res) => {
+                console.log(res);
+                apicall();
+                Swal.fire({
+                    title: "Success",
+                    text: "You have  Successfully InActive this User",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+ // Deleted api section
+    const Deletedapi = (memberID) => {
+        console.log(memberID);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success mx-2',
+                cancelButton: 'btn btn-danger mx-2',
+                // actions: 'mx-3'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://gs1ksa.org:3015/api/deleteMembersById/${memberID}`)
+                    .then((res) => {
+                        console.log(res);
+                        apicall();
+
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'User has been deleted.',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary User is safe :)',
+                    'error'
+                )
+            }
+        })
+
+    };
   return (
     <div>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -106,6 +194,7 @@ function Rigestermember() {
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Suffix</TableCell>
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Club Region</TableCell>
                               <TableCell className="fontfamilyRoboto contracttableheaderpadding ">Status</TableCell>
+
                           </TableRow>
 
                       </TableHead>
@@ -137,19 +226,66 @@ function Rigestermember() {
                                         </TableCell>
                                         <TableCell className="fortablebodypadding text-black fontfamilyInter ">{itme.club_region}</TableCell>
                                         <TableCell numeric className="fortablebodypadding text-black fontfamilyInter ">
-                                            <div className="actionimag d-flex justify-content-around py-2 rounded w-100">
-                                                <img
-                                                    className="cursor my-auto"
-                                                    height="17px"
-                                                    src={eye}
-                                                    onClick={() => {
-                                                        //   navigate(`/Hospitalview/${itme._id}`);
-                                                        //   sessionStorage.setItem("detailshosta", itme._id);
-                                                        // navigate("/Hospitalview");
-                                                    }}
-                                                />
-                                                <img className="cursor" src={deleteicon} />
-                                            </div>
+                                           <div className="btn-group">
+                                                                        <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            Action
+                                                                        </button>
+                                                                        <ul className="dropdown-menu">
+                                                                            <li><p className="dropdown-item forpointer" onClick={() => {
+                                                                                navigate(`/Userdetail/${itme.memberID}`);
+                                                                                sessionStorage.setItem("Userdetailid", itme.memberID);
+                                                                            }}><EyeFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>View</span> </p></li>
+                                                                            <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
+                                                                                navigate(`/Register/Edit/${itme.memberID}`);
+                                                                                localStorage.setItem("updataregisteruser", itme.memberID);
+                                                                                localStorage.setItem('userregisternameup', itme.first_name)
+                                                                                localStorage.setItem('userlastnameup', itme.last_name)
+                                                                                localStorage.setItem('userlastreet_address', itme.street_address)
+                                                                                localStorage.setItem("updatabarangay", itme.barangay);
+                                                                                localStorage.setItem('updataprovince', itme.province)
+                                                                                localStorage.setItem('updatacity', itme.city)
+                                                                                localStorage.setItem('updataclub_name', itme.club_name)
+                                                                                localStorage.setItem('updataclub_region', itme.club_region)
+                                                                                localStorage.setItem('updataclub_president', itme.club_president)
+                                                                                localStorage.setItem('updatape_ID', itme.pe_ID)
+                                                                                localStorage.setItem("updataSuffix", itme.Suffix);
+                                                                                localStorage.setItem('updatalattitiude', itme.lattitiude)
+                                                                                localStorage.setItem('updataclub_president', itme.club_president)
+                                                                                localStorage.setItem('updatalongitude', itme.longitude)
+                                                                                localStorage.setItem('updataselfieIDImage', itme.selfieIDImage)
+                                                                                localStorage.setItem('updatagovernmentIDImage', itme.governmentIDImage)
+
+                                                                                // navigate("/Event/updata");
+                                                                            }}>Modify</span> </p></li>
+                                                                            <li><p className="dropdown-item forpointer"><DeleteFilled className='text-danger fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={
+                                                                                () =>
+                                                                                    Deletedapi(itme.memberID)
+                                                                            }>Remove</span> </p></li>
+                                                                            {itme.status === 'Active' ? (
+                                                                                <li><p className="dropdown-item forpointer disabled" onClick={
+                                                                                    () =>
+                                                                                        Approveapi(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                                            ) : (
+                                                                                <li><p className="dropdown-item forpointer" onClick={
+                                                                                    () =>
+                                                                                        Approveapi(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>Approve</span> </p></li>
+                                                                            )}
+
+                                                                            {itme.status === 'Active' ? (
+                                                                                <li><p className="dropdown-item forpointer " onClick={
+                                                                                    () =>
+                                                                                        InActive(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
+                                                                            ) : (
+                                                                                <li><p className="dropdown-item forpointer disabled" onClick={
+                                                                                    () =>
+                                                                                        InActive(itme.memberID)
+                                                                                }><CheckCircleFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder'>InActive</span> </p></li>
+                                                                            )}
+                                                                        </ul>
+                                                                    </div>
                                         </TableCell>
                                     </TableRow>
 
