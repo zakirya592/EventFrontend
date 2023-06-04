@@ -3,13 +3,15 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { TextField, } from '@mui/material';
 import axios from 'axios';
 import 'jspdf-autotable';
-// import './Register.css'
+import './Register.css'
 import Swal from "sweetalert2";
-import { EyeFilled, EditFilled, DeleteFilled, CheckCircleFilled } from '@ant-design/icons';
+import { EyeFilled ,EditFilled, DeleteFilled, CheckCircleFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Sidebard from '../../Component/Sidebard/Sidebard';
+import moment from 'moment'
+
 const drawerWidth = 220
 const ActionCell = ({ row, handleAction }) => {
     const navigate = useNavigate()
@@ -19,7 +21,7 @@ const ActionCell = ({ row, handleAction }) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const Deletedapi = (deskID) => {
+  const Deletedapi = (deskID) => {
         console.log(deskID);
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -187,8 +189,7 @@ const handleAction = (action, row) => {
     console.log('Action:', action, 'Row:', row);
 };
 
-function Helpdask() {
-    const navigate = useNavigate()
+function Registerfilter() {
     const [selectedRows, setSelectedRows] = useState();
     const [filterText, setFilterText] = useState('');
     const [dataget, setdataget] = useState([]);
@@ -238,6 +239,7 @@ function Helpdask() {
                 row.Status.includes(filterText.toLowerCase()) //||
             // row.selfieIDImage.includes(filterText.toLowerCase())
         );
+
     return (
         <div className=''>
             <Box sx={{ display: 'flex' }}>
@@ -261,17 +263,7 @@ function Helpdask() {
                     }}
                 >
                     <div style={{ height: 500, width: '100%' }} className='mt-5'>
-<div className="d-flex my-3">
-     <button
-            className='loginbtn border-0 w-auto px-4 py-2 mb-4 mt-2 rounded text-white'
-            type='submit'
-            onClick={() => {
-                navigate('/Helpdask/Add')
-            }}
-        >
-            Add  HelpDask
-        </button>
-</div>
+
                         <DataGrid
                             id="dataGrid"
                             rows={filteredData}
@@ -306,7 +298,7 @@ function Helpdask() {
                 </Box>
             </Box>
         </div >
-    )
+    );
 }
 
-export default Helpdask
+export default Registerfilter

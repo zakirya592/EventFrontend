@@ -23,6 +23,7 @@ import Helpdeskdetails from '../../Companpage/Help Dask/Helpdesk details/Helpdes
 import Updatahelp from '../../Companpage/Help Dask/Updatahelp';
 import Addhelpdesk from '../../Companpage/Help Dask/Addhelpdesk';
 import Setting from '../../Companpage/Setting/Setting';
+import Registerfilter from '../../Companpage/Registered user/Registerfilter';
 
 function Rountercom() {
   function gat() {
@@ -63,6 +64,7 @@ function Rountercom() {
           <Route exact path='/Helpdask/Updata/:userId' element={<Updatahelp />} />
           <Route exact path='/Helpdask/Add' element={<Addhelpdesk />} />
           
+          <Route exact path='/Registerfilter' element={<Registerfilter />} />
               </Routes>
           </BrowserRouter>
     </>

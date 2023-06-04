@@ -20,6 +20,8 @@
     "dotenv": "^16.0.3",
     "google-map-react": "^2.2.1",
     "google-maps-react": "^2.0.6",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.29",
     "leaflet": "^1.9.3",
     "load-google-maps-api": "^2.0.2",
     "loadjs": "^4.3.0-rc1",
@@ -42,7 +44,8 @@
     "react-toastify": "^9.1.2",
     "sweetalert-react": "^0.4.11",
     "sweetalert2": "^11.7.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "set Port=3016 && react-scripts start",
