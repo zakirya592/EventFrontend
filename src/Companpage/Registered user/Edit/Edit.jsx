@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 import { useNavigate, useParams } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Sidebard from '../../../Component/Sidebard/Sidebard';
 // import PhoneInput from 'react-phone-number-input'
 import { Modal, Button, Form } from "react-bootstrap";
-import { Avatar, Space } from 'antd';
+import { Avatar } from 'antd';
 import cameralog from "../../.../../../img/upload-removebg-preview.png"
 import { GoogleMap, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 
@@ -14,6 +14,8 @@ const drawerWidth = 220
 
 function Edit() {
     let { userId } = useParams();
+    console.log(userId);
+    const fileInputRef = useRef(null);
     const navigate = useNavigate();
     const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
     const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
@@ -26,20 +28,22 @@ function Edit() {
     const [club_president, setclub_president] = useState(localStorage.getItem("updataclub_president"))
     const [pe_ID, setpe_ID] = useState(localStorage.getItem("updatape_ID"))
     const [Suffix, setSuffix] = useState(localStorage.getItem("updataSuffix"))
-    const [governmentIDImage, setgovernmentIDImage] = useState(localStorage.getItem('updataselfieIDImage'))
-    const [selfieIDImage, setselfieIDImage] = useState(localStorage.getItem('updataselfieIDImage'))
-
+    const [governmentIDImage, setgovernmentIDImage] = useState()
+    // console.log(governmentIDImage);
+    const [selfieIDImage, setselfieIDImage] = useState()
     const [barangayDropDown, setbarangayDropDown] = useState()
     const [DropDownCities, setDropDownCities] = useState()
     const [DropDownProvince, setDropDownProvince] = useState([]);
 
     // image
     const [backimgupdload, setbackimgupdload] = useState(localStorage.getItem('updatagovernmentIDImage'))
+    console.log("image" + backimgupdload)
     function handleChangeback(e) {
         setbackimgupdload(URL.createObjectURL(e.target.files[0]));
         setgovernmentIDImage(e.target.files[0]);
-        console.log(setgovernmentIDImage);
+        console.log(e.target.files[0]);
     }
+
     const [selfieIDImageshow, setselfieIDImageshow] = useState(localStorage.getItem('updataselfieIDImage'))
     function selfieIDImageclick(e) {
         setselfieIDImageshow(URL.createObjectURL(e.target.files[0]));
@@ -49,6 +53,15 @@ function Edit() {
 
     const [ProvinceID, setProvinceID] = useState();
     useEffect(() => {
+        axios.get(`http://gs1ksa.org:3015/api/getMembersById/${userId}`)
+            .then((res) => {
+                console.log(res);
+
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities`)
             .then((res) => {
                 setDropDownCities(res.data.recordset);
@@ -164,12 +177,21 @@ function Edit() {
 
         });
     };
-    // Main fuction of the compount
-    const apicall = () => {
-        // const userID = localStorage.getItem("updataregisteruser")
-        console.log(userId);
-        console.log(setgovernmentIDImage);
-        console.log(setselfieIDImage);
+
+    async function convertLiveImageUrlToBlobFile(url) {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const timestamp = Date.now();
+            const filename = `${timestamp}.png`;
+            return new File([blob], filename);
+        } catch (error) {
+            console.error('Error converting live image URL to Blob/File:', error);
+            return null;
+        }
+    }
+
+    const apicall = async () => {
         const fromdata = new FormData();
         fromdata.append("first_name", first_name);
         fromdata.append("last_name", last_name);
@@ -180,18 +202,46 @@ function Edit() {
         fromdata.append("club_name", club_name);
         fromdata.append("club_region", club_region);
         fromdata.append('club_president', club_president)
-        fromdata.append("pe_ID", pe_ID);
+        fromdata.append("pe_ID", localStorage.getItem("updatape_ID"));
         fromdata.append("Suffix", Suffix)
         fromdata.append("lattitiude", localStorage.getItem('latitudeupdata'));
         fromdata.append("longitude", localStorage.getItem('longitudeupdata'));
         fromdata.append('governmentIDImage', governmentIDImage);
         fromdata.append("selfieIDImage", selfieIDImage);
+        if (!governmentIDImage) {
+            let url = localStorage.getItem('updatagovernmentIDImage');
+            // console.log(url);
+            const file = await convertLiveImageUrlToBlobFile(url);
+            console.log(file);
+            if (file) {
+                fromdata.append('governmentIDImage', file, file.name); // Append with the correct key and filename
+            } else {
+                console.log('Failed to convert live image URL to File');
+            }
+            // console.log('not updated');
+        } else {
+            fromdata.append('governmentIDImage', governmentIDImage);
+        }
+
+        if (!selfieIDImage) {
+            let url = localStorage.getItem('updataselfieIDImage');
+            const file = await convertLiveImageUrlToBlobFile(url);
+            console.log(file);
+            if (file) {
+                fromdata.append('selfieIDImage', file, file.name); // Append with the correct key and filename
+            } else {
+                console.log('Failed to convert live image URL to File');
+            }
+            // console.log('not updated');
+        } else {
+            fromdata.append('selfieIDImage', selfieIDImage);
+        }
 
         console.log(fromdata);
 
-        axios.put(
-            `http://gs1ksa.org:3015/api/tblUpdateMembers/${userId}`,fromdata
-         )
+        await axios.put(
+            `http://gs1ksa.org:3015/api/tblUpdateMembers/${userId}`, fromdata
+        )
             .then((res) => {
                 if (res.status === 200) {
                     navigate("/Register");
@@ -407,7 +457,7 @@ function Edit() {
                                         readOnly
                                         disabled
                                     />
-                               
+
                                 </div>
                             </div>
                         </div>
@@ -426,7 +476,7 @@ function Edit() {
                                             <div className="fs-6 mx-2 text-success">latitude: {selectedLocation.latitude}</div>
                                         </span>
                                     ) : (
-                                            <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : `${localStorage.getItem('updatalongitude')} ${localStorage.getItem('updatalattitiude')}`}</div>
+                                        <div className="fs-6 text-danger px-2">{error ? `Error: ${error}` : `${localStorage.getItem('updatalongitude')} ${localStorage.getItem('updatalattitiude')}`}</div>
                                     )}
                                 </div>
                             </div>
@@ -437,17 +487,15 @@ function Edit() {
                             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                 <div className="mb-3">
                                     <label htmlFor="image" className="form-label labeinput">Government ID</label>
-
-
                                     <div className="">
                                         <div className="image-uploads ">
                                             <label htmlFor="file-inputs" className='loactiontak' >
                                                 <Avatar shape="square" size={200} src={backimgupdload} className='position-relative' style={{ color: '#f56a00', lineHeight: '120px' }} ><img src={cameralog} className='cameralog' /></Avatar>
                                             </label>
-
                                             <input
                                                 id="file-inputs"
                                                 type="file"
+                                                ref={fileInputRef}
                                                 name='governmentIDImage'
                                                 onChange={handleChangeback}
                                                 className='ms-5 mt-3 position-absolute'
@@ -461,21 +509,18 @@ function Edit() {
                             <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                                 <div className="mb-3 ">
                                     <label htmlFor="image" className="form-label labeinputimage">Selfie ID</label>
-
                                     <div className="">
                                         <div className="image-uploads ">
                                             <label htmlFor="file-inputsss" className='loactiontak' >
                                                 {/* <img src={cameraicon} /> */}
                                                 <Avatar shape="square" size={200} src={selfieIDImageshow} className='position-relative' style={{ color: '#f56a00', lineHeight: '120px' }} ><img src={cameralog} className='cameralog' /></Avatar>
-
-                                                {/* <CameraOutlined />  */}
                                             </label>
-
                                             <input
                                                 id="file-inputsss"
                                                 name='governmentIDImage'
                                                 className=' mt-3 position-absolute'
                                                 type="file"
+                                                // value={selfieIDImage}
                                                 onChange={selfieIDImageclick}
                                             />
                                         </div>
@@ -538,7 +583,7 @@ function Edit() {
                                 </StandaloneSearchBox>
 
                                 {currentLocation && <Marker position={currentLocation} />}
-                              
+
                                 {selectedLocation && (
                                     <Marker
                                         position={{
@@ -585,3 +630,38 @@ function Edit() {
 }
 
 export default Edit
+
+
+
+
+
+ // import axios from "axios";
+        // import baseUrl from "./config";
+
+        // const userRequest = axios.create({
+        //     baseURL: baseUrl,
+        //     withCredentials: true,
+        // });
+
+
+
+
+
+        // export default userRequest;
+
+
+        // const baseUrl = 'http://localhost:3005/api'
+        // // const baseUrl = 'http://37.224.47.116:7474/api'
+        // // const baseUrl = 'http://gs1ksa.org:3005/api'
+        // export default baseUrl;
+
+
+        // userRequest.get('/getBinLocationByUserIdFromJournalCountingOnlyCL')
+        //     .then(response => {
+        //         // Set the retrieved data as options
+        //         setOptions(response.data);
+        //     })
+        //     .catch(error => {
+        //         // Handle errors
+        //         console.error('Error fetching options:', error);
+        //     });
