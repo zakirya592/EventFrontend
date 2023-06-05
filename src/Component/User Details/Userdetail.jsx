@@ -83,12 +83,8 @@ function Userdetail() {
                                            </div>
                                    </div>
                                    
-                                        <div className="card-body col-4 offset-md-1  mt-3 ">
-                                  
-                                            <div className=" d-flex justify-content-between">
-                                            <h6 className="fw-bold headidet" >Street Address</h6>
-                                            <p className="prodel">{item.street_address}</p>
-                                        </div>
+                                        <div className="card-body col-4 offset-md-1  mt-3 ">  
+                                    
                                         <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Barangay</h6>
                                             <p className="prodel">{item.barangay}</p>

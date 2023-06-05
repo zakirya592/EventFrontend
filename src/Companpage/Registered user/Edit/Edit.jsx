@@ -20,14 +20,14 @@ function Edit() {
     const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
     const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
     const [street_address, setstreet_address] = useState(localStorage.getItem('userlastreet_address'))
-    const [barangay, setbarangay] = useState(localStorage.getItem("updatabarangay"))
-    const [province, setprovince] = useState(localStorage.getItem('updataprovince',))
     const [city, setcity] = useState(localStorage.getItem("updatacity"))
+    const [province, setprovince] = useState(localStorage.getItem('updataprovince'))
+    const [barangay, setbarangay] = useState(localStorage.getItem("updatabarangay"))
     const [club_name, setclub_name] = useState(localStorage.getItem("updataclub_name"))
     const [club_region, setclub_region] = useState(localStorage.getItem("updataclub_region"))
     const [club_president, setclub_president] = useState(localStorage.getItem("updataclub_president"))
-    const [pe_ID, setpe_ID] = useState(localStorage.getItem("updatape_ID"))
     const [Suffix, setSuffix] = useState(localStorage.getItem("updataSuffix"))
+    const [pe_ID, setpe_ID] = useState()
     const [governmentIDImage, setgovernmentIDImage] = useState()
     const [preprovance, setpreprovance] = useState()
     // console.log(governmentIDImage);
@@ -197,15 +197,15 @@ function Edit() {
         const fromdata = new FormData();
         fromdata.append("first_name", first_name);
         fromdata.append("last_name", last_name);
-        fromdata.append("street_address", street_address);
         fromdata.append("barangay", barangay);
         fromdata.append("province", province);
         fromdata.append("city", city);
         fromdata.append("club_name", club_name);
         fromdata.append("club_region", club_region);
         fromdata.append('club_president', club_president)
-        fromdata.append("pe_ID", localStorage.getItem("updatape_ID"));
+        fromdata.append("pe_ID", pe_ID);
         fromdata.append("Suffix", Suffix)
+        fromdata.append("street_address", localStorage.getItem('putadrress'));
         fromdata.append("lattitiude", localStorage.getItem('latitudeupdata'));
         fromdata.append("longitude", localStorage.getItem('longitudeupdata'));
         fromdata.append('governmentIDImage', governmentIDImage);
@@ -459,9 +459,11 @@ function Edit() {
                                     <Form.Control
                                         type="text" className="form-control inputsection py-3 bg-transparent" placeholder='Your Street Address '
                                         value={selectedLocation ? selectedLocation.address : localStorage.getItem('userlastreet_address')}
+
                                         readOnly
                                         disabled
                                     />
+                                    
 
                                 </div>
                             </div>
@@ -553,6 +555,7 @@ function Edit() {
 
                     {selectedLocation ? <p>{localStorage.setItem('latitudeupdata', selectedLocation.latitude)}</p> : ''}
                     {selectedLocation ? <p>{localStorage.setItem('longitudeupdata', selectedLocation.longitude)}</p> : ""}
+                    {selectedLocation ? <p>{localStorage.setItem('putadrress', selectedLocation.address)}</p> : ""}
                     <Modal show={showModal} onHide={handleCloseModal} size="lg">
                         <Modal.Header closeButton>
                             <Modal.Title>Select Location</Modal.Title>
@@ -626,8 +629,7 @@ function Edit() {
                             </Form>
                         </Modal.Body>
                     </Modal>
-
-
+                    {/* <p>{localStorage.getItem('putadrress')}</p> */}
                 </Box>
             </Box>
         </>
