@@ -258,7 +258,7 @@ function Register() {
     const [dataget, setdataget] = useState([]);
     const [activeData, setActiveData] = useState();
 
-    const apicall = () => {
+    function apicall () {
         axios.get(`http://gs1ksa.org:3015/api/getMembersAll`)
             .then((res) => {
                 setdataget(res.data.recordset);
@@ -278,6 +278,7 @@ function Register() {
     useEffect(() => {
         apicall();
     }, []);
+   
     const handleSelectAllRows = (selection) => {
         setSelectedRows(selection);
     };
