@@ -12,6 +12,7 @@ import "./Userdet.css"
 const drawerWidth = 220
 function Userdetail() {
 
+    const navigate = useNavigate();
     let { userId } = useParams();
     const [dataget, setdataget] = useState();
     const [formattedDate, setFormattedDate] = useState();
@@ -74,12 +75,8 @@ function Userdetail() {
                                         
                                    <div className=" leftside col-4  ">
                                         <Avatar className="card-img- mt-3 " src={item.selfieIDImage} size={200}  ><span className="text-center"> user Have no Image</span></Avatar>
-                                        <h5 className="card-title fw-bold mt-2">{item.first_name} {item.first_name}</h5>
-                                          <div className="conatinere my-4">
-                                            <h6 className="fw-bolder headidet " >Phone Number :</h6>
-                                            <p className="prodel text-white">{item.club_secretry_NO}</p>
-                                          </div>
-
+                                            <h5 className="card-title fw-bold mt-2">{item.first_name} {item.last_name}</h5>
+                                        
                                            <div className="emailss my-4 ">
                                             <h6 className="fw-bolder headidet" >Email :</h6>
                                             <p className="prodel text-white">{item.email}</p>
@@ -112,10 +109,7 @@ function Userdetail() {
                                             <h6 className="fw-bold headidet" >Club Region</h6>
                                             <p className="prodel">{item.club_region}</p>
                                         </div>
-                                            <div className="justify-content-between d-flex ">
-                                            <h6 className="fw-bold headidet" >National President</h6>
-                                            <p className="prodel">{item.national_president}</p>
-                                        </div>
+                                       
                                         
                                         <div className="justify-content-between d-flex ">
                                             <h6 className="fw-bold headidet" >Data</h6>
@@ -125,6 +119,11 @@ function Userdetail() {
                                             <h6 className="fw-bold headidet" >Street Address</h6>
                                             <u> <p className="prodel page-link useraddrloaction text-primary" onClick={handleClick}>{item.street_address}{localStorage.setItem('loacation', item.street_address)}</p></u>
                                         </div>
+
+
+                                        <button type="button" class="btn btn-outline-secondary px-4 py-2 mx-3 " onClick={() => {
+                                            navigate("/Register");
+                                        }}>Back</button>
                                         </div>
                                         <div className="col-2"></div>
                                     </div>

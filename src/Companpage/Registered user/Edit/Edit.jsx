@@ -21,7 +21,7 @@ function Edit() {
     const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
     const [street_address, setstreet_address] = useState(localStorage.getItem('userlastreet_address'))
     const [barangay, setbarangay] = useState(localStorage.getItem("updatabarangay"))
-    const [province, setprovince] = useState(localStorage.getItem("updataprovince"))
+    const [province, setprovince] = useState(localStorage.getItem('updataprovince',))
     const [city, setcity] = useState(localStorage.getItem("updatacity"))
     const [club_name, setclub_name] = useState(localStorage.getItem("updataclub_name"))
     const [club_region, setclub_region] = useState(localStorage.getItem("updataclub_region"))
@@ -29,6 +29,7 @@ function Edit() {
     const [pe_ID, setpe_ID] = useState(localStorage.getItem("updatape_ID"))
     const [Suffix, setSuffix] = useState(localStorage.getItem("updataSuffix"))
     const [governmentIDImage, setgovernmentIDImage] = useState()
+    const [preprovance, setpreprovance] = useState()
     // console.log(governmentIDImage);
     const [selfieIDImage, setselfieIDImage] = useState()
     const [barangayDropDown, setbarangayDropDown] = useState()
@@ -55,7 +56,8 @@ function Edit() {
     useEffect(() => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersById/${userId}`)
             .then((res) => {
-                console.log(res);
+                // console.log(res.data.recordset[0],"--------------------------------");
+                setpreprovance(res.data.recordset[0].province)
 
             })
             .catch((err) => {
@@ -75,7 +77,7 @@ function Edit() {
 
     const handleProvinceChange = (event) => {
         // setprovince(event.target.value)
-        sessionStorage.setItem("province", event.target.value);
+        setcity(event.target.value)
         const ProvinceID = event.target.value;
         // setProvinceID(ProvinceID)
         const ProvinceId = ProvinceID
@@ -333,7 +335,7 @@ function Edit() {
                                     // setSelectedCity(event.target.value)
                                     //   sessionStorage.setItem("city", event.target.value);
                                     // }}
-                                    value={ProvinceID}
+                                    value={city}
                                     onChange={handleProvinceChange}>
                                     <option selected >Enter/Select City</option>
                                     {
@@ -350,15 +352,18 @@ function Edit() {
                             <div className="mb-3">
                                 <label htmlFor="floatingSelectGrid2" className="form-label labeinput">Province*</label>
                                 <select className="form-select inputsection py-3" id="floatingSelectGrid2" aria-label="Floating label select example"
-
+                                    onChange={(event) => {
+                                        setprovince(event.target.value)
+                                    }}
+                                    value={province}
                                 >
                                     <option selected >Enter/Select Province</option>
                                     {
                                         DropDownProvince && DropDownProvince.map((itme, index) => {
                                             return (
-                                                <option key={itme.id} value={itme.provincename} onChange={(() => {
-                                                    { localStorage.setItem('provinceID', itme.provinceID) }
-                                                })}>{itme.provincename}</option>
+                                                
+                                                <option key={itme.id} 
+                                                value={itme.provincename}>{itme.provincename}</option>
                                             )
                                         })
                                     }
