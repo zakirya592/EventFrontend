@@ -9,12 +9,14 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { Avatar } from 'antd';
 import cameralog from "../../.../../../img/upload-removebg-preview.png"
 import { GoogleMap, StandaloneSearchBox, Marker } from '@react-google-maps/api';
+import Lottie from 'react-lottie';
+import Dataanim from '../../../img/lf20_dg5oqun3.json';
 
 const drawerWidth = 220
 
 function Edit() {
     let { userId } = useParams();
-    console.log(userId);
+    // console.log(userId);
     const fileInputRef = useRef(null);
     const navigate = useNavigate();
     const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
@@ -35,7 +37,16 @@ function Edit() {
     const [barangayDropDown, setbarangayDropDown] = useState()
     const [DropDownCities, setDropDownCities] = useState()
     const [DropDownProvince, setDropDownProvince] = useState([]);
-
+    const [Loading, setLoading] = useState(false)
+    
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: Dataanim,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
     // image
     const [backimgupdload, setbackimgupdload] = useState(localStorage.getItem('updatagovernmentIDImage'))
     console.log("image" + backimgupdload)
@@ -76,10 +87,11 @@ function Edit() {
     }, [])
 
     const handleProvinceChange = (event) => {
-        // setprovince(event.target.value)
+        
         setcity(event.target.value)
         const ProvinceID = event.target.value;
         // setProvinceID(ProvinceID)
+        
         const ProvinceId = ProvinceID
         console.log(ProvinceId);
         // Province get api
@@ -192,14 +204,17 @@ function Edit() {
             return null;
         }
     }
-
+    // console.log(city)
+   
+    console.log(DropDownCities)
     const apicall = async () => {
+        let name = DropDownCities.filter((val) => val?.provanceID == city)
         const fromdata = new FormData();
         fromdata.append("first_name", first_name);
         fromdata.append("last_name", last_name);
         fromdata.append("barangay", barangay);
         fromdata.append("province", province);
-        fromdata.append("city", city);
+        fromdata.append("city", name[0]?.Citiyname);
         fromdata.append("club_name", club_name);
         fromdata.append("club_region", club_region);
         fromdata.append('club_president', club_president)
@@ -245,6 +260,7 @@ function Edit() {
             `http://gs1ksa.org:3015/api/tblUpdateMembers/${userId}`, fromdata
         )
             .then((res) => {
+                setLoading(false);
                 if (res.status === 200) {
                     navigate("/Register");
                 }
@@ -252,11 +268,12 @@ function Edit() {
             })
             .catch((err) => {
                 console.log(err);
+                setLoading(false);
             });
     };
     const Update = () => {
         apicall();
-        // setOpen(false);
+        setLoading(true);
     };
 
 
@@ -281,6 +298,11 @@ function Edit() {
                         width: { sm: `calc(100% - ${drawerWidth}px)` }
                     }}
                 >
+                  {  Loading? <Lottie
+                        options={defaultOptions}
+                        height={400}
+                        width={400}
+                    />:
                     <div className="row  p-2 mx-auto mt-5 text-start">
                         <center>
                             <h6 className='fw-bolder fs-3'>UpData Register User</h6>
@@ -341,7 +363,8 @@ function Edit() {
                                     {
                                         DropDownCities && DropDownCities.map((itme, index) => {
                                             return (
-                                                <option key={itme.id} value={itme.provanceID}>{itme.Citiyname}</option>
+                                                <option key={itme.id} value={itme.provanceID}>
+                                                 {itme.Citiyname}</option>
                                             )
                                         })
                                     }
@@ -552,7 +575,7 @@ function Edit() {
                         </div>
 
                     </div>
-
+}
                     {selectedLocation ? <p>{localStorage.setItem('latitudeupdata', selectedLocation.latitude)}</p> : ''}
                     {selectedLocation ? <p>{localStorage.setItem('longitudeupdata', selectedLocation.longitude)}</p> : ""}
                     {selectedLocation ? <p>{localStorage.setItem('putadrress', selectedLocation.address)}</p> : ""}
