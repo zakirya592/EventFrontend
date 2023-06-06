@@ -19,26 +19,24 @@ function Edit() {
     // console.log(userId);
     const fileInputRef = useRef(null);
     const navigate = useNavigate();
-    const [first_name, setfirst_name] = useState(localStorage.getItem("userregisternameup"))
-    const [last_name, setlast_name] = useState(localStorage.getItem("userlastnameup"))
-    const [street_address, setstreet_address] = useState(localStorage.getItem('userlastreet_address'))
-    const [city, setcity] = useState(localStorage.getItem("updatacity"))
-    const [province, setprovince] = useState(localStorage.getItem('updataprovince'))
-    const [barangay, setbarangay] = useState(localStorage.getItem("updatabarangay"))
-    const [club_name, setclub_name] = useState(localStorage.getItem("updataclub_name"))
-    const [club_region, setclub_region] = useState(localStorage.getItem("updataclub_region"))
-    const [club_president, setclub_president] = useState(localStorage.getItem("updataclub_president"))
-    const [Suffix, setSuffix] = useState(localStorage.getItem("updataSuffix"))
+    const [first_name, setfirst_name] = useState()
+    const [last_name, setlast_name] = useState()
+    const [city, setcity] = useState("")
+    console.log(city);
+    const [province, setprovince] = useState()
+    const [barangay, setbarangay] = useState()
+    const [club_name, setclub_name] = useState()
+    const [club_region, setclub_region] = useState()
+    const [club_president, setclub_president] = useState()
+    const [Suffix, setSuffix] = useState()
     const [pe_ID, setpe_ID] = useState()
     const [governmentIDImage, setgovernmentIDImage] = useState()
-    const [preprovance, setpreprovance] = useState()
     // console.log(governmentIDImage);
     const [selfieIDImage, setselfieIDImage] = useState()
     const [barangayDropDown, setbarangayDropDown] = useState()
     const [DropDownCities, setDropDownCities] = useState()
     const [DropDownProvince, setDropDownProvince] = useState([]);
     const [Loading, setLoading] = useState(false)
-    const [selectedcity, setselectedcity] = useState()
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -63,22 +61,30 @@ function Edit() {
         console.log(setselfieIDImage);
     }
 
-    const [ProvinceID, setProvinceID] = useState();
+ 
     useEffect(() => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersById/${userId}`)
             .then((res) => {
-                // console.log(res.data.recordset[0].province,"--------------------------------");
-                setpreprovance(res.data.recordset[0].province)
-
+                // console.log(res.data.recordset[0]);
+                setfirst_name(res.data.recordset[0].first_name)
+                setlast_name(res.data.recordset[0].last_name)
+                setcity(res.data.recordset[0].city)
+                setpe_ID(res.data.recordset[0].pe_ID)
+                setclub_name(res.data.recordset[0].club_name)
+                setclub_president(res.data.recordset[0].club_president)
+                setclub_region(res.data.recordset[0].club_region)
+                setprovince(res.data.recordset[0].province)
+                setSuffix(res.data.recordset[0].Suffix)
+                setbarangay(res.data.recordset[0].barangay)
             })
             .catch((err) => {
                 console.log(err);
-            });
+            })
 
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDCities`)
             .then((res) => {
                 setDropDownCities(res.data.recordset);
-                console.log("city", res.data);
+                // console.log("city", res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -90,15 +96,15 @@ function Edit() {
         
         setcity(event.target.value)
         const ProvinceID = event.target.value;
-        // setProvinceID(ProvinceID)
+   
         
         const ProvinceId = ProvinceID
-        console.log(ProvinceId);
+        
         // Province get api
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDProvince/${ProvinceId}`)
             .then((res) => {
                 setDropDownProvince(res.data.recordset);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -108,7 +114,7 @@ function Edit() {
         axios.get(`http://gs1ksa.org:3015/api/ListOfDropDownWithIDbarangays/${ProvinceId}`)
             .then((res) => {
                 setbarangayDropDown(res.data.recordset);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -206,7 +212,7 @@ function Edit() {
     }
     // console.log(city)
    
-    console.log(DropDownCities)
+    // console.log(DropDownCities)
     const apicall = async () => {
         let name = DropDownCities.filter((val) => val?.provanceID == city)
         const fromdata = new FormData();
@@ -229,7 +235,7 @@ function Edit() {
             let url = localStorage.getItem('updatagovernmentIDImage');
             // console.log(url);
             const file = await convertLiveImageUrlToBlobFile(url);
-            console.log(file);
+            // console.log(file);
             if (file) {
                 fromdata.append('governmentIDImage', file, file.name); // Append with the correct key and filename
             } else {
@@ -243,16 +249,24 @@ function Edit() {
         if (!selfieIDImage) {
             let url = localStorage.getItem('updataselfieIDImage');
             const file = await convertLiveImageUrlToBlobFile(url);
-            console.log(file);
+            // console.log(file);
             if (file) {
                 fromdata.append('selfieIDImage', file, file.name); // Append with the correct key and filename
             } else {
                 console.log('Failed to convert live image URL to File');
             }
+            
             // console.log('not updated');
         } else {
             fromdata.append('selfieIDImage', selfieIDImage);
         }
+        // if (!city) {
+        //         fromdata.append("city", city)
+        //         console.log("selection you city");
+            
+        // } else {
+        //     fromdata.append("city", name[0]?.Citiyname);
+        // }
 
         console.log(fromdata);
 
@@ -264,10 +278,10 @@ function Edit() {
                 if (res.status === 200) {
                     navigate("/Register");
                 }
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                 setLoading(false);
             });
     };
@@ -354,20 +368,14 @@ function Edit() {
                                 <label htmlFor="floatingSelectGridcity" className="form-label labeinput">City*</label>
                                   
                                 <select className="form-select inputsection py-3" id="floatingSelectGridcity" aria-label="Floating label select example"
-                                    // onChange={(event) => {
-                                    //   setcity(event.target.value)
-                                    // setSelectedCity(event.target.value)
-                                    //   sessionStorage.setItem("city", event.target.value);
-                                    // }}
-                                    value={city}
+                                   
                                     onChange={handleProvinceChange}>
-                                    <option selected >Enter/Select City</option>
+                                        <option selected value={city} >{city}</option>
                                     {
                                         DropDownCities && DropDownCities.map((itme, index) => {
                                             return (
                                                 <option key={itme.id} value={itme.provanceID}>
                                                  {itme.Citiyname}
-                                                  
                                                  </option>
                                             )
                                         })
@@ -385,9 +393,9 @@ function Edit() {
                                     onChange={(event) => {
                                         setprovince(event.target.value)
                                     }}
-                                    value={province}
+                                    // value={province}
                                 >
-                                    <option selected >Enter/Select Province</option>
+                                        <option selected value={province} >{province}</option>
                                     {
                                         DropDownProvince && DropDownProvince.map((itme, index) => {
                                             return (
@@ -403,12 +411,12 @@ function Edit() {
                         <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                             <div className="mb-3">
                                 <label htmlFor="floatingSelectGrid" className="form-label labeinput">Barangay*</label>
-                                <select className="form-select inputsection py-3" id="floatingSelectGrid" aria-label="Floating label select example" value={barangay}
+                                <select className="form-select inputsection py-3" id="floatingSelectGrid" aria-label="Floating label select example" 
                                     onChange={(event) => {
                                         setbarangay(event.target.value)
                                         //   sessionStorage.setItem("barangay", event.target.value);
                                     }}>
-                                    <option selected >Enter/Select Barangay</option>
+                                        <option selected value={barangay} >{barangay}</option>
                                     {
                                         barangayDropDown && barangayDropDown.map((itme, index) => {
                                             return (

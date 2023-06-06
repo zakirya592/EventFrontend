@@ -22,10 +22,7 @@ function Userdetail() {
             .then((res) => {
                 setdataget(res.data.recordset);
                 console.log(res.data);
-                const datesss = res.data.recordset
-                const dateString = { datesss }
-                const dateObject = moment(dateString).toDate();
-                const getdatasss = moment(dateObject).format("M/D/YYYY");
+              const getdatasss = moment(res.data.recordset[0].date).format("M/D/YYYY");
                 console.log(getdatasss);
                 setFormattedDate(getdatasss)
             })

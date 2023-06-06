@@ -295,11 +295,8 @@ function Event() {
     axios.get(`http://gs1ksa.org:3015/api/getEventAll`)
       .then((res) => {
         setdataget(res.data.recordset);
-        console.log(res.datarecordset.start_date);
-        const datesss = res.data.recordset
-        const dateString = { datesss }
-        const dateObject = moment(dateString).toDate()
-        const getdatasss = moment(dateObject).format('M/D/YYYY')
+        console.log(res.data);
+        const getdatasss = moment(res.data.recordset[0].date).format("M/D/YYYY");
         console.log(getdatasss)
         setFormattedDate(getdatasss)
       })

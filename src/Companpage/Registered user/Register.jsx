@@ -124,19 +124,7 @@ const ActionCell = ({ row, handleAction }) => {
                     <li><p className="dropdown-item forpointer"><EditFilled className='text-primary fw-bolder me-2' /><span className='my-3 fw-bolder' onClick={() => {
                         navigate(`/Register/Edit/${row.memberID}`);
                         localStorage.setItem("updataregisteruser", row.memberID);
-                        localStorage.setItem('userregisternameup', row.first_name)
-                        localStorage.setItem('userlastnameup', row.last_name)
-                        localStorage.setItem('userlastreet_address', row.street_address)
-                        localStorage.setItem("updatabarangay", row.barangay);
-                        localStorage.setItem('updataprovince', row.province)
-                        localStorage.setItem('updatacity', row.city)
-                        localStorage.setItem('updataclub_name', row.club_name)
-                        localStorage.setItem('updataclub_region', row.club_region)
-                        localStorage.setItem('updataclub_president', row.club_president)
-                        localStorage.setItem('updatape_ID', row.pe_ID)
-                        localStorage.setItem("updataSuffix", row.Suffix);
                         localStorage.setItem('updatalattitiude', row.lattitiude)
-                        localStorage.setItem('updataclub_president', row.club_president)
                         localStorage.setItem('updatalongitude', row.longitude)
                         localStorage.setItem('updataselfieIDImage', row.selfieIDImage)
                         localStorage.setItem('updatagovernmentIDImage', row.governmentIDImage)
@@ -223,7 +211,7 @@ const columns = [
     {
         field: 'club_name',
         headerName: 'Club Name	',
-        width: 130,
+        width: 180,
         headerAlign: 'start',
         align: 'start',
         sortable: false,
