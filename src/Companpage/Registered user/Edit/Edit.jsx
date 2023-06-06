@@ -38,7 +38,7 @@ function Edit() {
     const [DropDownCities, setDropDownCities] = useState()
     const [DropDownProvince, setDropDownProvince] = useState([]);
     const [Loading, setLoading] = useState(false)
-    
+    const [selectedcity, setselectedcity] = useState()
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -67,7 +67,7 @@ function Edit() {
     useEffect(() => {
         axios.get(`http://gs1ksa.org:3015/api/getMembersById/${userId}`)
             .then((res) => {
-                // console.log(res.data.recordset[0],"--------------------------------");
+                // console.log(res.data.recordset[0].province,"--------------------------------");
                 setpreprovance(res.data.recordset[0].province)
 
             })
@@ -350,7 +350,9 @@ function Edit() {
 
                         <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
                             <div className="mb-3">
+                                
                                 <label htmlFor="floatingSelectGridcity" className="form-label labeinput">City*</label>
+                                  
                                 <select className="form-select inputsection py-3" id="floatingSelectGridcity" aria-label="Floating label select example"
                                     // onChange={(event) => {
                                     //   setcity(event.target.value)
@@ -364,11 +366,16 @@ function Edit() {
                                         DropDownCities && DropDownCities.map((itme, index) => {
                                             return (
                                                 <option key={itme.id} value={itme.provanceID}>
-                                                 {itme.Citiyname}</option>
+                                                 {itme.Citiyname}
+                                                  
+                                                 </option>
                                             )
                                         })
                                     }
-                                </select></div>
+                                </select>
+                                  
+                                </div>
+
                         </div>
 
                         <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6 my-2">
